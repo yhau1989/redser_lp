@@ -1,0 +1,16 @@
+
+
+#Pie de pagina
+    fondo: #d8d8d8
+    letras: #919191
+
+
+#Contenedor
+    fondo: #eaeaea
+    letras: 666666
+
+
+ #Botones
+    fondo: #f10019
+    letras: #ffffff
+
