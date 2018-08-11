@@ -1,0 +1,25 @@
+
+
+body{
+    background-color : #eaeaea;
+    color: #666666;
+}
+
+.containerSlider {
+  display: flex;
+  justify-content: center;
+}
+.centerSlide {
+  width: 800px;
+}
+
+.myfooter
+{
+    background-color: #d8d8d8;
+    color: #919191;
+    position: absolute;
+    width: 100%;
+    bottom: -12px;
+    padding: 70px 25px 30px 25px;
+    font-size: 14px;
+}
