@@ -23,3 +23,25 @@ body{
     padding: 70px 25px 30px 25px;
     font-size: 14px;
 }
+
+.myfooter2
+{
+    background-color: #d8d8d8;
+    color: #919191;
+    width: 100%;
+    padding: 70px 25px 30px 25px;
+    font-size: 14px;
+}
+
+#cont
+{
+  padding-bottom: 25px;
+  padding-top: 25px;
+}
+
+
+#cont p{
+  text-align: justify;
+    text-justify: inter-word;
+    font-size: 18px;
+}

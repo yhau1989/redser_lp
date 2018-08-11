@@ -35,8 +35,53 @@
             <a class="item" href="./contact.html">CONTACT US</a>
         </div>
 
+        <div id="cont" class="ui text container">
+        
+            <div class="ui large dividing header">RESDEC Tool</div>
+        
+            <p>
+                <b>RESDEC</b> is a web tool designed in Phyton that provides recommendation algorithms based on collaborative filtering and content
+            filtering to help stakeholders select implementation components in configuring products in a SPL as defined in three scenarios:</p>
+            <p>
+                <b>Cold Start</b>: The first scenario occurs when a user wants to know which implementation components could be used to configure
+                a new product in a SPL domain. In other words, the user is starting to build a product from zero and therefore does not have
+                profile information. As a result, the system identifies it as a cold start and suggests the implementation components most
+                used and best rated among the community of users. In Wordpress, for example, let’s consider a new user, or a user without
+                experience, who wants to configure a website. In this case, the system will recommend a list of plugins (implementation components)
+                according to which plugins are most popular or best rated by Wordpress users.
+
+            </p>
+            <p>
+                <b>Transition components based on ratings</b>: The second scenario occurs when a users has previous experience in implementing
+                components to configure a product in a SPL domain and, based on this experience, needs to improve or develop the product.
+                Note that in this case, the user already has profile information, so the recommendations are done starting with the user’s
+                historical information and the experiences of similar profiles within the community.
+
+            </p>
+            <p>
+                In Wordpress, for example, the system considers users’ ratings of plugins used in developing personalized websites. This
+                information allows the system to search for other plugins similar to those installed that also could be used to supplement
+                the site or offer a good substitute to the plugins currently in use.
+            </p>
+            <p>
+                <b>Transition components based on features</b>: The third scenario, similar to the previous one, occurs when a user has prior experience
+                implementing components to configure a product in a SPL domain. The difference from the previous scenario is that here the
+                recommendations are made considering the content associated with the implementation components, that is, descriptive information
+                that enables improved recommendations. Specifically, we use the features of the implementation components associated with
+                the user’s profile.
+
+            </p>
+            <p>
+                In the case of Wordpress, for example, we use tags associated with plugins (component features), with which the system will
+                recommend which plugin tags are most similar to the plugin tags selected by the user.
+            </p>
+
+        
+        </div>
+
     </div>
-    <div class="myfooter">
+
+    <div class="myfooter2">
         <span>
             Copyright 2018 - All rights reserved
         </span>
