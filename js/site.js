@@ -1,7 +1,11 @@
 $(document).ready(function(){
   
+    $('#myMenuSlide').click(function (e) {
 
+        $('.ui.sidebar')
+             .sidebar('toggle');
 
+    });
 
 });
 
@@ -30,5 +34,29 @@ function getHref(key, newPathname) {
 }
 
 
+function resiz(media)
+{
+    if (media.matches)
+    {
+        //document.body.style.background = 'red';
+        var footer = document.getElementById("foo");
+        console.log(footer);
+        footer.classList.remove("myfooter2");
+        footer.classList.add("myfooter");
+    }
+    else
+    {
+        //document.body.style.background = 'yellow';
+        var footer = document.getElementById("foo");
+        footer.classList.remove("myfooter");
+        footer.classList.add("myfooter2");
+    }
+}
 
-window.addEventListener('onload ', focusPath());
+
+var media = window.matchMedia('(min-width: 767px)')
+
+media.addListener(resiz);
+resiz(media);
+
+window.addEventListener('onload', focusPath());

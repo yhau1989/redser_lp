@@ -22,6 +22,8 @@ body{
     bottom: -12px;
     padding: 8px 25px 30px 25px;
     font-size: 14px;
+    bottom: 0;
+    position: absolute;
 }
 
 .myfooter2
@@ -50,3 +52,25 @@ body{
 {
   border-bottom: solid #f10019 !important;
 }
+
+
+
+#menuhide{
+  display: none;
+}
+
+/* Mobile */
+
+@media only screen and (max-width: 767px) {
+ 
+
+    #menuroot{
+      display: none;
+    }
+
+    #menuhide{
+      display: block;
+    }
+
+}
+
