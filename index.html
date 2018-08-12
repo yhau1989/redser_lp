@@ -13,7 +13,8 @@
     <script src="./js/jquery-3.1.1.min.js"></script>
     <script src="./css/semantic.js"></script>
     <script src="./js/owl.carousel.js"></script>
-    <script src="./js/site.js"></script>
+
+
     
 </head>
 <body>
@@ -26,11 +27,11 @@
             <div class="item">
                 <img class="ui image" src="./images/logo.jpg" alt="">
             </div>
-            <a class="active item" href="./index.html">HOME</a>
-            <a class="item" href="./about.html">ABOUT US</a>
-            <a class="item" href="./tools.html">RESDEC TOOL</a>
-            <a class="item" href="./download.html">DOWNLOAD</a>
-            <a class="item" href="./contact.html">CONTACT US</a>
+            <a class="item" data-path="index.html" href="./index.html">HOME</a>
+            <a class="item" data-path="about" href="./about.html">ABOUT US</a>
+            <a class="item" data-path="tools" href="./tools.html">RESDEC TOOL</a>
+            <a class="item" data-path="download" href="./download.html">DOWNLOAD</a>
+            <a class="item" data-path="contact" href="./contact.html">CONTACT US</a>
         </div>
 
         <div class="containerSlider">
@@ -63,9 +64,19 @@
         </div>
     </div>
     <div class="myfooter">
-       <span>
-           Copyright 2018 - All rights reserved
-       </span>
+      
+    <div class="ui grid">
+        <div class="left floated six wide column">
+            <div class="ui vertical basic segment" style="padding-top: 43px;">
+                    <span>Copyright 2018 - All rights reserved</span>
+            </div>
+        </div>
+        <div class="right floated six wide column">
+            <div class="ui basic right aligned segment">
+                <img src="./images/logoUni.jpg" class="ui small right floated image" alt="">
+            </div>
+        </div>
+    </div>
     </div>
 
 
@@ -81,8 +92,6 @@
         nav: true
     })
 </script>
-
-
-
+    <script src="./js/site.js"></script>
 
 </html>

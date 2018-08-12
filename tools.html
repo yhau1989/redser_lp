@@ -14,7 +14,6 @@
     <script src="./js/jquery-3.1.1.min.js"></script>
     <script src="./css/semantic.js"></script>
     <script src="./js/owl.carousel.js"></script>
-    <script src="./js/site.js"></script>
 
 </head>
 
@@ -24,7 +23,7 @@
 
 
     <div class="ui container">
-        <div class="ui six item text large menu">
+        <div id="menuroot" class="ui six item text large menu">
             <div class="item">
                 <img class="ui image" src="./images/logo.jpg" alt="">
             </div>
@@ -35,7 +34,7 @@
             <a class="item" href="./contact.html">CONTACT US</a>
         </div>
 
-        <div id="cont" class="ui text container">
+        <div id="cont">
         
             <div class="ui large dividing header">RESDEC Tool</div>
         
@@ -76,15 +75,54 @@
                 recommend which plugin tags are most similar to the plugin tags selected by the user.
             </p>
 
+            <div class="ui large dividing header">RESDEC Architecture</div>
+
+            <p>
+                 RESDEC Tool has 3 components: a repository manager, a recommender manager, and an output manager.
+            </p>
+
+            <p>
+                <img src="./images/arquitecture.PNG" class="ui fluid rounded image">
+            </p>
+                
+    
+            <p><b>The repository manager</b> responds to stakeholder requests and structure DBKnowledge through CSVs. For the dataset we present
+            together with this tool, we used data extracted from Wordpress.</p>
+            <p>The <b>recommender manager</b> is in charge of processing recommendations based on the three RESDEC scenarios we outlined. It is
+            developed in Phyton with a library package that contains the algorithms the recommender manager carries out according to
+            the scenario the stakeholder selects.</p>
+            <p>For the <b>Cold Start</b> scenario, RESDEC uses a classic popularity algorithm, while for algorithms executed in the <b> Transition
+            between implementation components based on ratings</b> scenario, it uses Scikit-surprise libraries, and for the <b>Transition between
+            implementation components based on features</b>, it uses the Scikit-learn library.
+            </p>
+            <p>The recommender manager was designed to be scalable over time. In other words, it provides the ability to extend RESDEC’s
+            benefits by enabling it to tailor new similarity metrics and new recommendation algorithms for each one of the scenarios
+            that a stakeholder could face.</p>
+            <p>The <b>output manager</b> interacts directly with the stakeholder using the repository manager and the recommendation manager to
+            create a list of implementation component suggestions. It is designed in HTML5 and JavaScript and supported with the Semantic
+            UI interface design framework. Stakeholders interact with RESDEC through a web navigator at <a href="http://www.resdec.com">http://www.resdec.com</a> .</p>
+            <p>In general, the output manager is responsible for receiving stakeholder requests and communicating the requirements to the
+            recommender manager in order for it to carry out the suitable algorithm with the information the repository manager provides,
+            finally displaying on screen the recommendations it generates.</p>
+    
         
         </div>
 
     </div>
 
     <div class="myfooter2">
-        <span>
-            Copyright 2018 - All rights reserved
-        </span>
+    <div class="ui grid">
+        <div class="left floated six wide column">
+            <div class="ui vertical basic segment" style="padding-top: 43px;">
+                <span>Copyright 2018 - All rights reserved</span>
+            </div>
+        </div>
+        <div class="right floated six wide column">
+            <div class="ui basic right aligned segment">
+                <img src="./images/logoUni.jpg" class="ui small right floated image" alt="">
+            </div>
+        </div>
+    </div>
     </div>
 
 
@@ -92,5 +130,6 @@
 
 </body>
 
-
+    <script src="./js/site.js"></script>
+    
 </html>
