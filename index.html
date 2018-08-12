@@ -7,20 +7,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link  rel="stylesheet" type="text/css" href="./css/semantic.css" />
     <link  rel="stylesheet" type="text/css" href="./css/site.css" />
-    <link rel="stylesheet" type="text/css" href="./css/owl.carousel.css" />
-    <link rel="stylesheet" type="text/css" href="./css/owl.theme.default.css" />
+    <link rel="stylesheet" type="text/css" href="./css/flexslider.css" />
+    
 
     <script src="./js/jquery-3.1.1.min.js"></script>
     <script src="./css/semantic.js"></script>
-    <script src="./js/owl.carousel.js"></script>
+    <script src="./js/jquery.flexslider.js"></script>
 
 
     
 </head>
 <body>
-    
-
-
     
     <div class="ui container">
         <div id="menuroot"  class="ui six item text large menu">
@@ -34,34 +31,38 @@
             <a class="item" data-path="contact" href="./contact.html">CONTACT US</a>
         </div>
 
-        <div class="containerSlider">
-            <div class="centerSlide">
 
-                <div class="owl-carousel owl-theme" style="width: 800px;">
-                    <div class="item" style="width:800px">
-                        <img src="./images/slide1-1.jpg" alt="">
-                    </div>
-                    <div class="item" style="width:800px">
-                        <img src="./images/slide2-2.jpg" alt="">
-                    </div>
-                    <div class="item" style="width:800px">
-                        <img src="./images/slide3-3.jpg" alt="">
-                    </div>
-                    <div class="item" style="width:800px">
-                        <img src="./images/slide4-4.jpg" alt="">
-                    </div>
-                    <div class="item" style="width:800px">
-                        <img src="./images/slide5-5.jpg" alt="">
-                    </div>
-                </div>
-                <div>
-                    <button class="negative ui button">
-                        <i class="user icon"></i> LOG IN
-                        <i class="angle right icon"></i>
-                    </button>
-                </div>
+        <div style="width: 100%;">
+            <div class="flexslider">
+                <ul class="slides">
+                    <li>
+                        <img src="./images/r1.png" alt="">
+                    </li>
+                    <li>
+                        <img src="./images/r2.png" alt="">
+                    </li>
+                    <li>
+                        <img src="./images/r3.png" alt="">
+                    </li>
+                    <li>
+                        <img src="./images/r4.png" alt="">
+                    </li>
+                    <li>
+                        <img src="./images/r5.png" alt="">
+                    </li>
+                    
+                </ul>
             </div>
+        
         </div>
+        <div>
+            <button class="negative ui button">
+                <i class="user icon"></i> LOG IN
+                <i class="angle right icon"></i>
+            </button>
+        </div>
+
+
     </div>
     <div class="myfooter">
       
@@ -85,12 +86,20 @@
 </body>
 
 <script>
-    $('.owl-carousel').owlCarousel({
-        margin: 10,
-        loop: true,
-        autoWidth: true,
-        nav: true
-    })
+   
+    $(document).ready(function () {
+
+        $('.flexslider').flexslider({
+            animation: "slide",
+            animationLoop: true,
+            itemMargin: 5
+        });
+
+
+    });
+
+
+
 </script>
     <script src="./js/site.js"></script>
 
