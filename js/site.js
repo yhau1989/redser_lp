@@ -53,10 +53,16 @@ function resiz(media) {
     } else {
         //document.body.style.background = 'yellow';
         var footer = document.getElementById("foo");
+        var foo3 = document.getElementById("foo3");
+
         if (footer) {
             footer.classList.remove("myfooter");
             footer.classList.add("myfooter2");
         }
+
+
+
+
 
 
     }
