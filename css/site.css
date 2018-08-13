@@ -12,24 +12,28 @@ body {
     width: 1127px;
 }
 
+.myfooter span,
+.myfooter2 span {
+    font-size: 11px;
+}
+
 .myfooter {
     background-color: #d8d8d8;
     color: #919191;
-    position: absolute;
     width: 100%;
     bottom: -12px;
-    padding: 8px 25px 30px 25px;
-    font-size: 14px;
+    padding: 2px 8px 2px 8px;
+    font-size: 11px;
     bottom: 0;
-    position: absolute;
+    position: fixed;
 }
 
 .myfooter2 {
     background-color: #d8d8d8;
     color: #919191;
     width: 100%;
-    padding: 8px 25px 30px 25px;
-    font-size: 14px;
+    padding: 2px 8px 2px 8px;
+    font-size: 11px;
 }
 
 #cont {
