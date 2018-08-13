@@ -26,9 +26,17 @@ function getHref(key, newPathname) {
     key.classList.remove('linkactive');
     const link = key.getAttribute("href");
     if (!link) return;
-    if (link.replace(".html", "").replace("./", "").toLowerCase() == newPathname.toLowerCase()) {
+
+    var replace = link.replace(".html", "").replace("./", "").toLowerCase();
+
+    if (replace == newPathname.toLowerCase()) {
         key.classList.add('active');
         key.classList.add('linkactive');
+    } else if (newPathname.length == 0) {
+
+        var p = document.getElementById("home");
+        p.classList.add('active');
+        p.classList.add('linkactive');
     }
 }
 
@@ -61,23 +69,22 @@ function resizeIndex(media) {
         var fooidenx = document.getElementById("fooidenx");
         if (fooidenx) {
 
-            fooidenx.classList.remove("myfooter2");
-            fooidenx.classList.add("myfooter");
+            fooidenx.classList.remove("myfooter");
+            fooidenx.classList.add("myfooter2");
         }
-
     } else {
         //document.body.style.background = 'yellow';
         var fooidenx = document.getElementById("fooidenx");
         if (fooidenx) {
-            fooidenx.classList.remove("myfooter");
-            fooidenx.classList.add("myfooter2");
+            fooidenx.classList.remove("myfooter2");
+            fooidenx.classList.add("myfooter");
         }
     }
 }
 
 
 var media = window.matchMedia('(min-width: 720px)')
-var mediaIndex = window.matchMedia('(max-width: 720px)')
+var mediaIndex = window.matchMedia('(min-width: 720px)')
 
 media.addListener(resiz);
 resiz(media);
