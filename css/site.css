@@ -23,7 +23,7 @@ body {
     width: 100%;
     bottom: -12px;
     padding: 2px 8px 2px 8px;
-    font-size: 11px;
+    font-size: 12px;
     bottom: 0;
     position: fixed;
 }
@@ -33,7 +33,7 @@ body {
     color: #919191;
     width: 100%;
     padding: 2px 8px 2px 8px;
-    font-size: 11px;
+    font-size: 12px;
 }
 
 #cont {
@@ -44,7 +44,7 @@ body {
 #cont p {
     text-align: justify;
     text-justify: inter-word;
-    font-size: 11px;
+    font-size: 12px;
 }
 
 .linkactive {
