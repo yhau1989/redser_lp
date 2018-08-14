@@ -59,12 +59,6 @@ function resiz(media) {
             footer.classList.remove("myfooter");
             footer.classList.add("myfooter2");
         }
-
-
-
-
-
-
     }
 }
 
@@ -89,12 +83,17 @@ function resizeIndex(media) {
 
 
 var media = window.matchMedia('(min-width: 760px)')
-var mediaIndex = window.matchMedia('(max-width: 1919px)')
+var mediaIndex = window.matchMedia('(max-width: 760px)')
+var mediaIndex2 = window.matchMedia('(min-width: 768px) and (max-width: 991px)')
+
 
 media.addListener(resiz);
 resiz(media);
 
 mediaIndex.addListener(resizeIndex);
 resizeIndex(mediaIndex);
+
+mediaIndex2.addListener(resizeIndex);
+resizeIndex(mediaIndex2);
 
 window.addEventListener('onload', focusPath());
