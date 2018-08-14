@@ -83,9 +83,10 @@ function resizeIndex(media) {
 
 
 var media = window.matchMedia('(min-width: 760px)')
-var media2 = window.matchMedia('(min-width: 320px) and (max-width: 759px)')
+    //var media2 = window.matchMedia('(min-width: 320px) and (max-width: 759px)')
 var mediaIndex = window.matchMedia('(max-width: 760px)')
 var mediaIndex2 = window.matchMedia('(min-width: 768px) and (max-width: 991px)')
+var mediaIndex3 = window.matchMedia('(min-width: 300px) and (max-width: 560px)')
 
 
 //media2.addListener(resiz);
@@ -99,5 +100,8 @@ resizeIndex(mediaIndex);
 
 mediaIndex2.addListener(resizeIndex);
 resizeIndex(mediaIndex2);
+
+mediaIndex3.addListener(resizeIndex);
+resizeIndex(mediaIndex3);
 
 window.addEventListener('onload', focusPath());
