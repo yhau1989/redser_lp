@@ -83,7 +83,7 @@ function resizeIndex(media) {
 
 
 var media = window.matchMedia('(min-width: 760px)')
-    //var media2 = window.matchMedia('(min-width: 320px) and (max-width: 759px)')
+var media2 = window.matchMedia('(min-width: 320px) and (max-width: 759px)')
 var mediaIndex = window.matchMedia('(max-width: 760px)')
 var mediaIndex2 = window.matchMedia('(min-width: 768px) and (max-width: 991px)')
 
