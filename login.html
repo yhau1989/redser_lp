@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Login Resdec</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="./css/semantic.css" />
+    <link rel="stylesheet" type="text/css" href="./css/site.css" />
+    <link rel="stylesheet" type="text/css" href="./css/flexslider.css" />
+
+
+    <script src="./js/jquery-3.1.1.min.js"></script>
+    <script src="./css/semantic.js"></script>
+    <script src="./js/jquery.flexslider.js"></script>
+
+
+
+</head>
+
+<body>
+
+    <div class="ui text container" style="width: 320px; padding-top: 25px;">
+        <div class="ui segment">
+            <div class="ui basic segment">
+                <form class="ui form" action="javascript:;" onsubmit="link(this)">
+                    <div class="field">
+                        <a href="./" style="color: #666666">
+                            <i class="arrow left icon"></i> Back
+                        </a>
+                    </div>
+                    <div class="field">
+                        <div style="text-align: center">
+                            <img src="diseños/logo.jpg" alt="">
+                            <h3>Login</h3>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label>Write you email</label>
+                        <input id="email" type="email" name="email" autocomplete="off" placeholder="Write you email" required>
+                    </div>
+                    <div class="field">
+                        <label>Password</label>
+                        <input id="psswd" type="password" name="psswd" autocomplete="off" placeholder="Password" required>
+                    </div>
+                    <div class="ui field">
+                        <div style="text-align: right;">
+                            <a href="">have your forgotten your password?</a>
+                        </div>
+                    </div>
+                    <div class="ui field">
+                        <div style="text-align: center">
+                            <button id="btn" class="negative ui button" type="submit">ENTER</button>
+                            <div class="ui divider"></div>
+                            <button class="ui button" type="submit">CREATE AN ACCOUNT</button>
+                            <div style="padding-top: 35px; font-size: 11px;">
+                                Copyright 2018 - All rights reserved
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+
+<script>
+    var btn = document.getElementById("btn");
+
+    function link() {
+        var psw = document.getElementById("psswd");
+        var email = document.getElementById("email");
+
+        if (psw.value.length > 0 && email.value.length) {
+            console.log(1);
+            window.location = "./manager.html";
+        } else {
+            console.log(0);
+        }
+
+    }
+    //btn.addEventListener("click", link);
+</script>
+
+<script src="./js/site.js"></script>
+
+</html>
