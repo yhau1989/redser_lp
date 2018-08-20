@@ -75,6 +75,18 @@ body {
     font-size: 20px;
 }
 
+#rmamager {
+    font-size: 11px;
+    position: absolute;
+    right: 19px;
+}
+
+#rmamager a {
+    background: #8e8d8d30;
+    padding: 3px;
+    border-radius: 5px;
+}
+
 
 /* Mobile */
 
