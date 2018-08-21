@@ -98,7 +98,13 @@
                                 <input type="number" min="1" placeholder="Tolerancia">
                             </div>
                         </div>
-                        <button class="negative ui button">
+                        <div class="field">
+                            <label>Tags</label>
+                            <select id="seach_tags" name="tags" class="ui fluid search dropdown" multiple="">
+                                <option value="">tags</option>
+                              </select>
+                        </div>
+                        <button id="sub" class="negative ui button">
                             SUBMIT
                             <i class="angle right icon"></i>
                         </button>
@@ -132,33 +138,34 @@
 
 
     <script>
-        const endpoint = 'https://resdec-solution-web.herokuapp.com/resdec/list_interests/?var_environment_id=1';
+        /*   const endpoint = 'https://resdec-solution-web.herokuapp.com/resdec/list_interests/?var_environment_id=1';
 
-        $(document).ready(function() {
-            $.getJSON(endpoint,
-                function(data) {
-                    if (data.list_interests) {
-                        var json = data.list_interests;
-                        var x = document.getElementById("intereses");
+                                $(document).ready(function() {
+                                    $.getJSON(endpoint,
+                                        function(data) {
+                                            if (data.list_interests) {
+                                                var json = data.list_interests;
+                                                var x = document.getElementById("intereses");
 
-                        for (var clave in json) {
-                            // Controlando que json realmente tenga esa propiedad
-                            if (json.hasOwnProperty(clave)) {
-                                // Mostrando en pantalla la clave junto a su valor
-                                console.log("La clave es " + clave + " y el valor es " + json[clave]);
-                                var option = document.createElement("option");
-                                option.value = clave;
-                                option.text = json[clave];
-                                x.add(option);
-                            }
-                        }
-                    }
-                });
-        });
+                                                for (var clave in json) {
+                                                    // Controlando que json realmente tenga esa propiedad
+                                                    if (json.hasOwnProperty(clave)) {
+                                                        // Mostrando en pantalla la clave junto a su valor
+                                                        console.log("La clave es " + clave + " y el valor es " + json[clave]);
+                                                        var option = document.createElement("option");
+                                                        option.value = clave;
+                                                        option.text = json[clave];
+                                                        x.add(option);
+                                                    }
+                                                }
+                                            }
+                                        });
+                                });*/
     </script>
 
 </body>
 
+<script src="./js/esc1.js"></script>
 <script src="./js/site.js"></script>
 
 </html>
