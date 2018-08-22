@@ -65,9 +65,39 @@ function process() {
             })
             //console.log(select_a);
     }
-
-
 }
 
+function add() {
+    var txtb = document.getElementById('numbers_suggestions'); 
+    if (txtb)
+    {
+        if (txtb.value.length > 0){
+            var x = txtb.value ;
+            txtb.value = (Number(x)+1);
+        }else{
+            txtb.value = 1;
+        }
+    }
+    
+}
+function  minus() {
+    var txtb = document.getElementById('numbers_suggestions');
+    if (txtb) {
+        if (txtb.value.length > 0 && Number(txtb.value) > 1) {
+            var x = txtb.value;
+            txtb.value = (Number(x) - 1);
+        } else {
+            txtb.value = 1;
+        }
+    } 
+}
+
+
+
 const btSummit = document.getElementById('sub'); //.addEventListener("click", process);
+const btplus = document.getElementById('plus_buton'); 
+const btminus = document.getElementById('minus_buton'); 
+
 btSummit.addEventListener("click", process);
+btplus.addEventListener("click", add);
+btminus.addEventListener("click", minus);
