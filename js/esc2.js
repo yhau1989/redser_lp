@@ -1,4 +1,4 @@
-const endpoint_tags = 'https://resdec-solution-web.herokuapp.com/resdec/list_features/?relationship_type_id=1&var_environment_id=1&feature_name=';
+const endpoint_tags = 'https://resdec-solution-web.herokuapp.com/resdec/list_items/?var_environment_id=1&relationship_type_id=1&item=';
 
 
 $(document).ready(function() {
@@ -7,8 +7,8 @@ $(document).ready(function() {
     //lenar combo de tags
     $.getJSON(endpoint_tags,
         function(data) {
-            if (data.list_features) {
-                var json = data.list_features;
+            if (data.list_items) {
+                var json = data.list_items;
                 var x = document.getElementById("seach_tags");
 
                 for (var clave in json) {
