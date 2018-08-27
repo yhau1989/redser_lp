@@ -1,4 +1,4 @@
-const endpoint_tags = 'https://resdec-solution-web.herokuapp.com/resdec/list_items/?var_environment_id=1&relationship_type_id=1&item=';
+const endpoint_tags = 'https://resdec-solution-web.herokuapp.com/resdec/list_items/?var_environment_id=1&relationship_type_id=2&item=';
 
 
 $(document).ready(function() {
@@ -15,7 +15,7 @@ $(document).ready(function() {
                     // Controlando que json realmente tenga esa propiedad
                     if (json.hasOwnProperty(clave)) {
                         // Mostrando en pantalla la clave junto a su valor
-                        //console.log("La clave es " + clave + " y el valor es " + json[clave]);
+                        //console.log("La clave es " + clave + " y el valor es " + json[clave]); #
                         var option = document.createElement("option");
                         option.value = clave;
                         option.text = json[clave];
