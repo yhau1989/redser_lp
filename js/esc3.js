@@ -6,8 +6,8 @@ $(document).ready(function() {
     //lenar combo de tags
     $.getJSON(endpoint_tags,
         function(data) {
-            if (data.list_features) {
-                var json = data.list_features;
+            if (data.list_items) {
+                var json = data.list_items;
                 var x = document.getElementById("seach_tags");
 
                 for (var clave in json) {
