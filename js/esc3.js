@@ -1,9 +1,7 @@
-const endpoint_tags = 'https://resdec-solution-web.herokuapp.com/resdec/list_features/?relationship_type_id=1&var_environment_id=1&feature_name=';
+const endpoint_tags = 'https://resdec-solution-web.herokuapp.com/resdec/list_items/?var_environment_id=1&relationship_type_id=1&item=';
 
 
 $(document).ready(function() {
-
-
 
     //lenar combo de tags
     $.getJSON(endpoint_tags,
@@ -25,14 +23,7 @@ $(document).ready(function() {
                 }
             }
         });
-
-
-
-
 });
-
-
-
 
 
 function process() {

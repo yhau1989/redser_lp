@@ -24,13 +24,7 @@ $(document).ready(function() {
                 }
             }
         });
-
-
-
-
 });
-
-
 
 
 
