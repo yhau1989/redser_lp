@@ -5,6 +5,7 @@ $(document).ready(function() {
 
 
     //lenar combo de intereses
+    $('#load_last_view').dimmer('show');
     $.getJSON(urlApi,
         function(data) {
             if (data.error == 0) {
@@ -20,12 +21,15 @@ $(document).ready(function() {
                 }
             }
         });
+    $('#load_last_view').dimmer('hide');
+
+
 });
 
 
 function loadDataByPuglings(name_plugin) {
 
-    $('#load_last_view').dimmer('show');
+
     const apiWordpress = "https://api.wordpress.org/plugins/info/1.0/" + name_plugin + ".json";
 
     $.getJSON(apiWordpress,
@@ -47,7 +51,7 @@ function loadDataByPuglings(name_plugin) {
             }
         });
 
-    $('#load_last_view').dimmer('hide');
+
 }
 
 
