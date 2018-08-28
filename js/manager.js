@@ -3,6 +3,7 @@ const urlApi = "https://resdec-solution-web.herokuapp.com/resdec/list_last_items
 
 $(document).ready(function() {
 
+
     //lenar combo de intereses
     $.getJSON(urlApi,
         function(data) {
@@ -24,6 +25,7 @@ $(document).ready(function() {
 
 function loadDataByPuglings(name_plugin) {
 
+    $('#load_last_view').dimmer('show');
     const apiWordpress = "https://api.wordpress.org/plugins/info/1.0/" + name_plugin + ".json";
 
     $.getJSON(apiWordpress,
@@ -44,6 +46,8 @@ function loadDataByPuglings(name_plugin) {
                 setDataByPlugin(name, homepage, description, tags_details, downloaded, slug);
             }
         });
+
+    $('#load_last_view').dimmer('hide');
 }
 
 

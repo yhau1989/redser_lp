@@ -37,12 +37,12 @@
                         </div>
                     </div>
                     <div class="field">
-                        <label>Write you email</label>
-                        <input id="email" type="email" name="email" autocomplete="off" placeholder="Write you email" required>
+                        <label>User id</label>
+                        <input id="idUser" type="text" maxlength="20" name="email" autocomplete="off" placeholder="user id" required>
                     </div>
                     <div class="field">
                         <label>Password</label>
-                        <input id="psswd" type="password" name="psswd" autocomplete="off" placeholder="Password" required>
+                        <input id="psswd" type="password" maxlength="25" name="psswd" autocomplete="off" placeholder="Password" required>
                     </div>
                     <div class="ui field">
                         <div style="text-align: right;">
@@ -72,7 +72,7 @@
 
     function link() {
         var psw = document.getElementById("psswd");
-        var email = document.getElementById("email");
+        var email = document.getElementById("idUser");
 
         if (psw.value.length > 0 && email.value.length) {
             console.log(1);
