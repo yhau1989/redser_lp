@@ -3,8 +3,14 @@ const urlApi = "https://resdec-solution-web.herokuapp.com/resdec/list_last_items
 
 $(document).ready(function() {
 
-
     //lenar combo de intereses
+    getdata();
+
+
+});
+
+
+function getdata() {
     $('#load_last_view').dimmer('show');
     $.getJSON(urlApi,
         function(data) {
@@ -21,10 +27,8 @@ $(document).ready(function() {
                 }
             }
         });
-    $('#load_last_view').dimmer('hide');
+}
 
-
-});
 
 
 function loadDataByPuglings(name_plugin) {
@@ -51,7 +55,7 @@ function loadDataByPuglings(name_plugin) {
             }
         });
 
-
+    $('#load_last_view').dimmer('hide');
 }
 
 
