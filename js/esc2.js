@@ -97,7 +97,6 @@ async function process() {
         loadRecomendations(id_algorithm, number_recomendation, select_plugin);
     }
 
-
 }
 
 
@@ -122,6 +121,8 @@ async function loadRecomendations(algorithm_id, number_recommendations, item_eva
 
     });
 
+
+
     //principales reocomendaciones-------
     for (var clave in json[0]) {
         if (json[0].hasOwnProperty(clave)) {
@@ -129,6 +130,14 @@ async function loadRecomendations(algorithm_id, number_recommendations, item_eva
             const apiWordpress = "https://api.wordpress.org/plugins/info/1.0/" + json[0][clave] + ".json";
             var r = await $.getJSON(apiWordpress).then(function(data) {
                 return data;
+            });
+
+            var img_icon = await $.ajax({
+                url: `http://plugins.svn.wordpress.org/${json[0][clave]}/assets/`,
+                dataType: 'html',
+                success: function(response) {
+                    return response;
+                }
             });
 
             if (!r.error); {
@@ -144,7 +153,7 @@ async function loadRecomendations(algorithm_id, number_recommendations, item_eva
                         tags_details += "<div class='ui label'>#" + tags[clave] + "</div>";
                     }
                 }
-                html[iteracion] = setDataByPlugin(name, homepage, description, tags_details, downloaded, slug);
+                html[iteracion] = setDataByPlugin(name, homepage, description, tags_details, downloaded, slug, img_icon);
                 iteracion++;
             }
         }
@@ -162,6 +171,14 @@ async function loadRecomendations(algorithm_id, number_recommendations, item_eva
                 return data;
             });
 
+            var img_icon = await $.ajax({
+                url: `http://plugins.svn.wordpress.org/${json[1][clave]}/assets/`,
+                dataType: 'html',
+                success: function(response) {
+                    return response;
+                }
+            });
+
             if (!r.error); {
                 var name = r.name;
                 var homepage = r.homepage;
@@ -175,7 +192,7 @@ async function loadRecomendations(algorithm_id, number_recommendations, item_eva
                         tags_details += "<div class='ui label'>#" + tags[clave] + "</div>";
                     }
                 }
-                setDataByPlugin_others(name, homepage, description, tags_details, downloaded, slug);
+                setDataByPlugin_others(name, homepage, description, tags_details, downloaded, slug, img_icon);
             }
         }
     }
@@ -199,12 +216,22 @@ async function loadDataByPuglings(name_plugin) {
 
 
 
-function setDataByPlugin(name, homepage, description, tags, downloaded, slug) {
+function setDataByPlugin(name, homepage, description, tags, downloaded, slug, img_icon) {
 
     var descripmini = description;
     var temp = document.createElement('div');
     temp.innerHTML = descripmini;
     var htmlObject = temp.firstChild.innerHTML;
+
+    var temp = document.createElement('div');
+    temp.innerHTML = img_icon;
+    var li = temp.querySelectorAll(`a[href*='icon']`);
+    if (li.length > 0) {
+        img_icon = `https://ps.w.org/${slug}/assets/${li[0].innerHTML}`
+    } else {
+        img_icon = `https://s.w.org/plugins/geopattern-icon/${slug}_bdc7cb.svg`;
+    }
+
 
     /*var html = ` <div class="column">
                         <div class="ui cards">
@@ -231,7 +258,7 @@ function setDataByPlugin(name, homepage, description, tags, downloaded, slug) {
                     </div>`;*/
 
     var html = `<div class="content">
-                        <img class="right floated mini ui image" src="https://ps.w.org/${slug}/assets/icon-128x128.png">
+                        <img class="right floated mini ui image" src="${img_icon}">
                         <div class="header">
                             ${name}
                         </div>
@@ -253,7 +280,18 @@ function setDataByPlugin(name, homepage, description, tags, downloaded, slug) {
 
 
 
-function setDataByPlugin_others(name, homepage, description, tags, downloaded, slug) {
+function setDataByPlugin_others(name, homepage, description, tags, downloaded, slug, img_icon) {
+
+
+    var tempo = document.createElement('div');
+    tempo.innerHTML = img_icon;
+    var li = tempo.querySelectorAll(`a[href*='icon']`);
+    if (li.length > 0) {
+        img_icon = `https://ps.w.org/${slug}/assets/${li[0].innerHTML}`
+    } else {
+        img_icon = `https://s.w.org/plugins/geopattern-icon/${slug}_bdc7cb.svg`;
+    }
+
 
 
     var descripmini = description;
@@ -265,7 +303,7 @@ function setDataByPlugin_others(name, homepage, description, tags, downloaded, s
     var item = document.createElement('div');
     item.classList.add('item');
     item.innerHTML = `<div class='ui tiny image'>
-		<img src='https://ps.w.org/${slug}/assets/icon-128x128.png'>
+		<img src='${img_icon}'>
 	</div>
 	<div class='content'>
 		<a class='ui small header' href='${homepage}' target="_blank" rel="noopener noreferrer">${name}</a>
