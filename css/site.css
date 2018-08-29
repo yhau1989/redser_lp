@@ -91,10 +91,10 @@ body {
     border-top: 1px solid rgba(34, 36, 38, 0.21) !important;
 }
 
-
-/*.description span.embed-youtube {
-    display: none !important;
-}*/
+.description span.embed-youtube iframe {
+    width: 60px !important;
+    height: 60px !important;
+}
 
 
 /* Mobile */
