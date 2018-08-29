@@ -87,6 +87,15 @@ body {
     border-radius: 5px;
 }
 
+.ui.cards.card.extra.content {
+    border-top: 1px solid rgba(34, 36, 38, 0.21) !important;
+}
+
+
+/*.description span.embed-youtube {
+    display: none !important;
+}*/
+
 
 /* Mobile */
 

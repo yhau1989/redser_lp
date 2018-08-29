@@ -36,34 +36,44 @@ function SetHtmlData(array) {
     var numbersGrid = 0;
     var iter = 1;
 
+    /*var item = document.createElement('div');
+    item.classList.add('doubling', 'four', 'column', 'row');
+    var html = "";*/
 
     var item = document.createElement('div');
-    item.classList.add('doubling', 'four', 'column', 'row');
+    item.classList.add('ui', 'centered', 'card');
     var html = "";
 
     //console.log('total: ' + array.length);
     for (let index = 0; index < array.length; index++) {
         //console.log('iteracion: ' + index);
-        html = html + array[index];
-        if (iter == 4) {
-            item.innerHTML = html
-            document.getElementById("list_items").appendChild(item);
-            html = "";
-            item = document.createElement('div');
-            item.classList.add('doubling', 'four', 'column', 'row');
-            iter = 1;
-        }
-        else{
-            iter++;
-        }
+        //html = html + array[index];
 
-        if (index == (array.length - 1) && iter < 4)
-        {
-            item = document.createElement('div');
-            item.classList.add('doubling', 'four', 'column', 'row');
-            item.innerHTML = html
-            document.getElementById("list_items").appendChild(item);
-        }
+        item.innerHTML = array[index];
+        document.getElementById("list_items").appendChild(item);
+        html = "";
+        item = document.createElement('div');
+        item.classList.add('ui', 'centered', 'card');
+
+        /*
+                if (iter == 4) {
+                    item.innerHTML = html
+                    document.getElementById("list_items").appendChild(item);
+                    html = "";
+                    item = document.createElement('div');
+                    item.classList.add('doubling', 'four', 'column', 'row');
+                    iter = 1;
+                } else {
+                    iter++;
+                }
+
+                if (index == (array.length - 1) && iter < 4) {
+                    item = document.createElement('div');
+                    item.classList.add('doubling', 'four', 'column', 'row');
+                    item.innerHTML = html
+                    document.getElementById("list_items").appendChild(item);
+                }
+                */
 
     }
 
@@ -74,7 +84,7 @@ function SetHtmlData(array) {
 
 
 async function process() {
-    
+
     //console.log('process');
     var select_plugin = $('#seach_tags').find(":selected").text();
     var id_algorithm = $('#ddl_method').find(":selected").val();
@@ -86,7 +96,7 @@ async function process() {
 
         loadRecomendations(id_algorithm, number_recomendation, select_plugin);
     }
-    
+
 
 }
 
@@ -102,14 +112,13 @@ async function loadRecomendations(algorithm_id, number_recommendations, item_eva
     var iteracion = 0;
     var html = [];
 
-    
+
     var json = await $.getJSON(url_endpoint).then(function(data) {
-        
+
         var f = [];
         f[0] = data.tran_comp_rating_recommendation;
         f[1] = data.possible_interest_recommendations;
         return f;
-        //return data.tran_comp_rating_recommendation;
 
     });
 
@@ -149,7 +158,7 @@ async function loadRecomendations(algorithm_id, number_recommendations, item_eva
         if (json[1].hasOwnProperty(clave)) {
 
             const apiWordpress = "https://api.wordpress.org/plugins/info/1.0/" + json[1][clave] + ".json";
-            var r = await $.getJSON(apiWordpress).then(function (data) {
+            var r = await $.getJSON(apiWordpress).then(function(data) {
                 return data;
             });
 
@@ -170,11 +179,7 @@ async function loadRecomendations(algorithm_id, number_recommendations, item_eva
             }
         }
     }
-
-    
-
     $('#load_last_view').dimmer('hide');
-
 }
 
 
@@ -196,22 +201,19 @@ async function loadDataByPuglings(name_plugin) {
 
 function setDataByPlugin(name, homepage, description, tags, downloaded, slug) {
 
-    //var img = urlExistsImg(slug);
-
-
     var descripmini = description;
     var temp = document.createElement('div');
     temp.innerHTML = descripmini;
     var htmlObject = temp.firstChild.innerHTML;
 
-    var html = ` <div class="column">
+    /*var html = ` <div class="column">
                         <div class="ui cards">
                             <div class="ui centered card">
                                 <div class="content">
                                     <img class="right floated mini ui image" src="https://ps.w.org/${slug}/assets/icon-128x128.png">
-                                    <div class="header">
+                                    <h4 class="ui small header">
                                         ${name}
-                                    </div>
+                                    </h4>
                                     <div class="meta">
                                     Downloaded: ${downloaded}
                                     </div>
@@ -226,6 +228,24 @@ function setDataByPlugin(name, homepage, description, tags, downloaded, slug) {
                                 </div>
                             </div>
                         </div>
+                    </div>`;*/
+
+    var html = `<div class="content">
+                        <img class="right floated mini ui image" src="https://ps.w.org/${slug}/assets/icon-128x128.png">
+                        <div class="header">
+                            ${name}
+                        </div>
+                        <div class="meta">
+                        Downloaded: ${downloaded}
+                        </div>
+                        <div class="description">
+                            ${htmlObject}
+                            
+                        </div>
+                    </div>
+                    <div class="extra content">
+                    <i class="blue angle right icon"></i>
+                    <a href="https://wordpress.org/plugins/${slug}/" target="_blank" rel="noopener noreferrer">View more</a>
                     </div>`;
     return html;
 };
