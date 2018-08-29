@@ -80,7 +80,7 @@ async function process() {
     var id_algorithm = $('#ddl_method').find(":selected").val();
     var number_recomendation = $('#numbers_suggestions').val();
 
-    document.getElementById('plugintSelectUser').innerText = `Recommended for you based on ${select_plugin}`;
+    document.getElementById('plugintSelectUser').innerText = `Recommended for you based on [${select_plugin}]`;
 
     if (select_plugin.length > 0 && id_algorithm.length > 0 && number_recomendation.length > 0) {
 
@@ -102,17 +102,22 @@ async function loadRecomendations(algorithm_id, number_recommendations, item_eva
     var iteracion = 0;
     var html = [];
 
+    
     var json = await $.getJSON(url_endpoint).then(function(data) {
-        return data.tran_comp_rating_recommendation;
+        
+        var f = [];
+        f[0] = data.tran_comp_rating_recommendation;
+        f[1] = data.possible_interest_recommendations;
+        return f;
+        //return data.tran_comp_rating_recommendation;
 
     });
 
+    //principales reocomendaciones-------
+    for (var clave in json[0]) {
+        if (json[0].hasOwnProperty(clave)) {
 
-
-    for (var clave in json) {
-        if (json.hasOwnProperty(clave)) {
-
-            const apiWordpress = "https://api.wordpress.org/plugins/info/1.0/" + json[clave] + ".json";
+            const apiWordpress = "https://api.wordpress.org/plugins/info/1.0/" + json[0][clave] + ".json";
             var r = await $.getJSON(apiWordpress).then(function(data) {
                 return data;
             });
@@ -137,6 +142,37 @@ async function loadRecomendations(algorithm_id, number_recommendations, item_eva
     }
     SetHtmlData(html);
 
+
+    //others reocomendaciones-------
+    document.getElementById("list_items_others").innerHTML = "";
+    for (var clave in json[1]) {
+        if (json[1].hasOwnProperty(clave)) {
+
+            const apiWordpress = "https://api.wordpress.org/plugins/info/1.0/" + json[1][clave] + ".json";
+            var r = await $.getJSON(apiWordpress).then(function (data) {
+                return data;
+            });
+
+            if (!r.error); {
+                var name = r.name;
+                var homepage = r.homepage;
+                var description = r.sections.description;
+                var tags = r.tags;
+                var downloaded = r.downloaded;
+                var slug = r.slug;
+                var tags_details = "";
+                for (var clave in tags) {
+                    if (tags.hasOwnProperty(clave)) {
+                        tags_details += "<div class='ui label'>#" + tags[clave] + "</div>";
+                    }
+                }
+                setDataByPlugin_others(name, homepage, description, tags_details, downloaded, slug);
+            }
+        }
+    }
+
+    
+
     $('#load_last_view').dimmer('hide');
 
 }
@@ -154,62 +190,6 @@ async function loadDataByPuglings(name_plugin) {
     });
 
     return r;
-}
-
-
-
-function urlExistsImg(slug) {
-    var testUrl = "https://ps.w.org/" + slug + "/assets/icon-128x128.png";
-    var testUrl2 = "https://ps.w.org/" + slug + "/assets/icon-256x256.jpg";
-    var testUrl3 = "https://ps.w.org/" + slug + "/assets/icon-256x256.jpeg";
-    var img = "#";
-
-
-    var g = ""; //$.ajax({ type: "HEAD", url: testUrl3, async: false })
-
-
-    jQuery.ajax({
-        "url": testUrl,
-        "type": "GET",
-        "data": {},
-        "async": false
-    }).done(function(data, textStatus, jqxhr) {
-        console.log(jqxhr.status)
-        g = jqxhr.status;
-    }).fail(function(jqxhr, textStatus, errorThrown) {
-        //Write code to be executed when the request FAILS
-        // g = qxhr.status;
-    });
-
-    if (g == 200) {
-        img = testUrl;
-    }
-
-
-    /*var http = $.ajax({
-        type: "HEAD",
-        url: testUrl3,
-        async: false
-    })*/
-    // return http.status;
-    //console.log(g.status);
-
-    /*
-    if ($.ajax({ type: "HEAD", url: testUrl, async: false }).status == 200) {
-        //console.log('existe:' + testUrl);
-        img = testUrl;
-    } else {
-        if ($.ajax({ type: "HEAD", url: testUrl2, async: false }).status == 200) {
-            img = testUrl2;
-        } else {
-            if ($.ajax({ type: "HEAD", url: testUrl3, async: false }).status == 200) {
-                img = testUrl3;
-            }
-        }
-    }
-    */
-    return img;
-    // this will return 200 on success, and 0 or negative value on error
 }
 
 
@@ -249,6 +229,40 @@ function setDataByPlugin(name, homepage, description, tags, downloaded, slug) {
                     </div>`;
     return html;
 };
+
+
+
+
+function setDataByPlugin_others(name, homepage, description, tags, downloaded, slug) {
+
+
+    var descripmini = description;
+    var temp = document.createElement('div');
+    temp.innerHTML = descripmini;
+    var htmlObject = temp.firstChild.innerHTML;
+
+
+    var item = document.createElement('div');
+    item.classList.add('item');
+    item.innerHTML = `<div class='ui tiny image'>
+		<img src='https://ps.w.org/${slug}/assets/icon-128x128.png'>
+	</div>
+	<div class='content'>
+		<a class='ui small header' href='${homepage}' target="_blank" rel="noopener noreferrer">${name}</a>
+		<div class='meta'>
+			<span class='cinema'>Downloaded: ${downloaded}</span>
+		</div>
+		<div class='description'>
+			<p>${htmlObject}  <a href="https://wordpress.org/plugins/${slug}/" target="_blank" rel="noopener noreferrer">view more</a></p>
+		</div>
+		<div class='extra'>
+			${tags}
+		</div>
+	</div>`;
+    document.getElementById("list_items_others").appendChild(item);
+};
+
+
 
 /*process scenario 2*/
 
