@@ -90,11 +90,28 @@ async function process() {
     var id_algorithm = $('#ddl_method').find(":selected").val();
     var number_recomendation = $('#numbers_suggestions').val();
 
-    document.getElementById('plugintSelectUser').innerText = `Recommended for you based on [${select_plugin}]`;
+    document.getElementById('plugintSelectUser').innerHTML = `Recommended for you based on <span class="ui red">${select_plugin}</span>`;
 
     if (select_plugin.length > 0 && id_algorithm.length > 0 && number_recomendation.length > 0) {
 
-        loadRecomendations(id_algorithm, number_recomendation, select_plugin);
+        //loadRecomendations(id_algorithm, number_recomendation, select_plugin);
+
+        //$('#load_last_view').dimmer('show');
+        loadRecomendations(id_algorithm, number_recomendation, select_plugin).then(response => {
+            console.log(response);
+
+            $('#load_last_view').dimmer('hide');
+            loadImage();
+            loadImgOther();
+        }).catch(e => {
+
+            $('#load_last_view').dimmer('hide');
+            loadImage();
+            loadImgOther();
+            //console.log(e);
+        });
+        //$('#load_last_view').dimmer('hide');
+
     }
 
 }
@@ -132,13 +149,7 @@ async function loadRecomendations(algorithm_id, number_recommendations, item_eva
                 return data;
             });
 
-            var img_icon = await $.ajax({
-                url: `http://plugins.svn.wordpress.org/${json[0][clave]}/assets/`,
-                dataType: 'html',
-                success: function(response) {
-                    return response;
-                }
-            });
+            var img_icon = "<div>no existe</div>";
 
             if (!r.error); {
                 var name = r.name;
@@ -161,6 +172,7 @@ async function loadRecomendations(algorithm_id, number_recommendations, item_eva
     SetHtmlData(html);
 
 
+
     //others reocomendaciones-------
     document.getElementById("list_items_others").innerHTML = "";
     for (var clave in json[1]) {
@@ -171,13 +183,7 @@ async function loadRecomendations(algorithm_id, number_recommendations, item_eva
                 return data;
             });
 
-            var img_icon = await $.ajax({
-                url: `http://plugins.svn.wordpress.org/${json[1][clave]}/assets/`,
-                dataType: 'html',
-                success: function(response) {
-                    return response;
-                }
-            });
+            var img_icon = "<div>no existe</div>";
 
             if (!r.error); {
                 var name = r.name;
@@ -196,7 +202,7 @@ async function loadRecomendations(algorithm_id, number_recommendations, item_eva
             }
         }
     }
-    $('#load_last_view').dimmer('hide');
+
 }
 
 
@@ -223,15 +229,16 @@ function setDataByPlugin(name, homepage, description, tags, downloaded, slug, im
     temp.innerHTML = descripmini;
     var htmlObject = temp.firstChild.innerHTML;
 
-    var temp = document.createElement('div');
+    /*var temp = document.createElement('div');
     temp.innerHTML = img_icon;
     var li = temp.querySelectorAll(`a[href*='icon']`);
     if (li.length > 0) {
         img_icon = `https://ps.w.org/${slug}/assets/${li[0].innerHTML}`
     } else {
         img_icon = `https://s.w.org/plugins/geopattern-icon/${slug}_bdc7cb.svg`;
-    }
+    }*/
 
+    img_icon = "#"
 
     /*var html = ` <div class="column">
                         <div class="ui cards">
@@ -258,7 +265,7 @@ function setDataByPlugin(name, homepage, description, tags, downloaded, slug, im
                     </div>`;*/
 
     var html = `<div class="content">
-                        <img class="right floated mini ui image" src="${img_icon}">
+                        <img id="${slug}" class="right floated mini ui image" src="${img_icon}">
                         <div class="header">
                             ${name}
                         </div>
@@ -277,6 +284,77 @@ function setDataByPlugin(name, homepage, description, tags, downloaded, slug, im
     return html;
 };
 
+
+function loadImage() {
+
+    var imgs = document.querySelectorAll('img.right.floated.mini.ui.image');
+    imgs.forEach(element => {
+        var id = element.id;
+
+        $.ajax({
+            url: `http://plugins.svn.wordpress.org/${id}/assets/`,
+            dataType: 'html',
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                var temp = document.createElement('div');
+                temp.innerHTML = response;
+                var li = temp.querySelectorAll(`a[href*='icon']`);
+                if (li.length > 0) {
+                    element.src = `https://ps.w.org/${id}/assets/${li[0].innerHTML}`
+                } else {
+                    element.src = `https://s.w.org/plugins/geopattern-icon/${id}_bdc7cb.svg`;
+                }
+            },
+            error: function() {
+                element.src = `https://s.w.org/plugins/geopattern-icon/${id}.svg`;
+
+            },
+            statusCode: {
+                404: function() {
+                    element.src = `https://s.w.org/plugins/geopattern-icon/${id}.svg`;
+                }
+            }
+        });
+
+    });
+}
+
+
+function loadImgOther() {
+    list_items_others
+
+    var imgs = document.querySelectorAll('#list_items_others div.item div.ui.tiny.image img');
+    imgs.forEach(element => {
+        var id = element.id;
+
+        $.ajax({
+            url: `http://plugins.svn.wordpress.org/${id}/assets/`,
+            dataType: 'html',
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                var temp = document.createElement('div');
+                temp.innerHTML = response;
+                var li = temp.querySelectorAll(`a[href*='icon']`);
+                if (li.length > 0) {
+                    element.src = `https://ps.w.org/${id}/assets/${li[0].innerHTML}`
+                } else {
+                    element.src = `https://s.w.org/plugins/geopattern-icon/${id}_bdc7cb.svg`;
+                }
+            },
+            error: function() {
+                element.src = `https://s.w.org/plugins/geopattern-icon/${id}.svg`;
+            },
+            statusCode: {
+                404: function() {
+                    element.src = `https://s.w.org/plugins/geopattern-icon/${id}.svg`;
+                }
+            }
+        });
+
+    });
+}
 
 
 
@@ -303,7 +381,7 @@ function setDataByPlugin_others(name, homepage, description, tags, downloaded, s
     var item = document.createElement('div');
     item.classList.add('item');
     item.innerHTML = `<div class='ui tiny image'>
-		<img src='${img_icon}'>
+		<img id="${slug}" src='#'>
 	</div>
 	<div class='content'>
 		<a class='ui small header' href='${homepage}' target="_blank" rel="noopener noreferrer">${name}</a>
