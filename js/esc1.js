@@ -68,19 +68,19 @@ function process() {
 }
 
 function add() {
-    var txtb = document.getElementById('numbers_suggestions'); 
-    if (txtb)
-    {
-        if (txtb.value.length > 0){
-            var x = txtb.value ;
-            txtb.value = (Number(x)+1);
-        }else{
+    var txtb = document.getElementById('numbers_suggestions');
+    if (txtb) {
+        if (txtb.value.length > 0) {
+            var x = txtb.value;
+            txtb.value = (Number(x) + 1);
+        } else {
             txtb.value = 1;
         }
     }
-    
+
 }
-function  minus() {
+
+function minus() {
     var txtb = document.getElementById('numbers_suggestions');
     if (txtb) {
         if (txtb.value.length > 0 && Number(txtb.value) > 1) {
@@ -89,15 +89,22 @@ function  minus() {
         } else {
             txtb.value = 1;
         }
-    } 
+    }
+}
+
+function rotate() {
+
+    console.log('rotate');
+
 }
 
 
-
 const btSummit = document.getElementById('sub'); //.addEventListener("click", process);
-const btplus = document.getElementById('plus_buton'); 
-const btminus = document.getElementById('minus_buton'); 
+const btplus = document.getElementById('plus_buton');
+const btminus = document.getElementById('minus_buton');
 
 btSummit.addEventListener("click", process);
 btplus.addEventListener("click", add);
 btminus.addEventListener("click", minus);
+
+//document.getElementById('view_advance').addEventListener(', rotate);
