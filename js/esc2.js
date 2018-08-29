@@ -34,29 +34,37 @@ function SetHtmlData(array) {
 
     document.getElementById("list_items").innerHTML = "";
     var numbersGrid = 0;
+    var iter = 1;
 
 
     var item = document.createElement('div');
     item.classList.add('doubling', 'four', 'column', 'row');
     var html = "";
 
-    console.log('total: ' + array.length);
+    //console.log('total: ' + array.length);
     for (let index = 0; index < array.length; index++) {
-        console.log('iteracion: ' + index);
-        if (index <= 4) {
-            html = html + array[index];
-        } else {
+        //console.log('iteracion: ' + index);
+        html = html + array[index];
+        if (iter == 4) {
             item.innerHTML = html
             document.getElementById("list_items").appendChild(item);
             html = "";
             item = document.createElement('div');
             item.classList.add('doubling', 'four', 'column', 'row');
+            iter = 1;
         }
-    }
+        else{
+            iter++;
+        }
 
-    if (array.length <= 4) {
-        item.innerHTML = html
-        document.getElementById("list_items").appendChild(item);
+        if (index == (array.length - 1) && iter < 4)
+        {
+            item = document.createElement('div');
+            item.classList.add('doubling', 'four', 'column', 'row');
+            item.innerHTML = html
+            document.getElementById("list_items").appendChild(item);
+        }
+
     }
 
 }
@@ -66,8 +74,7 @@ function SetHtmlData(array) {
 
 
 async function process() {
-    //$('#load_last_view').dimmer('show');
-
+    
     //console.log('process');
     var select_plugin = $('#seach_tags').find(":selected").text();
     var id_algorithm = $('#ddl_method').find(":selected").val();
@@ -79,7 +86,7 @@ async function process() {
 
         loadRecomendations(id_algorithm, number_recomendation, select_plugin);
     }
-    // $('#load_last_view').dimmer('hide');
+    
 
 }
 
@@ -87,6 +94,8 @@ async function process() {
 
 
 async function loadRecomendations(algorithm_id, number_recommendations, item_evaluated) {
+
+    $('#load_last_view').dimmer('show');
 
     var url_endpoint = `https://resdec-solution-web.herokuapp.com/resdec/transition_components_based_ratings/?relationship_type_id=2&var_environment_id=1&algorithm_id=${algorithm_id}&number_recommendations=${number_recommendations}&item_evaluated=${item_evaluated}`;
     var json = "";
@@ -127,6 +136,8 @@ async function loadRecomendations(algorithm_id, number_recommendations, item_eva
         }
     }
     SetHtmlData(html);
+
+    $('#load_last_view').dimmer('hide');
 
 }
 
