@@ -2,10 +2,8 @@ const user = "admin";
 const urlApi = "https://resdec-solution-web.herokuapp.com/resdec/list_last_items_used/?username=admin&var_environment_id=1&number_items=10";
 
 $(document).ready(function() {
-
     //lenar combo de intereses
     getdata();
-
 
 });
 
