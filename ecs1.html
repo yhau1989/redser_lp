@@ -16,8 +16,23 @@
     <script>
         $(document).ready(function() {
 
-            $('.ui.dropdown')
-                .dropdown();
+            $('#seach_tags').dropdown({
+                onAdd: function() {
+                    $('#intereses').dropdown('restore defaults');
+                }
+            });
+
+            $('#intereses').dropdown({
+                onChange: function() {
+                    var select_a = document.querySelectorAll('div.ui.fluid.search.dropdown.selection.multiple a');
+                    if (select_a.length > 1) {
+                        select_a.forEach(function(x) {
+                            x.remove();
+                        })
+                    }
+                }
+            });
+
 
             $('#view_advance').click(function() {
                 $('#segment_advance').transition('fade down');

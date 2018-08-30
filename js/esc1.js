@@ -15,7 +15,7 @@ $(document).ready(function() {
                     // Controlando que json realmente tenga esa propiedad
                     if (json.hasOwnProperty(clave)) {
                         // Mostrando en pantalla la clave junto a su valor
-                        console.log("La clave es " + clave + " y el valor es " + json[clave]);
+                        //console.log("La clave es " + clave + " y el valor es " + json[clave]);
                         var option = document.createElement("option");
                         option.value = clave;
                         option.text = json[clave];
@@ -51,56 +51,63 @@ $(document).ready(function() {
 
 
 
-
 function process() {
 
-    console.log('process');
+    //console.log('process');
     var number_recommendations = $('#numbers_suggestions').val();
     var select_a = document.querySelectorAll('div.ui.fluid.search.dropdown.selection.multiple a');
     var id_interest = $('#intereses').find(":selected").val();
 
     if (id_interest.length > 0 && number_recommendations.length > 0) {
 
-
         searchByInterest(id_interest, number_recommendations).then(response => {
-            console.log(response);
-
             $('#load_last_view').dimmer('hide');
-            loadImage();
-            //loadImgOther();
+        }).catch(e => {
+            $('#load_last_view').dimmer('hide');
+            console.log('error');
+        });
+    } else if (select_a.length > 0 && number_recommendations.length > 0) {
+        var tags = [];
+        select_a.forEach(function(x) {
+            tags.push(x.textContent);
+        })
+
+        searchByTags(tags, number_recommendations).then(response => {
+            $('#load_last_view').dimmer('hide');
         }).catch(e => {
 
             $('#load_last_view').dimmer('hide');
-            loadImage();
-            //loadImgOther();
-            //console.log(e);
+            console.log('error');
         });
     }
-
-
-    /*
-        var id_interest = $('#intereses').find(":selected").val();
-        if (select_a) {
-            select_a.forEach(function(x) {
-                    console.log(x.getAttribute("data-value"));
-                })
-                //console.log(select_a);
-        }*/
 }
 
 
-async function searchByInterest(id_ineterest, number_recommendations) {
+
+async function searchByTags(tags, number_recommendations) {
 
     $('#load_last_view').dimmer('show');
+    const url = 'https://resdec-solution-web.herokuapp.com/resdec/cold_start_features/'
+    var relationship_type_id = 1;
+    var var_environment_id = 1;
+    var selected_features = tags;
 
-    var endpoint = `https://resdec-solution-web.herokuapp.com/resdec/cold_start_interest/?relationship_type_id=1&var_environment_id=1&interest_id=${id_ineterest}&number_recommendations=${number_recommendations}`;
     var json = "";
     var iteracion = 0;
     var html = [];
 
+    var json = await $.ajax({
+        url: url,
+        type: "get", //send it through get method
+        data: {
+            relationship_type_id: relationship_type_id,
+            var_environment_id: var_environment_id,
+            selected_features: selected_features,
+            number_recommendations: number_recommendations
+        }
+    }).then(function(data) {
 
-    var json = await $.getJSON(endpoint).then(function(data) {
-
+        console.log(data);
         var f = [];
         f[0] = data.cold_start_recommendations;
         f[1] = data.possible_interest_recommendations;
@@ -108,10 +115,17 @@ async function searchByInterest(id_ineterest, number_recommendations) {
 
     });
 
-    for (var clave in json[0]) {
-        if (json[0].hasOwnProperty(clave)) {
 
-            console.log("la clave es: " + clave + " y el valor es:" + json[0][clave]);
+    preparehtml(json, 0).then(response => {
+        SetHtmlData(response);
+    });
+
+
+    //others reocomendaciones-------
+
+
+    for (var clave in json[1]) {
+        if (json[1].hasOwnProperty(clave)) {
 
             const apiWordpress = "https://api.wordpress.org/plugins/info/1.0/" + clave + ".json";
             var r = await $.getJSON(apiWordpress).then(function(data) {
@@ -128,19 +142,117 @@ async function searchByInterest(id_ineterest, number_recommendations) {
                 var downloaded = r.downloaded;
                 var slug = r.slug;
                 var tags_details = "";
-                var raitig = json[0][clave];
                 for (var clave in tags) {
                     if (tags.hasOwnProperty(clave)) {
                         tags_details += "<div class='ui label'>#" + tags[clave] + "</div>";
                     }
                 }
-                html[iteracion] = setDataByPlugin(name, homepage, description, tags_details, downloaded, slug, img_icon, raitig);
-                iteracion++;
+                setDataByPlugin_others(name, homepage, description, tags_details, downloaded, slug, img_icon);
             }
         }
     }
-    SetHtmlData(html);
 
+
+    loadImgOther();
+
+
+}
+
+
+function setDataByPlugin_others(name, homepage, description, tags, downloaded, slug, img_icon) {
+
+    console.log('list_items_others inicio: ' + name);
+    var tempo = document.createElement('div');
+    tempo.innerHTML = img_icon;
+    var li = tempo.querySelectorAll(`a[href*='icon']`);
+    if (li.length > 0) {
+        img_icon = `https://ps.w.org/${slug}/assets/${li[0].innerHTML}`
+    } else {
+        img_icon = `https://s.w.org/plugins/geopattern-icon/${slug}_bdc7cb.svg`;
+    }
+
+    var descripmini = description;
+    var temp = document.createElement('div');
+    temp.innerHTML = descripmini;
+    var htmlObject = temp.firstChild.innerHTML;
+
+
+    var item = document.createElement('div');
+    item.classList.add('item');
+    item.innerHTML = `<div class='ui tiny image'>
+		<img id="${slug}" src='#'>
+	</div>
+	<div class='content'>
+		<a class='ui small header' href='${homepage}' target="_blank" rel="noopener noreferrer">${name}</a>
+		<div class='meta'>
+			<span class='cinema'>Downloaded: ${downloaded}</span>
+		</div>
+		<div class='description'>
+			<p>${htmlObject}  <a href="https://wordpress.org/plugins/${slug}/" target="_blank" rel="noopener noreferrer">view more</a></p>
+		</div>
+		<div class='extra'>
+			${tags}
+		</div>
+	</div>`;
+    document.getElementById("list_items_others").appendChild(item);
+    console.log('list_items_others fin: ' + name);
+};
+
+
+
+async function searchByInterest(id_ineterest, number_recommendations) {
+
+    $('#load_last_view').dimmer('show');
+
+    var endpoint = `https://resdec-solution-web.herokuapp.com/resdec/cold_start_interest/?relationship_type_id=1&var_environment_id=1&interest_id=${id_ineterest}&number_recommendations=${number_recommendations}`;
+    var json = "";
+    var iteracion = 0;
+    var html = [];
+
+    var json = await $.getJSON(endpoint).then(function(data) {
+        var f = [];
+        f[0] = data.cold_start_recommendations;
+        f[1] = data.possible_interest_recommendations;
+        return f;
+
+    });
+
+    console.log(json);
+    preparehtml(json, 0).then(response => { SetHtmlData(response); });
+
+    //others reocomendaciones-------
+    document.getElementById("list_items_others").innerHTML = "";
+
+
+    for (var clave in json[1]) {
+        if (json[1].hasOwnProperty(clave)) {
+
+            const apiWordpress = "https://api.wordpress.org/plugins/info/1.0/" + clave + ".json";
+            var r = await $.getJSON(apiWordpress).then(function(data) {
+                return data;
+            });
+
+            var img_icon = "<div>no existe</div>";
+
+            if (!r.error); {
+                var name = r.name;
+                var homepage = r.homepage;
+                var description = r.sections.description;
+                var tags = r.tags;
+                var downloaded = r.downloaded;
+                var slug = r.slug;
+                var tags_details = "";
+                for (var clave in tags) {
+                    if (tags.hasOwnProperty(clave)) {
+                        tags_details += "<div class='ui label'>#" + tags[clave] + "</div>";
+                    }
+                }
+                setDataByPlugin_others(name, homepage, description, tags_details, downloaded, slug, img_icon);
+            }
+        }
+    }
+
+    loadImgOther();
 
 }
 
@@ -197,6 +309,8 @@ function SetHtmlData(array) {
         item = document.createElement('div');
         item.classList.add('ui', 'centered', 'card');
     }
+
+    loadImage();
 }
 
 
@@ -236,16 +350,40 @@ function loadImage() {
 }
 
 
+function loadImgOther() {
+    list_items_others
 
+    var imgs = document.querySelectorAll('#list_items_others div.item div.ui.tiny.image img');
+    imgs.forEach(element => {
+        var id = element.id;
 
+        $.ajax({
+            url: `http://plugins.svn.wordpress.org/${id}/assets/`,
+            dataType: 'html',
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                var temp = document.createElement('div');
+                temp.innerHTML = response;
+                var li = temp.querySelectorAll(`a[href*='icon']`);
+                if (li.length > 0) {
+                    element.src = `https://ps.w.org/${id}/assets/${li[0].innerHTML}`
+                } else {
+                    element.src = `https://s.w.org/plugins/geopattern-icon/${id}_bdc7cb.svg`;
+                }
+            },
+            error: function() {
+                element.src = `https://s.w.org/plugins/geopattern-icon/${id}.svg`;
+            },
+            statusCode: {
+                404: function() {
+                    element.src = `https://s.w.org/plugins/geopattern-icon/${id}.svg`;
+                }
+            }
+        });
 
-
-
-
-
-
-
-
+    });
+}
 
 function add() {
     var txtb = document.getElementById('numbers_suggestions');
@@ -278,13 +416,48 @@ function rotate() {
 
 }
 
+async function preparehtml(json, iter) {
+    var html = [];
+    var iteracion = 0;
+    for (var clave in json[iter]) {
+        if (json[iter].hasOwnProperty(clave)) {
+            const apiWordpress = "https://api.wordpress.org/plugins/info/1.0/" + clave + ".json";
+            var r = await $.getJSON(apiWordpress).then(function(data) {
+                return data;
+            });
 
-const btSummit = document.getElementById('sub'); //.addEventListener("click", process);
+            var img_icon = "<div>no existe</div>";
+
+            if (!r.error); {
+                var name = r.name;
+                var homepage = r.homepage;
+                var description = r.sections.description;
+                var tags = r.tags;
+                var downloaded = r.downloaded;
+                var slug = r.slug;
+                var tags_details = "";
+                var raitig = json[iter][clave];
+                for (var clave in tags) {
+                    if (tags.hasOwnProperty(clave)) {
+                        tags_details += "<div class='ui label'>#" + tags[clave] + "</div>";
+                    }
+                }
+                html[iteracion] = setDataByPlugin(name, homepage, description, tags_details, downloaded, slug, img_icon, raitig);
+                iteracion++;
+            }
+        }
+    }
+
+    return html;
+}
+
+
+
+
+const btSummit = document.getElementById('sub');
 const btplus = document.getElementById('plus_buton');
 const btminus = document.getElementById('minus_buton');
 
 btSummit.addEventListener("click", process);
 btplus.addEventListener("click", add);
 btminus.addEventListener("click", minus);
-
-//document.getElementById('view_advance').addEventListener(', rotate);
