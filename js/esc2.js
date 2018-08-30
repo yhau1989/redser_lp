@@ -270,7 +270,7 @@ function setDataByPlugin(name, homepage, description, tags, downloaded, slug, im
                             ${name}
                         </div>
                         <div class="meta">
-                        Downloaded: ${downloaded}
+                        <i class="black cloud download icon" title="total downloads"></i> ${downloaded}
                         </div>
                         <div class="description">
                             ${htmlObject}

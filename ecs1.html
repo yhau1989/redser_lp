@@ -22,7 +22,6 @@
             $('#view_advance').click(function() {
                 $('#segment_advance').transition('fade down');
                 var f = $('#segment_advance').attr('class');
-                console.log(f);
                 if (f.indexOf('in fade down') != -1) {
                     $('#view_advance i').css({
 
@@ -104,7 +103,7 @@
                         <div class="fields">
                             <div class="ten wide field">
                                 <label>Interests</label>
-                                <select id="intereses" name="intereses" multiple="" class="ui fluid dropdown">
+                                <select id="intereses" name="intereses" class="ui fluid search dropdown">
                                         <option value="">Interests</option>
                                 </select>
                             </div>
@@ -154,13 +153,7 @@
                     Top
                 </h4>
                 <div class="ui basic segment">
-                    <!--<div id="list_items" class="ui grid">
-    
-    
-                        </div>-->
                     <div id="list_items" class="ui cards">
-
-
                     </div>
                 </div>
 
