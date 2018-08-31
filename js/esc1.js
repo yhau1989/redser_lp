@@ -53,6 +53,7 @@ $(document).ready(function() {
 
 function process() {
 
+
     //console.log('process');
     var number_recommendations = $('#numbers_suggestions').val();
     var select_a = document.querySelectorAll('div.ui.fluid.search.dropdown.selection.multiple a');
@@ -156,7 +157,10 @@ async function searchByTags(tags, number_recommendations) {
     loadImgOther();
 
 
+
 }
+
+
 
 
 function setDataByPlugin_others(name, homepage, description, tags, downloaded, slug, img_icon) {
@@ -320,11 +324,10 @@ function loadImage() {
     imgs.forEach(element => {
         var id = element.id;
 
+            
         $.ajax({
+            type:'GET',
             url: `http://plugins.svn.wordpress.org/${id}/assets/`,
-            dataType: 'html',
-            contentType: false,
-            processData: false,
             success: function(response) {
                 var temp = document.createElement('div');
                 temp.innerHTML = response;
@@ -345,23 +348,19 @@ function loadImage() {
                 }
             }
         });
-
     });
 }
 
-
 function loadImgOther() {
-    list_items_others
+
 
     var imgs = document.querySelectorAll('#list_items_others div.item div.ui.tiny.image img');
     imgs.forEach(element => {
         var id = element.id;
 
         $.ajax({
+            type:'GET',
             url: `http://plugins.svn.wordpress.org/${id}/assets/`,
-            dataType: 'html',
-            contentType: false,
-            processData: false,
             success: function(response) {
                 var temp = document.createElement('div');
                 temp.innerHTML = response;
