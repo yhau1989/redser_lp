@@ -25,16 +25,7 @@ $(document).ready(function() {
             }
         });
 
-
-    /* $.ajax('https://wordpress.org/plugins/limit-login-attempts/',
-         function(data) {
-             console.log('load_url_test');
-             console.log(data);
-         });*/
-
 });
-
-
 
 /*process scenario 2*/
 
@@ -69,7 +60,9 @@ function SetHtmlData(array) {
 
 
 
-async function process() {
+function process() {
+
+
 
     var select_plugin = $('#seach_tags').find(":selected").text();
     var select_plugin_val = $('#seach_tags').find(":selected").val();
@@ -90,6 +83,7 @@ async function process() {
             loadImgOther();
         });
     }
+
 
 }
 
@@ -222,10 +216,8 @@ function loadImage() {
     imgs.forEach(element => {
         var id = element.id;
         $.ajax({
-            url: `http://plugins.svn.wordpress.org/${id}/assets/`,
-            dataType: 'html',
-            contentType: false,
-            processData: false,
+
+            url: `https://cors-anywhere.herokuapp.com/http://plugins.svn.wordpress.org/${id}/assets/`,
             success: function(response) {
                 var temp = document.createElement('div');
                 temp.innerHTML = response;
@@ -265,10 +257,7 @@ function loadImgOther() {
         var id = element.id;
 
         $.ajax({
-            url: `http://plugins.svn.wordpress.org/${id}/assets/`,
-            dataType: 'html',
-            contentType: false,
-            processData: false,
+            url: `https://cors-anywhere.herokuapp.com/http://plugins.svn.wordpress.org/${id}/assets/`,
             success: function(response) {
                 var temp = document.createElement('div');
                 temp.innerHTML = response;

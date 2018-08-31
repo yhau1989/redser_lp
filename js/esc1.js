@@ -333,7 +333,7 @@ function loadImage() {
 
         $.ajax({
             type: 'GET',
-            url: `http://plugins.svn.wordpress.org/${id}/assets/`,
+            url: `https://cors-anywhere.herokuapp.com/http://plugins.svn.wordpress.org/${id}/assets/`,
             success: function(response) {
                 var temp = document.createElement('div');
                 temp.innerHTML = response;
@@ -378,7 +378,7 @@ function loadImgOther() {
 
         $.ajax({
             type: 'GET',
-            url: `http://plugins.svn.wordpress.org/${id}/assets/`,
+            url: `https://cors-anywhere.herokuapp.com/http://plugins.svn.wordpress.org/${id}/assets/`,
             success: function(response) {
                 var temp = document.createElement('div');
                 temp.innerHTML = response;
