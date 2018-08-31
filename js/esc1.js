@@ -124,7 +124,6 @@ async function searchByTags(tags, number_recommendations) {
 
     //others reocomendaciones-------
 
-
     for (var clave in json[1]) {
         if (json[1].hasOwnProperty(clave)) {
 
@@ -152,7 +151,6 @@ async function searchByTags(tags, number_recommendations) {
             }
         }
     }
-
 
     loadImgOther();
 
@@ -301,6 +299,14 @@ function setDataByPlugin(name, homepage, description, tags, downloaded, slug, im
 
 
 function SetHtmlData(array) {
+
+    if (array.length > 0) {
+        document.getElementById("htop").classList.remove('hdide');
+    } else {
+        document.getElementById("htop").classList.add('hdide');
+    }
+
+
     document.getElementById("list_items").innerHTML = "";
     var item = document.createElement('div');
     item.classList.add('ui', 'centered', 'card');
@@ -324,9 +330,9 @@ function loadImage() {
     imgs.forEach(element => {
         var id = element.id;
 
-            
+
         $.ajax({
-            type:'GET',
+            type: 'GET',
             url: `http://plugins.svn.wordpress.org/${id}/assets/`,
             success: function(response) {
                 var temp = document.createElement('div');
@@ -355,11 +361,23 @@ function loadImgOther() {
 
 
     var imgs = document.querySelectorAll('#list_items_others div.item div.ui.tiny.image img');
+
+    if (imgs.length > 0) {
+        document.getElementById("hlike").classList.remove('hdide');
+        console.log('f[1].length > 0');
+    } else {
+        console.log('f[1].length < 0');
+        document.getElementById("hlike").classList.add('hdide');
+    }
+
+
+
+
     imgs.forEach(element => {
         var id = element.id;
 
         $.ajax({
-            type:'GET',
+            type: 'GET',
             url: `http://plugins.svn.wordpress.org/${id}/assets/`,
             success: function(response) {
                 var temp = document.createElement('div');

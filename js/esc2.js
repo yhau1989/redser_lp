@@ -24,6 +24,14 @@ $(document).ready(function() {
                 }
             }
         });
+
+
+    /* $.ajax('https://wordpress.org/plugins/limit-login-attempts/',
+         function(data) {
+             console.log('load_url_test');
+             console.log(data);
+         });*/
+
 });
 
 
@@ -32,48 +40,26 @@ $(document).ready(function() {
 
 function SetHtmlData(array) {
 
-    document.getElementById("list_items").innerHTML = "";
-    var numbersGrid = 0;
-    var iter = 1;
+    if (array.length > 0) {
+        document.getElementById("htop").classList.remove('hdide');
+    } else {
+        document.getElementById("htop").classList.add('hdide');
+    }
 
-    /*var item = document.createElement('div');
-    item.classList.add('doubling', 'four', 'column', 'row');
-    var html = "";*/
+    document.getElementById("list_items").innerHTML = "";
+
 
     var item = document.createElement('div');
     item.classList.add('ui', 'centered', 'card');
-    var html = "";
 
     //console.log('total: ' + array.length);
     for (let index = 0; index < array.length; index++) {
-        //console.log('iteracion: ' + index);
-        //html = html + array[index];
 
         item.innerHTML = array[index];
         document.getElementById("list_items").appendChild(item);
-        html = "";
+
         item = document.createElement('div');
         item.classList.add('ui', 'centered', 'card');
-
-        /*
-                if (iter == 4) {
-                    item.innerHTML = html
-                    document.getElementById("list_items").appendChild(item);
-                    html = "";
-                    item = document.createElement('div');
-                    item.classList.add('doubling', 'four', 'column', 'row');
-                    iter = 1;
-                } else {
-                    iter++;
-                }
-
-                if (index == (array.length - 1) && iter < 4) {
-                    item = document.createElement('div');
-                    item.classList.add('doubling', 'four', 'column', 'row');
-                    item.innerHTML = html
-                    document.getElementById("list_items").appendChild(item);
-                }
-                */
 
     }
 
@@ -85,33 +71,24 @@ function SetHtmlData(array) {
 
 async function process() {
 
-    //console.log('process');
     var select_plugin = $('#seach_tags').find(":selected").text();
+    var select_plugin_val = $('#seach_tags').find(":selected").val();
     var id_algorithm = $('#ddl_method').find(":selected").val();
     var number_recomendation = $('#numbers_suggestions').val();
 
-    document.getElementById('plugintSelectUser').innerHTML = `Recommended for you based on <span class="ui red">${select_plugin}</span>`;
+    document.getElementById('htop').innerHTML = `Recommended for you based on <span class="ui red">${select_plugin}</span>`;
 
-    if (select_plugin.length > 0 && id_algorithm.length > 0 && number_recomendation.length > 0) {
-
-        //loadRecomendations(id_algorithm, number_recomendation, select_plugin);
-
-        //$('#load_last_view').dimmer('show');
+    if (select_plugin_val.length > 0 && id_algorithm.length > 0 && number_recomendation.length > 0) {
         loadRecomendations(id_algorithm, number_recomendation, select_plugin).then(response => {
             console.log(response);
-
             $('#load_last_view').dimmer('hide');
             loadImage();
             loadImgOther();
         }).catch(e => {
-
             $('#load_last_view').dimmer('hide');
             loadImage();
             loadImgOther();
-            //console.log(e);
         });
-        //$('#load_last_view').dimmer('hide');
-
     }
 
 }
@@ -124,21 +101,17 @@ async function loadRecomendations(algorithm_id, number_recommendations, item_eva
     $('#load_last_view').dimmer('show');
 
     var url_endpoint = `https://resdec-solution-web.herokuapp.com/resdec/transition_components_based_ratings/?relationship_type_id=2&var_environment_id=1&algorithm_id=${algorithm_id}&number_recommendations=${number_recommendations}&item_evaluated=${item_evaluated}`;
+    console.log(url_endpoint);
     var json = "";
     var iteracion = 0;
     var html = [];
 
-
     var json = await $.getJSON(url_endpoint).then(function(data) {
-
         var f = [];
         f[0] = data.tran_comp_rating_recommendation;
         f[1] = data.possible_interest_recommendations;
         return f;
-
     });
-
-
 
     //principales reocomendaciones-------
     for (var clave in json[0]) {
@@ -169,9 +142,8 @@ async function loadRecomendations(algorithm_id, number_recommendations, item_eva
             }
         }
     }
+
     SetHtmlData(html);
-
-
 
     //others reocomendaciones-------
     document.getElementById("list_items_others").innerHTML = "";
@@ -206,20 +178,14 @@ async function loadRecomendations(algorithm_id, number_recommendations, item_eva
 }
 
 
-
-
-
 async function loadDataByPuglings(name_plugin) {
-
     const apiWordpress = "https://api.wordpress.org/plugins/info/1.0/" + name_plugin + ".json";
     var r = "";
     var r = await $.getJSON(apiWordpress).then(function(data) {
         return data;
     });
-
     return r;
 }
-
 
 
 function setDataByPlugin(name, homepage, description, tags, downloaded, slug, img_icon) {
@@ -228,42 +194,7 @@ function setDataByPlugin(name, homepage, description, tags, downloaded, slug, im
     var temp = document.createElement('div');
     temp.innerHTML = descripmini;
     var htmlObject = temp.firstChild.innerHTML;
-
-    /*var temp = document.createElement('div');
-    temp.innerHTML = img_icon;
-    var li = temp.querySelectorAll(`a[href*='icon']`);
-    if (li.length > 0) {
-        img_icon = `https://ps.w.org/${slug}/assets/${li[0].innerHTML}`
-    } else {
-        img_icon = `https://s.w.org/plugins/geopattern-icon/${slug}_bdc7cb.svg`;
-    }*/
-
     img_icon = "#"
-
-    /*var html = ` <div class="column">
-                        <div class="ui cards">
-                            <div class="ui centered card">
-                                <div class="content">
-                                    <img class="right floated mini ui image" src="https://ps.w.org/${slug}/assets/icon-128x128.png">
-                                    <h4 class="ui small header">
-                                        ${name}
-                                    </h4>
-                                    <div class="meta">
-                                    Downloaded: ${downloaded}
-                                    </div>
-                                    <div class="description">
-                                        ${htmlObject}
-                                    </div>
-                                </div>
-                                <div class="content">
-                                    <div class="summary">
-                                        <a href="https://wordpress.org/plugins/${slug}/" target="_blank" rel="noopener noreferrer">View more</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>`;*/
-
     var html = `<div class="content">
                         <img id="${slug}" class="right floated mini ui image" src="${img_icon}">
                         <div class="header">
@@ -290,7 +221,6 @@ function loadImage() {
     var imgs = document.querySelectorAll('img.right.floated.mini.ui.image');
     imgs.forEach(element => {
         var id = element.id;
-
         $.ajax({
             url: `http://plugins.svn.wordpress.org/${id}/assets/`,
             dataType: 'html',
@@ -322,9 +252,15 @@ function loadImage() {
 
 
 function loadImgOther() {
-    list_items_others
-
     var imgs = document.querySelectorAll('#list_items_others div.item div.ui.tiny.image img');
+    if (imgs.length > 0) {
+        document.getElementById("hlike").classList.remove('hdide');
+        console.log('f[1].length > 0');
+    } else {
+        console.log('f[1].length < 0');
+        document.getElementById("hlike").classList.add('hdide');
+    }
+
     imgs.forEach(element => {
         var id = element.id;
 
@@ -452,7 +388,7 @@ function loadAlgorthm() {
 
 }
 
-const btSummit = document.getElementById('sub'); //.addEventListener("click", process);
+const btSummit = document.getElementById('sub');
 const btplus = document.getElementById('plus_buton');
 const btminus = document.getElementById('minus_buton');
 

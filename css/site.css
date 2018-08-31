@@ -3,6 +3,10 @@ body {
     color: #666666;
 }
 
+.hdide {
+    visibility: hidden;
+}
+
 .containerSlider {
     display: flex;
     justify-content: center;
