@@ -57,12 +57,7 @@ function SetHtmlData(array) {
 }
 
 
-
-
-
 function process() {
-
-
 
     var select_plugin = $('#seach_tags').find(":selected").text();
     var select_plugin_val = $('#seach_tags').find(":selected").val();
@@ -86,8 +81,6 @@ function process() {
 
 
 }
-
-
 
 
 async function loadRecomendations(algorithm_id, number_recommendations, item_evaluated) {
@@ -207,7 +200,7 @@ function setDataByPlugin(name, homepage, description, tags, downloaded, slug, im
                     <a href="https://wordpress.org/plugins/${slug}/" target="_blank" rel="noopener noreferrer">View more</a>
                     </div>`;
     return html;
-};
+}
 
 
 function loadImage() {
@@ -321,7 +314,7 @@ function setDataByPlugin_others(name, homepage, description, tags, downloaded, s
 		</div>
 	</div>`;
     document.getElementById("list_items_others").appendChild(item);
-};
+}
 
 
 

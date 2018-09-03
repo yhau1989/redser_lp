@@ -17,9 +17,15 @@
     <script>
         $(document).ready(function() {
 
-            $('.ui.dropdown')
-                .dropdown();
+            $('#seach_tags').dropdown({
+                onChange: function() {
+                    var select_plugin_val = $('#seach_tags').find(":selected").text();
+                    //console.log(select_plugin_val);
+                    loadTagsByPlugin(select_plugin_val)
+                }
+            });
 
+            $('#ddl_method').dropdown();
 
         });
     </script>
@@ -46,9 +52,6 @@
 
     <div class="pusher">
 
-
-
-
         <div class="ui container" style="padding-bottom: 30px;">
             <div id="menuhide" class="ui six item text large menu">
                 <div class="item">
@@ -73,13 +76,13 @@
                 <div>
                     <div class="ui equal width form">
                         <div class="fields">
-                            <div class="thirteen wide field">
+                            <div class="ten wide field">
                                 <label>Used plugin</label>
                                 <select id="seach_tags" name="tags" class="ui fluid search dropdown">
                                     <option value="">Name used plugin</option>
                                   </select>
                             </div>
-                            <div class="three wide field">
+                            <div class="six wide field">
                                 <label>Total Suggestions</label>
                                 <div class="ui left action input">
                                     <button id="plus_buton" class="ui basic icon button">
@@ -92,9 +95,16 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="field">
+                        <div id="seccion_tagsByplugins" class="field hdide">
                             <label>Plugin tags</label>
-
+                            <p id="tagsByplugins">
+                            </p>
+                        </div>
+                        <div class="field">
+                            <label>Recomender method</label>
+                            <select id="ddl_method" name="ddl_method" class="ui fluid dropdown">
+                                <option value="">method</option>
+                              </select>
                         </div>
                         <button id="sub" class="negative ui button">
                             SUBMIT
@@ -103,254 +113,23 @@
 
                     </div>
                 </div>
-                <h4 class="ui dividing header">
-                    Recommended for you based on NAMEPLUGIN
+                <h4 id="htop" class="ui dividing header hdide">
+                    Recommended for you based on
                 </h4>
                 <div class="ui basic segment">
-                    <div class="ui grid">
-                        <div class="doubling four column row">
-                            <div class="column">
-                                <div class="ui cards">
-                                    <div class="ui centered card">
-                                        <div class="content">
-                                            <img class="right floated mini ui image" src="https://semantic-ui.com/images/avatar/large/elliot.jpg">
-                                            <div class="header">
-                                                Elliot Fu
-                                            </div>
-                                            <div class="meta">
-                                                Friends of Veronika
-                                            </div>
-                                            <div class="description">
-                                                Elliot requested permission to view your contact details
-                                            </div>
-                                        </div>
-                                        <div class="content">
-                                            <div class="summary">
-                                                <a>Ver mas</a> added two pictures
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="column">
-                                <div class="ui cards">
-                                    <div class="ui centered card">
-                                        <div class="content">
-                                            <img class="right floated mini ui image" src="https://semantic-ui.com/images/avatar/large/elliot.jpg">
-                                            <div class="header">
-                                                Elliot Fu
-                                            </div>
-                                            <div class="meta">
-                                                Friends of Veronika
-                                            </div>
-                                            <div class="description">
-                                                Elliot requested permission to view your contact details
-                                            </div>
-                                        </div>
-                                        <div class="content">
-                                            <div class="summary">
-                                                <a>Ver mas</a> added two pictures
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="column">
-                                <div class="ui cards">
-                                    <div class="ui centered card">
-                                        <div class="content">
-                                            <img class="right floated mini ui image" src="https://semantic-ui.com/images/avatar/large/elliot.jpg">
-                                            <div class="header">
-                                                Elliot Fu
-                                            </div>
-                                            <div class="meta">
-                                                Friends of Veronika
-                                            </div>
-                                            <div class="description">
-                                                Elliot requested permission to view your contact details
-                                            </div>
-                                        </div>
-                                        <div class="content">
-                                            <div class="summary">
-                                                <a>Ver mas</a> added two pictures
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="column">
-                                <div class="ui cards">
-                                    <div class="ui centered card">
-                                        <div class="content">
-                                            <img class="right floated mini ui image" src="https://semantic-ui.com/images/avatar/large/elliot.jpg">
-                                            <div class="header">
-                                                Elliot Fu
-                                            </div>
-                                            <div class="meta">
-                                                Friends of Veronika
-                                            </div>
-                                            <div class="description">
-                                                Elliot requested permission to view your contact details
-                                            </div>
-                                        </div>
-                                        <div class="content">
-                                            <div class="summary">
-                                                <a>Ver mas</a> added two pictures
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="doubling four column row">
-                            <div class="column">
-                                <div class="ui cards">
-                                    <div class="ui centered card">
-                                        <div class="content">
-                                            <img class="right floated mini ui image" src="https://semantic-ui.com/images/avatar/large/elliot.jpg">
-                                            <div class="header">
-                                                Elliot Fu
-                                            </div>
-                                            <div class="meta">
-                                                Friends of Veronika
-                                            </div>
-                                            <div class="description">
-                                                Elliot requested permission to view your contact details
-                                            </div>
-                                        </div>
-                                        <div class="content">
-                                            <div class="summary">
-                                                <a>Ver mas</a> added two pictures
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="column">
-                                <div class="ui cards">
-                                    <div class="ui centered card">
-                                        <div class="content">
-                                            <img class="right floated mini ui image" src="https://semantic-ui.com/images/avatar/large/elliot.jpg">
-                                            <div class="header">
-                                                Elliot Fu
-                                            </div>
-                                            <div class="meta">
-                                                Friends of Veronika
-                                            </div>
-                                            <div class="description">
-                                                Elliot requested permission to view your contact details
-                                            </div>
-                                        </div>
-                                        <div class="content">
-                                            <div class="summary">
-                                                <a>Ver mas</a> added two pictures
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="column">
-                                <div class="ui cards">
-                                    <div class="ui centered card">
-                                        <div class="content">
-                                            <img class="right floated mini ui image" src="https://semantic-ui.com/images/avatar/large/elliot.jpg">
-                                            <div class="header">
-                                                Elliot Fu
-                                            </div>
-                                            <div class="meta">
-                                                Friends of Veronika
-                                            </div>
-                                            <div class="description">
-                                                Elliot requested permission to view your contact details
-                                            </div>
-                                        </div>
-                                        <div class="content">
-                                            <div class="summary">
-                                                <a>Ver mas</a> added two pictures
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="column">
-                                <div class="ui cards">
-                                    <div class="ui centered card">
-                                        <div class="content">
-                                            <img class="right floated mini ui image" src="https://semantic-ui.com/images/avatar/large/elliot.jpg">
-                                            <div class="header">
-                                                Elliot Fu
-                                            </div>
-                                            <div class="meta">
-                                                Friends of Veronika
-                                            </div>
-                                            <div class="description">
-                                                Elliot requested permission to view your contact details
-                                            </div>
-                                        </div>
-                                        <div class="content">
-                                            <div class="summary">
-                                                <a>Ver mas</a> added two pictures
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="doubling four column row">
-                            <div class="column">
-                                <div class="ui cards">
-                                    <div class="ui centered card">
-                                        <div class="content">
-                                            <img class="right floated mini ui image" src="https://semantic-ui.com/images/avatar/large/elliot.jpg">
-                                            <div class="header">
-                                                Elliot Fu
-                                            </div>
-                                            <div class="meta">
-                                                Friends of Veronika
-                                            </div>
-                                            <div class="description">
-                                                Elliot requested permission to view your contact details
-                                            </div>
-                                        </div>
-                                        <div class="content">
-                                            <div class="summary">
-                                                <a>Ver mas</a> added two pictures
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="column">
-                                <div class="ui cards">
-                                    <div class="ui centered card">
-                                        <div class="content">
-                                            <img class="right floated mini ui image" src="https://semantic-ui.com/images/avatar/large/elliot.jpg">
-                                            <div class="header">
-                                                Elliot Fu
-                                            </div>
-                                            <div class="meta">
-                                                Friends of Veronika
-                                            </div>
-                                            <div class="description">
-                                                Elliot requested permission to view your contact details
-                                            </div>
-                                        </div>
-                                        <div class="content">
-                                            <div class="summary">
-                                                <a>Ver mas</a> added two pictures
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div id="list_items" class="ui cards">
+
+
                     </div>
                 </div>
 
-
-                <h4 class="ui dividing header">
+                <h4 id="hlike" class="ui dividing header hdide">
                     You may also like
                 </h4>
+                <div id="list_items_others" class="ui divided items">
+                </div>
+
+
 
 
             </div>
