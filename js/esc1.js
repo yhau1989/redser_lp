@@ -1,6 +1,8 @@
 const endpoint_intereses = 'http://186.5.39.187:8030/resdec/list_interests/?var_environment_id=1';
 const endpoint_tags = 'http://186.5.39.187:8030/resdec/list_features/?relationship_type_id=1&var_environment_id=1&feature_name=';
 
+const cold_start_all = "http://186.5.39.187:8030/resdec/cold_start_all/?relationship_type_id=1&var_environment_id=1&number_recommendations=10"
+
 
 $(document).ready(function() {
 
@@ -46,8 +48,109 @@ $(document).ready(function() {
             }
         });
 
+
+    //load last view
+    loadTop10();
+
+
 });
 
+
+function loadTop10() {
+
+    console.log('cargando el top 10');
+    document.getElementById("htop").classList.add('hdide');
+    $.ajax({
+        url: cold_start_all,
+        success: function(data) {
+            console.log(data);
+            if (data.error == 0) {
+                document.getElementById("htop").classList.remove('hdide');
+                var json = data.list_last_items_used;
+                for (var clave in json) {
+                    // Controlando que json realmente tenga esa propiedad
+                    if (json.hasOwnProperty(clave)) {
+                        // Mostrando en pantalla la clave junto a su valor
+                        console.log("La clave es " + clave + " y el valor es " + json[clave]);
+                        loadDataByPuglingsTop10(json[clave]);
+                    }
+                }
+            }
+        },
+        error: function(xhr, textStatus, errorThrown) {
+
+            console.log('error la cargar el top 10: ' + xhr.status + textStatus + errorThrown);
+            document.getElementById("htop").classList.add('hdide');
+        },
+        statusCode: {
+            404: function(ft) {
+                console.log('error la cargar el top 10 [error 404]: ' + ft);
+                document.getElementById("htop").classList.add('hdide');
+            },
+            504: function(ft) {
+                console.log('error la cargar el top 10 [error 504]: ' + ft);
+                document.getElementById("htop").classList.add('hdide');
+            }
+        }
+    });
+}
+
+function loadDataByPuglingsTop10(name_plugin) {
+
+    const apiWordpress = "https://api.wordpress.org/plugins/info/1.0/" + name_plugin + ".json";
+
+    $.getJSON(apiWordpress,
+        function(data) {
+            if (!data.error) {
+                var name = data.name;
+                var homepage = data.homepage;
+                var description = data.sections.description;
+                var tags = data.tags;
+                var downloaded = data.downloaded;
+                var slug = data.slug;
+                var tags_details = "";
+                for (var clave in tags) {
+                    if (tags.hasOwnProperty(clave)) {
+                        tags_details += "<div class='ui label'>#" + tags[clave] + "</div>";
+                    }
+                }
+                setDataByPluginTop10(name, homepage, description, tags_details, downloaded, slug);
+            }
+        });
+
+    $('#load_last').dimmer('hide');
+}
+
+
+
+function setDataByPluginTop10(name, homepage, description, tags, downloaded, slug) {
+
+
+    var descripmini = description;
+    var temp = document.createElement('div');
+    temp.innerHTML = descripmini;
+    var htmlObject = temp.firstChild.innerHTML;
+
+
+    var item = document.createElement('div');
+    item.classList.add('item');
+    item.innerHTML = `<div class='ui small image'>
+		<img src='https://ps.w.org/${slug}/assets/icon-256x256.png'>
+	</div>
+	<div class='content'>
+		<a class='header' href='${homepage}' target="_blank" rel="noopener noreferrer">${name}</a>
+		<div class='meta'>
+			<span class='cinema'>Downloaded: ${downloaded}</span>
+		</div>
+		<div class='description'>
+			<p>${htmlObject}  <a href="https://wordpress.org/plugins/${slug}/" target="_blank" rel="noopener noreferrer">view more</a></p>
+		</div>
+		<div class='extra'>
+			${tags}
+		</div>
+	</div>`;
+    document.getElementById("list_items_top10").appendChild(item);
+}
 
 
 

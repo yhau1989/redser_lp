@@ -1,6 +1,3 @@
-const user = "admin";
-const urlApi = "http://186.5.39.187:8030/resdec/list_last_items_used/?username=admin&var_environment_id=1&number_items=10";
-
 $(document).ready(function() {
     //lenar combo de intereses
     getdata();
@@ -9,28 +6,33 @@ $(document).ready(function() {
 
 
 function getdata() {
-    $('#load_last_view').dimmer('show');
-    $.getJSON(urlApi,
-        function(data) {
-            if (data.error == 0) {
-                var json = data.list_last_items_used;
 
-                for (var clave in json) {
-                    // Controlando que json realmente tenga esa propiedad
-                    if (json.hasOwnProperty(clave)) {
-                        // Mostrando en pantalla la clave junto a su valor
-                        console.log("La clave es " + clave + " y el valor es " + json[clave]);
-                        loadDataByPuglings(json[clave]);
+    var userLogon = sessionStorage.getItem("UserLoginResdec");
+    if (userLogon.length > 0) {
+        var urlApi = `http://186.5.39.187:8030/resdec/list_last_items_used/?username=${userLogon}&var_environment_id=1&number_items=10`;
+        document.getElementById("list_items"), innerHTML = "";
+        $('#load_last_view').dimmer('show');
+        $.getJSON(urlApi,
+            function(data) {
+                if (data.error == 0) {
+                    var json = data.list_last_items_used;
+
+                    for (var clave in json) {
+                        // Controlando que json realmente tenga esa propiedad
+                        if (json.hasOwnProperty(clave)) {
+                            // Mostrando en pantalla la clave junto a su valor
+                            console.log("La clave es " + clave + " y el valor es " + json[clave]);
+                            loadDataByPuglings(json[clave]);
+                        }
                     }
                 }
-            }
-        });
+            });
+    }
 }
 
 
 
 function loadDataByPuglings(name_plugin) {
-
 
     const apiWordpress = "https://api.wordpress.org/plugins/info/1.0/" + name_plugin + ".json";
 
@@ -84,4 +86,31 @@ function setDataByPlugin(name, homepage, description, tags, downloaded, slug) {
 		</div>
 	</div>`;
     document.getElementById("list_items").appendChild(item);
-};
+}
+
+
+
+function exit() {
+
+    var url = `http://186.5.39.187:8030/resdec/logout/`;
+    $.ajax({
+        url: url,
+        success: function(response) {
+
+            if (response.logout) {
+                var userLogon = sessionStorage.getItem("UserLoginResdec");
+                console.log('userLogin: ' + userLogon);
+                sessionStorage.setItem("UserLoginResdec", "");
+                window.location = "./";
+            }
+        },
+        error: function(e) {
+            console.log('error: ' + e);
+        },
+        statusCode: {
+            404: function(ft) {
+                console.log('error 404: ' + ft);
+            }
+        }
+    });
+}

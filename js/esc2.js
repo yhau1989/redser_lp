@@ -2,6 +2,8 @@ const endpoint_tags = 'http://186.5.39.187:8030/resdec/list_items/?var_environme
 const endpoint_algorithms = 'http://186.5.39.187:8030/resdec/list_algorithms/?relationship_type_id=2';
 
 
+
+
 $(document).ready(function() {
 
     //lenar combo de tags
@@ -25,7 +27,13 @@ $(document).ready(function() {
             }
         });
 
+    //loadLastView
+    loadLastView();
+
+
 });
+
+
 
 /*process scenario 2*/
 
@@ -59,6 +67,7 @@ function SetHtmlData(array) {
 
 function process() {
 
+    console.log('inicio process');
     var select_plugin = $('#seach_tags').find(":selected").text();
     var select_plugin_val = $('#seach_tags').find(":selected").val();
     var id_algorithm = $('#ddl_method').find(":selected").val();
@@ -66,16 +75,24 @@ function process() {
 
     document.getElementById('htop').innerHTML = `Recommended for you based on <span class="ui red">${select_plugin}</span>`;
 
+
     if (select_plugin_val.length > 0 && id_algorithm.length > 0 && number_recomendation.length > 0) {
+
+        document.getElementById("list_items_last").innerHTML = "";
+        document.getElementById("segment_last").classList.add('hdide');
+
+
         loadRecomendations(id_algorithm, number_recomendation, select_plugin).then(response => {
             console.log(response);
             $('#load_last_view').dimmer('hide');
             loadImage();
             loadImgOther();
+            console.log('fin process');
         }).catch(e => {
             $('#load_last_view').dimmer('hide');
             loadImage();
             loadImgOther();
+            console.log('fin process');
         });
     }
 
@@ -381,3 +398,96 @@ btplus.addEventListener("click", add);
 btminus.addEventListener("click", minus);
 
 window.addEventListener('load', loadAlgorthm);
+
+
+
+
+
+function loadLastView() {
+
+    var userLogon = sessionStorage.getItem("UserLoginResdec");
+    if (userLogon.length > 0) {
+        document.getElementById("list_items_last").innerHTML = "";
+        var url_last_view = `http://186.5.39.187:8030/resdec/list_last_items_used/?username=${userLogon}&var_environment_id=1&number_items=10`;
+        console.log('iniciando loadLastView');
+        console.log(url_last_view);
+
+        $.getJSON(url_last_view,
+            function(data) {
+                if (data.error == 0) {
+                    var json = data.list_last_items_used;
+                    console.log(data);
+
+                    if (Object.values(json).length > 0) {
+                        document.getElementById("segment_last").classList.remove('hdide');
+                    } else {
+                        console.log('loadLastView < 0');
+                        document.getElementById("segment_last").classList.add('hdide');
+                    }
+
+                    for (var clave in json) {
+                        // Controlando que json realmente tenga esa propiedad
+                        if (json.hasOwnProperty(clave)) {
+                            // Mostrando en pantalla la clave junto a su valor
+                            loadDataByPuglingsLast(json[clave]);
+                        }
+                    }
+                }
+            });
+
+        console.log('fin loadLastView');
+    }
+}
+
+function loadDataByPuglingsLast(name_plugin) {
+
+    const apiWordpress = "https://api.wordpress.org/plugins/info/1.0/" + name_plugin + ".json";
+    $.getJSON(apiWordpress,
+        function(data) {
+            if (!data.error) {
+                var name = data.name;
+                var homepage = data.homepage;
+                var description = data.sections.description;
+                var tags = data.tags;
+                var downloaded = data.downloaded;
+                var slug = data.slug;
+                var tags_details = "";
+                for (var clave in tags) {
+                    if (tags.hasOwnProperty(clave)) {
+                        tags_details += "<div class='ui label'>#" + tags[clave] + "</div>";
+                    }
+                }
+                setDataByPluginLast(name, homepage, description, tags_details, downloaded, slug);
+            }
+        });
+
+}
+
+
+function setDataByPluginLast(name, homepage, description, tags, downloaded, slug) {
+
+
+    var descripmini = description;
+    var temp = document.createElement('div');
+    temp.innerHTML = descripmini;
+    var htmlObject = temp.firstChild.innerHTML;
+
+    var item = document.createElement('div');
+    item.classList.add('item');
+    item.innerHTML = `<div class='ui small image'>
+		<img src='https://ps.w.org/${slug}/assets/icon-256x256.png'>
+	</div>
+	<div class='content'>
+		<a class='header' href='${homepage}' target="_blank" rel="noopener noreferrer">${name}</a>
+		<div class='meta'>
+			<span class='cinema'>Downloaded: ${downloaded}</span>
+		</div>
+		<div class='description'>
+			<p>${htmlObject}  <a href="https://wordpress.org/plugins/${slug}/" target="_blank" rel="noopener noreferrer">view more</a></p>
+		</div>
+		<div class='extra'>
+			${tags}
+		</div>
+	</div>`;
+    document.getElementById("list_items_last").appendChild(item);
+}
