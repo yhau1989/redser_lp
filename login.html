@@ -34,10 +34,11 @@
                         <div style="text-align: center">
                             <img class="ui image" src="images/resdec.jpg" alt="">
                             <h3>Login</h3>
+                            <span id="error_login"></span>
                         </div>
                     </div>
                     <div class="field">
-                        <label>User id</label>
+                        <label>User</label>
                         <input id="idUser" type="text" maxlength="20" name="email" autocomplete="off" placeholder="user id" required>
                     </div>
                     <div class="field">
@@ -53,7 +54,7 @@
                         <div style="text-align: center">
                             <button id="btn" class="negative ui button" type="submit">ENTER</button>
                             <div class="ui divider"></div>
-                            <button class="ui button" type="submit">CREATE AN ACCOUNT</button>
+                            <button class="ui button" type="submit" disabled>CREATE AN ACCOUNT</button>
                             <div style="padding-top: 35px; font-size: 11px;">
                                 Copyright 2018 - All rights reserved
                             </div>
@@ -71,15 +72,36 @@
     var btn = document.getElementById("btn");
 
     function link() {
-        var psw = document.getElementById("psswd");
-        var email = document.getElementById("idUser");
+        document.getElementById('error_login').innerHTML = "";
+        var psw = document.getElementById("psswd").value ;
+        var email = document.getElementById("idUser").value;
+        
+        var url = `http://186.5.39.187:8030/resdec/login/?username=${email}&password=${psw}`;
+        $.ajax({
+            url: url,
+            success: function (response) {
 
-        if (psw.value.length > 0 && email.value.length) {
-            console.log(1);
-            window.location = "./manager.html";
-        } else {
-            console.log(0);
-        }
+                if(response.login)
+                {
+                    sessionStorage.setItem("UserLoginResdec", email);
+                    console.log(response.login);
+                    window.location = "./manager.html";
+                }
+                else
+                {
+                     console.log(response.err_msg);
+                     document.getElementById('error_login').innerHTML = response.err_msg;
+                }
+            },
+            error: function (e) {
+                console.log('error: ' + e);
+            },
+            statusCode: {
+                404: function (ft) {
+                    console.log('error 404: ' + ft);
+                }
+            }
+        });
 
     }
     //btn.addEventListener("click", link);

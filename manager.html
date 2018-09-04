@@ -38,7 +38,7 @@
                                     <span>Milagro, Ecuador</span>
                                 </div>
                                 <div class="description">
-                                    <a href="#" class="ui tiny button">
+                                    <a href="./edit-profile.html" class="ui tiny button">
                                         <i class="pencil alternate icon"></i> EDIT PROFILE
                                         <i class="angle right icon"></i>
                                     </a>
@@ -96,7 +96,7 @@
                     </div>
                 </div>
                 <div style="text-align: right;">
-                    <a href="./" class="negative ui button">
+                    <a id="logout" onclick="exit()" href="#" class="negative ui button">
                         <i class="lock icon"></i> EXIT
                         <i class="angle right icon"></i>
                     </a>
@@ -121,6 +121,14 @@
 </body>
 
 <script src="./js/site.js"></script>
+<script>
+    function  exit() {
+        var userLogon = sessionStorage.getItem("UserLoginResdec");
+        console.log('userLogin: ' + userLogon);
+        sessionStorage.setItem("UserLoginResdec", "");
+        window.location = "./";
+    }
+</script>
 
 
 </html>:
