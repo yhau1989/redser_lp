@@ -80,8 +80,8 @@ function process() {
 
         document.getElementById("list_items_last").innerHTML = "";
         document.getElementById("list_items").innerHTML = "";
+        document.getElementById("list_items_others").innerHTML = "";
         document.getElementById("segment_last").classList.add('hdide');
-
 
         loadRecomendations(id_algorithm, number_recomendation, select_plugin).then(response => {
             console.log(response);
