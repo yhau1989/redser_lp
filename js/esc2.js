@@ -79,6 +79,7 @@ function process() {
     if (select_plugin_val.length > 0 && id_algorithm.length > 0 && number_recomendation.length > 0) {
 
         document.getElementById("list_items_last").innerHTML = "";
+        document.getElementById("list_items").innerHTML = "";
         document.getElementById("segment_last").classList.add('hdide');
 
 
