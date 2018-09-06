@@ -8,6 +8,12 @@ $(document).ready(function() {
     });
 
 
+    $('.message .close')
+        .on('click', function() {
+            $(this)
+                .closest('.message')
+                .transition('fade');
+        });
 
 });
 
@@ -100,6 +106,15 @@ function resizeIndex2(media) {
             fooidenx.classList.add("myfooter");
         }
     }
+}
+
+function pisitivos() {
+
+    var number = document.getElementById("numbers_suggestions").value;
+    if (number < 0) {
+        document.getElementById("numbers_suggestions").value = (number * -1);
+    }
+
 }
 
 

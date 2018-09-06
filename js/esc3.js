@@ -100,7 +100,10 @@ function process() {
     var id_algorithm = $('#ddl_method').find(":selected").val();
     var number_recomendation = $('#numbers_suggestions').val();
 
-    if (select_plugin_val.length > 0 && id_algorithm.length > 0 && number_recomendation.length > 0) {
+    if (select_plugin_val.length > 0 && id_algorithm.length > 0 && number_recomendation.length > 0 && parseInt(number_recomendation) > 0) {
+
+        document.getElementById('list_error').classList.add('hidden');
+        document.getElementById('items_error').innerHTML = "";
 
         document.getElementById('htop').innerHTML = `Recommended for you based on <span class="ui red">${select_plugin}</span>`;
         loadRecomendations(id_algorithm, number_recomendation, select_plugin).then(response => {
@@ -113,8 +116,26 @@ function process() {
             loadImage();
             loadImgOther();
         });
+    } else {
+
+        var fielsd = [select_plugin_val, id_algorithm, number_recomendation];
+
+        evaluarRequired(fielsd);
     }
 }
+
+
+function evaluarRequired(fields) {
+
+    var field1 = (fields[0].length <= 0) ? "<li>Field 'Used plugin' required</li>" : "";
+    var field2 = (fields[1].length <= 0) ? "<li>Field 'Recommender method' required</li>" : "";
+    var field3 = (fields[2].length <= 0 || parseInt(fields[2]) <= 0) ? "<li>Field 'Total Suggestions' required and number positive</li>" : "";
+
+    document.getElementById('list_error').classList.remove('hidden');
+    document.getElementById('items_error').innerHTML = field1 + field2 + field3;
+}
+
+
 
 
 async function loadRecomendations(algorithm_id, number_recommendations, item_evaluated) {

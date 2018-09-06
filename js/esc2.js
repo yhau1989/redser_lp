@@ -2,8 +2,6 @@ const endpoint_tags = 'http://186.5.39.187:8030/resdec/list_items/?var_environme
 const endpoint_algorithms = 'http://186.5.39.187:8030/resdec/list_algorithms/?relationship_type_id=2';
 
 
-
-
 $(document).ready(function() {
 
     //lenar combo de tags
@@ -27,10 +25,9 @@ $(document).ready(function() {
             }
         });
 
+
     //loadLastView
     loadLastView();
-
-
 });
 
 
@@ -76,7 +73,7 @@ function process() {
     document.getElementById('htop').innerHTML = `Recommended for you based on <span class="ui red">${select_plugin}</span>`;
 
 
-    if (select_plugin_val.length > 0 && id_algorithm.length > 0 && number_recomendation.length > 0) {
+    if (select_plugin_val.length > 0 && id_algorithm.length > 0 && number_recomendation.length > 0 && parseInt(number_recomendation) > 0) {
 
         document.getElementById("list_items_last").innerHTML = "";
         document.getElementById("list_items").innerHTML = "";
@@ -95,9 +92,26 @@ function process() {
             loadImgOther();
             console.log('fin process');
         });
+    } else {
+        var fielsd = [select_plugin_val, id_algorithm, number_recomendation];
+
+        evaluarRequired(fielsd);
+
     }
 
 
+}
+
+
+
+function evaluarRequired(fields) {
+
+    var field1 = (fields[0].length <= 0) ? "<li>Field 'Used plugin' required</li>" : "";
+    var field2 = (fields[1].length <= 0) ? "<li>Field 'Recommender method' required</li>" : "";
+    var field3 = (fields[2].length <= 0 || parseInt(fields[2]) <= 0) ? "<li>Field 'Total Suggestions' required and number positive</li>" : "";
+
+    document.getElementById('list_error').classList.remove('hidden');
+    document.getElementById('items_error').innerHTML = field1 + field2 + field3;
 }
 
 
@@ -390,19 +404,6 @@ function loadAlgorthm() {
 
 }
 
-const btSummit = document.getElementById('sub');
-const btplus = document.getElementById('plus_buton');
-const btminus = document.getElementById('minus_buton');
-
-btSummit.addEventListener("click", process);
-btplus.addEventListener("click", add);
-btminus.addEventListener("click", minus);
-
-window.addEventListener('load', loadAlgorthm);
-
-
-
-
 
 function loadLastView() {
 
@@ -492,3 +493,17 @@ function setDataByPluginLast(name, homepage, description, tags, downloaded, slug
 	</div>`;
     document.getElementById("list_items_last").appendChild(item);
 }
+
+
+
+
+
+const btSummit = document.getElementById('sub');
+const btplus = document.getElementById('plus_buton');
+const btminus = document.getElementById('minus_buton');
+
+btSummit.addEventListener("click", process);
+btplus.addEventListener("click", add);
+btminus.addEventListener("click", minus);
+
+window.addEventListener('load', loadAlgorthm);

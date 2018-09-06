@@ -9,7 +9,6 @@
     <link rel="stylesheet" type="text/css" href="./css/semantic.css" />
     <link rel="stylesheet" type="text/css" href="./css/site.css" />
 
-
     <script src="./js/jquery-3.1.1.min.js"></script>
     <script src="./css/semantic.js"></script>
 
@@ -75,13 +74,13 @@
                 <div>
                     <div class="ui equal width form">
                         <div class="fields">
-                            <div class="ten wide field">
+                            <div class="required ten wide field">
                                 <label>Used plugin</label>
                                 <select id="seach_tags" name="tags" class="ui fluid search dropdown">
                                     <option value="">Name used plugin</option>
                                   </select>
                             </div>
-                            <div class="six wide field">
+                            <div class="required six wide field">
                                 <label>Total Suggestions</label>
                                 <div class="ui left action input">
                                     <button id="plus_buton" class="ui basic icon button">
@@ -90,16 +89,25 @@
                                     <button id="minus_buton" class="ui basic icon button">
                                         <i class="minus icon"></i>
                                     </button>
-                                    <input id="numbers_suggestions" type="number" value="1" placeholder="1" min="1">
+                                    <input id="numbers_suggestions" type=" number" value="1" placeholder="1" min="1">
                                 </div>
                             </div>
                         </div>
-                        <div class="field">
-                            <label>Recomender method</label>
+                        <div class="required field">
+                            <label>Recommender method</label>
                             <select id="ddl_method" name="ddl_method" class="ui fluid dropdown">
                                 <option value="">method</option>
                               </select>
                         </div>
+
+
+                        <div id="list_error" class="ui hidden negative message">
+                            <i class="close icon"></i>
+                            <ul id="items_error" class="list">
+
+                            </ul>
+                        </div>
+
                         <button id="sub" class="negative ui button">
                             SUBMIT
                             <i class="angle right icon"></i>
@@ -167,7 +175,9 @@
 
 </body>
 
-<script src="./js/esc2.js"></script>
+
 <script src="./js/site.js"></script>
+<script src="./js/esc2.js"></script>
+
 
 </html>
