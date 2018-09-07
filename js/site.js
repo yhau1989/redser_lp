@@ -142,10 +142,10 @@ function em() {
             console.log("Status: " + obj.Messages[0].Status);
             if (obj.Messages[0].Status) {
                 console.log("MessageID: " + obj.Messages[0].To[0].MessageID);
-                mailform.val("");
-                nameform.val("");
-                subjectform.val("");
-                msgform.val("");
+                $('#email_cf').val("");
+                $('#name_cf').val("");
+                $('#subject_cf').val("");
+                $('#msg_cf').val("");
                 alert("Your message has been sent successfully");
             } else {
                 alert("We have problem try later");
