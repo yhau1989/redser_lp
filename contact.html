@@ -57,34 +57,38 @@
             </div>
 
 
-            <div class="ui form">
+            <form class="ui form" action="javascript:;" onsubmit="em(this)">
                 <div class="three fields">
                     <div class="field">
                         <label>Name:</label>
-                        <input type="text" placeholder="Name">
+                        <input id="name_cf" name="name_cf" type="text" placeholder="Name" required>
                     </div>
                     <div class="field">
                         <label>E-mail:</label>
-                        <input type="Email" placeholder="Email">
+                        <input id="email_cf" name="email_cf" type="Email" placeholder="Email" required>
                     </div>
                     <div class="field">
                         <label>Subject: </label>
-                        <input type="text" placeholder="Subject">
+                        <input id="subject_cf" name="subject_cf" type="text" placeholder="Subject" required>
                     </div>
                 </div>
                 <div class="equal width fields">
                     <div class="field">
                         <label>Reason why you contact us:</label>
-                        <textarea></textarea>
+                        <textarea id="msg_cf" name="msg_cf" required></textarea>
                     </div>
                 </div>
-            </div>
-            <div style="padding-bottom: 25px;">
-                <button class="negative ui button">
-                SEND
-                <i class="angle right icon"></i>
-            </button>
-            </div>
+
+                <div style="padding-bottom: 25px;">
+                    <button class="negative ui button" type="submit">
+                    SEND
+                    <i class="angle right icon"></i>
+                </button>
+
+
+                </div>
+
+            </form>
 
         </div>
         <div id="foo" class="myfooter">

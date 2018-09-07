@@ -118,6 +118,35 @@ function pisitivos() {
 }
 
 
+function em() {
+
+
+    var mailform = $('#email_cf').val();
+    var nameform = $('#name_cf').val();
+    var subjectform = $('#subject_cf').val();
+    var msgform = $('#msg_cf').val();
+
+    $.ajax({
+        url: "http://186.5.39.187:8050/envio.php",
+        type: "POST", //send it through get method
+        data: {
+            email_contact: mailform,
+            name_contact: nameform,
+            subject_contact: subjectform,
+            message_contact: msgform
+        }
+    }).then(function(data, status) {
+        var obj = JSON.parse(data);
+
+        if (obj.Messages[0].Status)
+            console.log("Status: " + obj.Messages[0].Status);
+
+        if (obj.Messages[0].Status)
+            console.log("MessageID: " + obj.Messages[0].To[0].MessageID);
+
+    });
+}
+
 
 var media = window.matchMedia('(min-width: 760px)')
     //var media2 = window.matchMedia('(min-width: 320px) and (max-width: 759px)')
