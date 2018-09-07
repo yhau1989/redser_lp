@@ -138,12 +138,21 @@ function em() {
     }).then(function(data, status) {
         var obj = JSON.parse(data);
 
-        if (obj.Messages[0].Status)
+        if (obj.Messages[0].Status) {
             console.log("Status: " + obj.Messages[0].Status);
-
-        if (obj.Messages[0].Status)
-            console.log("MessageID: " + obj.Messages[0].To[0].MessageID);
-
+            if (obj.Messages[0].Status) {
+                console.log("MessageID: " + obj.Messages[0].To[0].MessageID);
+                mailform.val("");
+                nameform.val("");
+                subjectform.val("");
+                msgform.val("");
+                alert("Your message has been sent successfully");
+            } else {
+                alert("We have problem try later");
+            }
+        } else {
+            alert("We have problem try later");
+        }
     });
 }
 
