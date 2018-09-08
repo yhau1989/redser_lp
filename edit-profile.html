@@ -13,7 +13,13 @@
 
     <script src="./js/jquery-3.1.1.min.js"></script>
     <script src="./css/semantic.js"></script>
-    <script src="./js/jquery.flexslider.js"></script>
+
+    <script>
+        if (sessionStorage.getItem("UserLoginResdec") == null) {
+            self.location = "./";
+        }
+    </script>
+
 
 
 
@@ -40,7 +46,7 @@
                                     <span>Milagro, Ecuador</span>
                                 </div>
                                 <div class="description">
-                                    
+
                                     <button class="ui small labeled icon button">
                                         <i class="camera icon"></i>
                                         Change profile photo
@@ -51,28 +57,28 @@
                     </div>
                 </div>
                 <h2>Edit Profile</h2>
-                <div class="ui basic segment" >
-                   
-                        <div class="ui form">
-                            <div class="field">
-                                <label>Name</label>
-                                <input type="text" placeholder="Name">
-                            </div>
-                            <div class="field">
-                                <label>Last Name</label>
-                                <input type="text" placeholder="Last Name">
-                            </div>
-                            <div class="field">
-                                <label>Email</label>
-                                <input type="email" placeholder="Email">
-                            </div>
-                            <div class="field">
-                                <label>Password</label>
-                                <input type="password" placeholder="Password">
-                            </div>
+                <div class="ui basic segment">
+
+                    <div class="ui form">
+                        <div class="field">
+                            <label>Name</label>
+                            <input type="text" placeholder="Name">
                         </div>
-               
-                   
+                        <div class="field">
+                            <label>Last Name</label>
+                            <input type="text" placeholder="Last Name">
+                        </div>
+                        <div class="field">
+                            <label>Email</label>
+                            <input type="email" placeholder="Email">
+                        </div>
+                        <div class="field">
+                            <label>Password</label>
+                            <input type="password" placeholder="Password">
+                        </div>
+                    </div>
+
+
                 </div>
                 <div style="text-align: right;">
                     <a id="logout" onclick="exit()" href="#" class="negative ui button">
@@ -84,7 +90,7 @@
         </div>
     </div>
 
-    
+
 </body>
 
 <script src="./js/site.js"></script>

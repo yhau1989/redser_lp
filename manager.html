@@ -13,6 +13,12 @@
     <script src="./css/semantic.js"></script>
     <script src="./js/manager.js"></script>
 
+    <script type="text/javascript">
+        if (sessionStorage.getItem("UserLoginResdec") == null) {
+            self.location = "./";
+        }
+    </script>
+
 </head>
 
 <body>

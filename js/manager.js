@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
     //lenar combo de intereses
     getdata();
 
@@ -101,14 +102,17 @@ function exit() {
                 var userLogon = sessionStorage.getItem("UserLoginResdec");
                 console.log('userLogin: ' + userLogon);
                 sessionStorage.setItem("UserLoginResdec", "");
+                sessionStorage.removeItem("UserLoginResdec");
                 window.location = "./";
             }
         },
         error: function(e) {
+            sessionStorage.removeItem("UserLoginResdec");
             console.log('error: ' + e);
         },
         statusCode: {
             404: function(ft) {
+                sessionStorage.removeItem("UserLoginResdec");
                 console.log('error 404: ' + ft);
             }
         }

@@ -13,7 +13,14 @@
     <script src="./js/jquery-3.1.1.min.js"></script>
     <script src="./css/semantic.js"></script>
 
+
     <script>
+        if (sessionStorage.getItem("UserLoginResdec") == null) {
+            self.location = "./";
+        }
+
+
+
         $(document).ready(function() {
 
             $('#seach_tags').dropdown({
