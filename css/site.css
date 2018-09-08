@@ -110,6 +110,10 @@ body {
     margin: 0 !important;
 }
 
+#logo_mobile {
+    display: none;
+}
+
 
 /* Mobile */
 
@@ -118,6 +122,9 @@ body {
         display: none;
     }
     #menuhide {
+        display: block;
+    }
+    #logo_mobile {
         display: block;
     }
 }
