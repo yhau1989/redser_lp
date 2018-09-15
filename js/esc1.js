@@ -50,35 +50,27 @@ $(document).ready(function() {
 
 
     //load last view
-    loadTop10();
+    loadTop10().then(response => {
+        loadImageTop10();
+    }).catch(e => {
+        loadImageTop10();
+        console.log('error loadTop10');
+    });
+
 
 
 });
 
 
-function loadTop10() {
-
+async function loadTop10() {
+    $('#load_last_view').dimmer('show');
     console.log('cargando el top 10');
+    console.log(cold_start_all);
     document.getElementById("htop").classList.add('hdide');
-    $.ajax({
-        url: cold_start_all,
-        success: function(data) {
-            console.log(data);
-            if (data.error == 0) {
-                document.getElementById("htop").classList.remove('hdide');
-                var json = data.list_last_items_used;
-                for (var clave in json) {
-                    // Controlando que json realmente tenga esa propiedad
-                    if (json.hasOwnProperty(clave)) {
-                        // Mostrando en pantalla la clave junto a su valor
-                        console.log("La clave es " + clave + " y el valor es " + json[clave]);
-                        loadDataByPuglingsTop10(json[clave]);
-                    }
-                }
-            }
-        },
-        error: function(xhr, textStatus, errorThrown) {
 
+    var json = await $.ajax({
+        url: cold_start_all,
+        error: function(xhr, textStatus, errorThrown) {
             console.log('error la cargar el top 10: ' + xhr.status + textStatus + errorThrown);
             document.getElementById("htop").classList.add('hdide');
         },
@@ -92,33 +84,68 @@ function loadTop10() {
                 document.getElementById("htop").classList.add('hdide');
             }
         }
+    }).then(function(data) {
+        return data;
     });
+
+
+    if (json && json.cold_start_recommendations) {
+        console.log(json);
+        for (var clave in json.cold_start_recommendations) {
+            // Controlando que json realmente tenga esa propiedad
+            if (json.cold_start_recommendations.hasOwnProperty(clave)) {
+                // Mostrando en pantalla la clave junto a su valor
+                //console.log("La clave es " + clave + " y el valor es " + json.cold_start_recommendations[clave]);
+                await loadDataByPuglingsTop10(clave).then(function(data) {
+                    //console.log(data);
+                    var yu = document.getElementById("list_items_top10").innerHTML;
+                    var htg = yu + data;
+                    document.getElementById("list_items_top10").innerHTML = htg;
+
+                });
+            }
+        }
+
+
+        document.getElementById("segment_last_view").classList.remove('hdide');
+        //loadImageTop10();
+    }
+
 }
 
-function loadDataByPuglingsTop10(name_plugin) {
+async function loadDataByPuglingsTop10(name_plugin) {
 
     const apiWordpress = "https://api.wordpress.org/plugins/info/1.0/" + name_plugin + ".json";
 
-    $.getJSON(apiWordpress,
-        function(data) {
-            if (!data.error) {
-                var name = data.name;
-                var homepage = data.homepage;
-                var description = data.sections.description;
-                var tags = data.tags;
-                var downloaded = data.downloaded;
-                var slug = data.slug;
-                var tags_details = "";
-                for (var clave in tags) {
-                    if (tags.hasOwnProperty(clave)) {
-                        tags_details += "<div class='ui label'>#" + tags[clave] + "</div>";
-                    }
-                }
-                setDataByPluginTop10(name, homepage, description, tags_details, downloaded, slug);
+    var data = await $.ajax({
+        type: "get",
+        url: apiWordpress
+    }).then(function(json) {
+        return json;
+    });
+
+    var rt = "";
+
+    if (data.name) {
+
+        var name = data.name;
+        var homepage = data.homepage;
+        var description = data.sections.description;
+        var tags = data.tags;
+        var downloaded = data.downloaded;
+        var slug = data.slug;
+        var tags_details = "";
+        for (var clave in tags) {
+            if (tags.hasOwnProperty(clave)) {
+                tags_details += "<div class='ui label'>#" + tags[clave] + "</div>";
             }
-        });
+        }
+        rt = setDataByPluginTop10(name, homepage, description, tags_details, downloaded, slug);
+    }
 
     $('#load_last').dimmer('hide');
+    return rt;
+
 }
 
 
@@ -131,25 +158,28 @@ function setDataByPluginTop10(name, homepage, description, tags, downloaded, slu
     temp.innerHTML = descripmini;
     var htmlObject = temp.firstChild.innerHTML;
 
-
     var item = document.createElement('div');
     item.classList.add('item');
-    item.innerHTML = `<div class='ui small image'>
-		<img src='https://ps.w.org/${slug}/assets/icon-256x256.png'>
-	</div>
-	<div class='content'>
-		<a class='header' href='${homepage}' target="_blank" rel="noopener noreferrer">${name}</a>
-		<div class='meta'>
-			<span class='cinema'>Downloaded: ${downloaded}</span>
-		</div>
-		<div class='description'>
-			<p>${htmlObject}  <a href="https://wordpress.org/plugins/${slug}/" target="_blank" rel="noopener noreferrer">view more</a></p>
-		</div>
-		<div class='extra'>
-			${tags}
-		</div>
-	</div>`;
-    document.getElementById("list_items_top10").appendChild(item);
+    item.innerHTML = `<div class='item'><div class='ui small image'>
+            <img data-slug='${slug}' src='#'>
+        </div>
+        <div class='content'>
+            <a class='header' href='${homepage}' target="_blank" rel="noopener noreferrer">${name}</a>
+            <div class='meta'>
+                <span class='cinema'>Downloaded: ${downloaded}</span>
+            </div>
+            <div class='description'>
+                <p>${htmlObject}  <a href="https://wordpress.org/plugins/${slug}/" target="_blank" rel="noopener noreferrer">view more</a></p>
+            </div>
+            <div class='extra'>
+                ${tags}
+            </div>
+        </div></div> `;
+
+    //document.getElementById("list_items_top10").appendChild(item);
+    //html5.innerHTML = item.innerHTML;
+    return item.innerHTML;
+
 }
 
 
@@ -190,6 +220,8 @@ function process() {
 
 async function searchByTags(tags, number_recommendations) {
 
+    document.getElementById('list_items_top10').innerHTML = "";
+    document.getElementById('list_items_others').innerHTML = "";
     $('#load_last_view').dimmer('show');
     const url = 'http://186.5.39.187:8030/resdec/cold_start_features/'
     var relationship_type_id = 1;
@@ -307,6 +339,8 @@ function setDataByPlugin_others(name, homepage, description, tags, downloaded, s
 
 async function searchByInterest(id_ineterest, number_recommendations) {
 
+
+    document.getElementById('list_items_top10').innerHTML = "";
     $('#load_last_view').dimmer('show');
 
     var endpoint = `http://186.5.39.187:8030/resdec/cold_start_interest/?relationship_type_id=1&var_environment_id=1&interest_id=${id_ineterest}&number_recommendations=${number_recommendations}`;
@@ -405,6 +439,7 @@ function SetHtmlData(array) {
 
     if (array.length > 0) {
         document.getElementById("htop").classList.remove('hdide');
+        document.getElementById("segment_last_view").classList.add('hdide');
     } else {
         document.getElementById("htop").classList.add('hdide');
     }
@@ -424,6 +459,44 @@ function SetHtmlData(array) {
     }
 
     loadImage();
+}
+
+
+
+function loadImageTop10() {
+    $('#load_last_view').dimmer('hide');
+    console.log('loadImageTop10');
+    var imgs = document.querySelectorAll('[data-slug]');
+
+    imgs.forEach(element => {
+        var id = element.dataset.slug;
+
+
+
+        $.ajax({
+            type: 'GET',
+            url: `https://cors-anywhere.herokuapp.com/http://plugins.svn.wordpress.org/${id}/assets/`,
+            success: function(response) {
+                var temp = document.createElement('div');
+                temp.innerHTML = response;
+                var li = temp.querySelectorAll(`a[href*='icon']`);
+                if (li.length > 0) {
+                    element.src = `https://ps.w.org/${id}/assets/${li[0].innerHTML}`
+                } else {
+                    element.src = `https://s.w.org/plugins/geopattern-icon/${id}_bdc7cb.svg`;
+                }
+            },
+            error: function() {
+                element.src = `https://s.w.org/plugins/geopattern-icon/${id}.svg`;
+
+            },
+            statusCode: {
+                404: function() {
+                    element.src = `https://s.w.org/plugins/geopattern-icon/${id}.svg`;
+                }
+            }
+        });
+    });
 }
 
 
@@ -548,7 +621,13 @@ async function preparehtml(json, iter) {
 
             var img_icon = "<div>no existe</div>";
 
-            if (!r.error); {
+            if (r.error) {
+                console.log(apiWordpress)
+                console.log(r.error)
+            }
+
+
+            if (!r.error) {
                 var name = r.name;
                 var homepage = r.homepage;
                 var description = r.sections.description;
