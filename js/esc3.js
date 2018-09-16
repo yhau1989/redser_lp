@@ -167,7 +167,7 @@ async function loadRecomendations(algorithm_id, number_recommendations, item_eva
 
             var img_icon = "<div>no existe</div>";
 
-            if (!r.error); {
+            if (!r.error) {
                 var name = r.name;
                 var homepage = r.homepage;
                 var description = r.sections.description;
@@ -182,6 +182,10 @@ async function loadRecomendations(algorithm_id, number_recommendations, item_eva
                 }
                 html[iteracion] = setDataByPlugin(name, homepage, description, tags_details, downloaded, slug, img_icon);
                 iteracion++;
+            } else {
+                console.log('plugin: ' +
+                    json[0][clave] + ' ' + apiWordpress + ' no existe');
+
             }
         }
     }
