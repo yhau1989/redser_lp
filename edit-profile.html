@@ -28,7 +28,7 @@
 <body>
 
     <div class="ui text container" style="max-width: 400px; padding-top: 25px;">
-        <img src="diseños/resdec_t.png" alt="">
+        <img class="ui small image" src="./images/resdec_t.png" alt="">
         <div class="ui segment">
             <div class="ui basic segment">
                 <div>
@@ -41,17 +41,17 @@
                                 <img src="./images/Avatar.jpg">
                             </div>
                             <div class="content">
-                                <a class="header">Jorge Rodas</a>
+                                <a id="name_user" class="header"></a>
                                 <div class="meta">
                                     <span>Milagro, Ecuador</span>
                                 </div>
-                                <div class="description">
+                                <!--<div class="description">
 
                                     <button class="ui small labeled icon button">
                                         <i class="camera icon"></i>
                                         Change profile photo
                                     </button>
-                                </div>
+                                </div>-->
                             </div>
                         </div>
                     </div>
@@ -59,32 +59,30 @@
                 <h2>Edit Profile</h2>
                 <div class="ui basic segment">
 
-                    <div class="ui form">
+                    <form id="form_editprofile" class="ui form" action="javascript:;" onsubmit="save(this)">
                         <div class="field">
                             <label>Name</label>
-                            <input type="text" placeholder="Name">
+                            <input id="name" type="text" placeholder="Name" required>
                         </div>
                         <div class="field">
                             <label>Last Name</label>
-                            <input type="text" placeholder="Last Name">
+                            <input id="last_name" type="text" placeholder="Last Name" required>
                         </div>
                         <div class="field">
                             <label>Email</label>
-                            <input type="email" placeholder="Email">
+                            <input id="email" type="email" placeholder="Email" required>
                         </div>
+
                         <div class="field">
                             <label>Password</label>
-                            <input type="password" placeholder="Password">
+                            <input id="pswd" type="password" placeholder="Password">
                         </div>
-                    </div>
 
-
-                </div>
-                <div style="text-align: right;">
-                    <a id="logout" onclick="exit()" href="#" class="negative ui button">
-                        SAVE
-                        <i class="angle right icon"></i>
-                    </a>
+                        <button type="submit" class="negative ui button">
+                            SAVE
+                            <i class="angle right icon"></i>
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -93,8 +91,9 @@
 
 </body>
 
+<script src="./js/editprofile.js"></script>
 <script src="./js/site.js"></script>
 
 
 
-</html>:
+</html>

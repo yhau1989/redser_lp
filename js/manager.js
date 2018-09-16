@@ -1,10 +1,33 @@
 $(document).ready(function() {
 
+    loadDataUser();
+
     //lenar combo de intereses
     getdata();
 
 });
 
+
+function loadDataUser() {
+
+    var userLogon = sessionStorage.getItem("UserLoginResdec");
+    if (userLogon.length > 0) {
+        var urlApi = `http://186.5.39.187:8030/resdec/user_get/?username=${userLogon}`;
+        console.log('load data user ' + urlApi);
+        document.getElementById("name_user"), innerHTML = "";
+
+        $.getJSON(urlApi,
+            function(data) {
+                if (data.user_data) {
+                    console.log(data.user_data);
+
+                    var json = data.user_data;
+                    document.getElementById("name_user").innerHTML = json.first_name + ' ' + json.last_name;
+                }
+            });
+    }
+
+}
 
 function getdata() {
 
