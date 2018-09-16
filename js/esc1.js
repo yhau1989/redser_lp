@@ -50,14 +50,14 @@ $(document).ready(function() {
 
 
     //load last view
-    /*
+
     loadTop10().then(response => {
         loadImageTop10();
     }).catch(e => {
         loadImageTop10();
         console.log('error loadTop10');
     });
-    */
+
 
 
 
