@@ -271,6 +271,9 @@ async function searchByTags(tags, number_recommendations) {
     });
 
 
+
+    document.getElementById("log").innerHTML = `<p>${ JSON.stringify(json)}</p>`;
+
     preparehtml(json, 0).then(response => {
         SetHtmlData(response);
     });
@@ -649,6 +652,10 @@ async function preparehtml(json, iter) {
 
 
             if (!r.error) {
+
+                var io = document.getElementById("log").innerHTML;
+                document.getElementById("log").innerHTML = io + `<p> plugin ${clave} si</p>`
+
                 var name = r.name;
                 var homepage = r.homepage;
                 var description = r.sections.description;
@@ -664,6 +671,10 @@ async function preparehtml(json, iter) {
                 }
                 html[iteracion] = setDataByPlugin(name, homepage, description, tags_details, downloaded, slug, img_icon, raitig);
                 iteracion++;
+            } else {
+                var io = document.getElementById("log").innerHTML;
+                document.getElementById("log").innerHTML = io + `<p> plugin ${clave} no</p>`
+
             }
         }
     }
