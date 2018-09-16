@@ -23,13 +23,15 @@
 
         $(document).ready(function() {
 
-            $('#seach_tags').dropdown({
+            $('#seach_tags').dropdown();
+
+            /*$('#seach_tags').dropdown({
                 onAdd: function() {
                     $('#intereses').dropdown('restore defaults');
                 }
             });
 
-            /*$('#intereses').dropdown({
+            $('#intereses').dropdown({
                 onChange: function() {
                     var select_a = document.querySelectorAll('div.ui.fluid.search.dropdown.selection.multiple a');
                     if (select_a.length > 1) {
