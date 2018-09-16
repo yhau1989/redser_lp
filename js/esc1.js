@@ -653,8 +653,8 @@ async function preparehtml(json, iter) {
 
             if (!r.error) {
 
-                var io = document.getElementById("log").innerHTML;
-                document.getElementById("log").innerHTML = io + `<p> plugin ${clave} si</p>`
+                //var io = document.getElementById("log").innerHTML;
+                //document.getElementById("log").innerHTML = io + `<p> plugin ${clave} si</p>`
 
                 var name = r.name;
                 var homepage = r.homepage;
