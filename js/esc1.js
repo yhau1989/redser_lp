@@ -272,7 +272,7 @@ async function searchByTags(tags, number_recommendations) {
 
 
 
-    document.getElementById("log").innerHTML = `<p>${ JSON.stringify(json)}</p>`;
+    //document.getElementById("log").innerHTML = `<p>${ JSON.stringify(json)}</p>`;
 
     preparehtml(json, 0).then(response => {
         SetHtmlData(response);
@@ -673,7 +673,7 @@ async function preparehtml(json, iter) {
                 iteracion++;
             } else {
                 var io = document.getElementById("log").innerHTML;
-                document.getElementById("log").innerHTML = io + `<p> plugin ${clave} no</p>`
+                // document.getElementById("log").innerHTML = io + `<p> plugin ${clave} no</p>`
 
             }
         }
