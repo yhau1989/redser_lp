@@ -7,7 +7,7 @@ const cold_start_all = "http://186.5.39.187:8030/resdec/cold_start_all/?relation
 $(document).ready(function() {
 
     //lenar combo de intereses
-    $.getJSON(endpoint_intereses,
+    /*$.getJSON(endpoint_intereses,
         function(data) {
             if (data.list_interests) {
                 var json = data.list_interests;
@@ -25,7 +25,7 @@ $(document).ready(function() {
                     }
                 }
             }
-        });
+        });*/
 
     //lenar combo de tags
     $.getJSON(endpoint_tags,
@@ -192,7 +192,7 @@ function process() {
     var select_a = document.querySelectorAll('div.ui.fluid.search.dropdown.selection.multiple a');
     var id_interest = $('#intereses').find(":selected").val();
 
-    if (id_interest.length > 0 && number_recommendations.length > 0) {
+    /*if (id_interest.length > 0 && number_recommendations.length > 0) {
 
         searchByInterest(id_interest, number_recommendations).then(response => {
             $('#load_last_view').dimmer('hide');
@@ -213,7 +213,24 @@ function process() {
             $('#load_last_view').dimmer('hide');
             console.log('error');
         });
+    }*/
+
+    if (select_a.length > 0 && number_recommendations.length > 0) {
+        var tags = [];
+        select_a.forEach(function(x) {
+            tags.push(x.textContent);
+        })
+
+        searchByTags(tags, number_recommendations).then(response => {
+            $('#load_last_view').dimmer('hide');
+        }).catch(e => {
+
+            $('#load_last_view').dimmer('hide');
+            console.log('error');
+        });
     }
+
+
 }
 
 
@@ -440,12 +457,14 @@ function SetHtmlData(array) {
     if (array.length > 0) {
         document.getElementById("htop").classList.remove('hdide');
         document.getElementById("segment_last_view").classList.add('hdide');
+        document.getElementById("list_items").innerHTML = "";
     } else {
         document.getElementById("htop").classList.add('hdide');
+        document.getElementById("list_items").innerHTML = "The main results have not been found in WordPress, but you may be interested in other plugins";
     }
 
 
-    document.getElementById("list_items").innerHTML = "";
+
     var item = document.createElement('div');
     item.classList.add('ui', 'centered', 'card');
 

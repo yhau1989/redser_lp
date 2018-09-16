@@ -204,7 +204,7 @@ async function loadRecomendations(algorithm_id, number_recommendations, item_eva
 
             var img_icon = "<div>no existe</div>";
 
-            if (!r.error); {
+            if (!r.error) {
                 var name = r.name;
                 var homepage = r.homepage;
                 var description = r.sections.description;
@@ -218,6 +218,10 @@ async function loadRecomendations(algorithm_id, number_recommendations, item_eva
                     }
                 }
                 setDataByPlugin_others(name, homepage, description, tags_details, downloaded, slug, img_icon);
+            } else {
+                console.log('plugin: ' +
+                    json[1][clave] + ' ' + apiWordpress + ' no existe');
+
             }
         }
     }
@@ -229,11 +233,13 @@ function SetHtmlData(array) {
 
     if (array.length > 0) {
         document.getElementById("htop").classList.remove('hdide');
+        document.getElementById("list_items").innerHTML = "";
     } else {
         document.getElementById("htop").classList.add('hdide');
+        document.getElementById("list_items").innerHTML = "The main results have not been found in WordPress, but you may be interested in other plugins";
     }
 
-    document.getElementById("list_items").innerHTML = "";
+
 
 
     var item = document.createElement('div');

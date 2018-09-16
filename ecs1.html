@@ -29,7 +29,7 @@
                 }
             });
 
-            $('#intereses').dropdown({
+            /*$('#intereses').dropdown({
                 onChange: function() {
                     var select_a = document.querySelectorAll('div.ui.fluid.search.dropdown.selection.multiple a');
                     if (select_a.length > 1) {
@@ -38,7 +38,7 @@
                         })
                     }
                 }
-            });
+            });*/
 
 
             $('#view_advance').click(function() {
@@ -128,10 +128,17 @@
                     <div class="ui equal width form">
                         <div class="fields">
                             <div class="ten wide field">
-                                <label>Interests</label>
+                                <!--<label>Interests</label>
                                 <select id="intereses" name="intereses" class="ui fluid search dropdown">
                                         <option value="">Interests</option>
+                                </select>-->
+
+                                <label>Tags</label>
+                                <select id="seach_tags" name="tags" class="ui fluid search dropdown" multiple="">
+                                    <option value="">tags</option>
                                 </select>
+
+
                             </div>
                             <div class="six wide field">
                                 <label>Total Suggestions</label>
@@ -147,10 +154,11 @@
                             </div>
                         </div>
 
+                        <!--
                         <h4 class="ui header" id="view_advance" style="cursor:pointer;">
                             <i class="angle right icon"></i>
                             <div class="content">Advanced</div>
-                            <!--<a class="ui black pointing below ignored label">Advanced</a>-->
+                            
                         </h4>
 
                         <div id="segment_advance" class="ui segment transition hidden">
@@ -164,7 +172,7 @@
                                           </select>
                             </div>
 
-                        </div>
+                        </div>-->
 
                         <button id="sub" class="negative ui button">
                             SUBMIT
