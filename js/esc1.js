@@ -98,7 +98,7 @@ async function loadTop10() {
             if (json.cold_start_recommendations.hasOwnProperty(clave)) {
                 // Mostrando en pantalla la clave junto a su valor
                 //console.log("La clave es " + clave + " y el valor es " + json.cold_start_recommendations[clave]);
-                await loadDataByPuglingsTop10(clave).then(function(data) {
+                await loadDataByPuglingsTop10(json.cold_start_recommendations[clave]).then(function(data) {
                     //console.log(data);
                     var yu = document.getElementById("list_items_top10").innerHTML;
                     var htg = yu + data;
@@ -284,7 +284,7 @@ async function searchByTags(tags, number_recommendations) {
     for (var clave in json[1]) {
         if (json[1].hasOwnProperty(clave)) {
 
-            const apiWordpress = "https://api.wordpress.org/plugins/info/1.0/" + clave + ".json";
+            const apiWordpress = "https://api.wordpress.org/plugins/info/1.0/" + json[1][clave] + ".json";
             var r = await $.getJSON(apiWordpress).then(function(data) {
                 return data;
             });
@@ -638,7 +638,7 @@ async function preparehtml(json, iter) {
     var iteracion = 0;
     for (var clave in json[iter]) {
         if (json[iter].hasOwnProperty(clave)) {
-            const apiWordpress = "https://api.wordpress.org/plugins/info/1.0/" + clave + ".json";
+            const apiWordpress = "https://api.wordpress.org/plugins/info/1.0/" + json[iter][clave] + ".json";
             var r = await $.getJSON(apiWordpress).then(function(data) {
                 return data;
             });
