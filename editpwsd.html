@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Edit Profile Resdec</title>
+    <title>Edit password</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="./css/semantic.css" />
     <link rel="stylesheet" type="text/css" href="./css/site.css" />
@@ -56,33 +56,20 @@
                         </div>
                     </div>
                 </div>
-                <h2>Edit Profile</h2>
+                <h2>Change Password</h2>
                 <div class="ui basic segment">
 
-                    <form id="form_editprofile" class="ui form" action="javascript:;" onsubmit="save(this)">
+                    <form id="form_editpws" class="ui form" action="javascript:;" onsubmit="savepws(this)">
                         <div class="field">
-                            <label>Name</label>
-                            <input id="name" type="text" placeholder="Name" required>
+                            <label>New Password</label>
+                            <input id="pswd" type="password" placeholder="Password" required>
                         </div>
                         <div class="field">
-                            <label>Last Name</label>
-                            <input id="last_name" type="text" placeholder="Last Name" required>
+                            <label>Repeat new Password</label>
+                            <input id="re-pswd" type="password" placeholder="Password" required>
                         </div>
-                        <div class="field">
-                            <label>Email</label>
-                            <input id="email" type="email" placeholder="Email" required>
-                        </div>
-
-                        <div class="field">
-                            <!--<label>Password</label>
-                            <input id="pswd" type="password" placeholder="Password">-->
-                            <p>
-                                <a href="./editpwsd.html">Change Password</a>
-                            </p>
-                        </div>
-
                         <button type="submit" class="negative ui button">
-                            SAVE
+                            CHANGE
                             <i class="angle right icon"></i>
                         </button>
                     </form>
@@ -90,12 +77,12 @@
             </div>
         </div>
     </div>
-
-
 </body>
 
 <script src="./js/editprofile.js"></script>
 <script src="./js/site.js"></script>
+
+
 
 
 
