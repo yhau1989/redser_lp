@@ -447,9 +447,9 @@ function setDataByPlugin(name, homepage, description, tags, downloaded, slug, im
                         <a href="https://wordpress.org/plugins/${slug}/" target="_blank" rel="noopener noreferrer">View more</a>
                     </span>
                     
-                    <span class="right floated">
+                    <!--<span class="right floated">
                     <i class="yellow star icon" title="total rating"></i>${rating_round}
-                    </span>
+                    </span>-->
                     </div>`;
     return html;
 };
