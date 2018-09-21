@@ -142,7 +142,8 @@ async function loadRecomendations(algorithm_id, number_recommendations, item_eva
 
     $('#load_last_view').dimmer('show');
 
-    var url_endpoint = `http://186.5.39.187:8030/resdec/transition_components_based_features/?relationship_type_id=3&var_environment_id=1&algorithm_id=${algorithm_id}&number_recommendations=${number_recommendations}&item_evaluated=${item_evaluated}`;
+    var userLogon = sessionStorage.getItem("UserLoginResdec");
+    var url_endpoint = `http://186.5.39.187:8030/resdec/transition_components_based_features/?relationship_type_id=3&var_environment_id=1&algorithm_id=${algorithm_id}&username=${userLogon}&number_recommendations=${number_recommendations}&item_evaluated=${item_evaluated}`;
     console.log(url_endpoint);
     var json = "";
     var iteracion = 0;
@@ -472,7 +473,3 @@ function loadTagsByPlugin(plugin) {
             }
         });
 }
-
-
-
-//:smiley:
