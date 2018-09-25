@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" 💻="Hola me llamo Samuel Pilay 🇪🇨 y este sitio fue desarrollado por mi 🐦 @samuelpilay">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Edit Photo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="./css/semantic.css" />
+    <link rel="stylesheet" type="text/css" href="./css/site.css" />
+    <link rel="stylesheet" type="text/css" href="./css/flexslider.css" />
+
+
+    <script src="./js/jquery-3.1.1.min.js"></script>
+    <script src="./css/semantic.js"></script>
+
+    <script>
+        if (sessionStorage.getItem("UserLoginResdec") == null) {
+            self.location = "./";
+        }
+    </script>
+
+    <style>
+        form ol {
+            padding-left: 0;
+        }
+        
+        form li,
+        div>p {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            margin-right: 10px;
+            list-style-type: none;
+        }
+        
+        form img {
+            height: 64px;
+            order: 1;
+        }
+        
+        form p {
+            line-height: 32px;
+            padding-left: 10px;
+        }
+        
+        .preview {
+            border: 1px solid rgba(34, 36, 38, 0.15);
+            border-radius: 0.28571429rem;
+            -webkit-box-shadow: 0em 0em 0em 0em transparent inset;
+            box-shadow: 0em 0em 0em 0em transparent inset;
+        }
+    </style>
+
+
+
+
+</head>
+
+<body>
+
+    <div class="ui text container" style="max-width: 400px; padding-top: 25px;">
+        <img class="ui small image" src="./images/resdec_t.png" alt="">
+        <div class="ui segment">
+            <div class="ui basic segment">
+                <div>
+                    <span id="rmamager"><a href="./manager.html">return manager &#8594;</a></span>
+                </div>
+                <div id="avatar-div">
+                    <div class="ui items">
+                        <div class="item">
+                            <div class="ui tiny circular image">
+                                <img src="./images/Avatar.jpg">
+                            </div>
+                            <div class="content">
+                                <a id="name_user" class="header"></a>
+                                <div class="meta">
+                                    <span>Milagro, Ecuador</span>
+                                </div>
+                                <!--<div class="description">
+
+                                    <button class="ui small labeled icon button">
+                                        <i class="camera icon"></i>
+                                        Change profile photo
+                                    </button>
+                                </div>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h2>Change profile photo</h2>
+                <div class="ui basic segment">
+                    <form id="form_editPhoto" class="ui form" enctype="multipart/form-data" action="javascript:;" onsubmit="saveImg(this)">
+                        <div class="field">
+                            <label>File</label>
+                            <div class="preview">
+                                <p>No files currently selected for upload</p>
+                            </div>
+                            <input style="display:none" id="photo_pic" type="file" placeholder="file" accept=".jpg, .jpeg, .png" required>
+                            <label for="photo_pic" class="ui button compact">Choose a image</label>
+                        </div>
+
+                        <button id="change_img" type="submit" class="negative ui button" disabled>
+                            CHANGE
+                            <i class="angle right icon"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="./js/editprofile.js"></script>
+<script src="./js/site.js"></script>
+<script>
+    var input = document.querySelector('input');
+    var preview = document.querySelector('.preview');
+
+    input.style.opacity = 0;
+    input.addEventListener('change', updateImageDisplay);
+
+    function updateImageDisplay() {
+        while (preview.firstChild) {
+            preview.removeChild(preview.firstChild);
+        }
+
+        var curFiles = input.files;
+        if (curFiles.length === 0) {
+            var para = document.createElement('p');
+            para.textContent = 'No files currently selected for upload';
+            preview.appendChild(para);
+            if (!document.getElementById('change_img').hasAttribute("disabled"))
+                document.getElementById('change_img').setAttribute("disabled", "");
+        } else {
+            var list = document.createElement('ol');
+            preview.appendChild(list);
+            for (var i = 0; i < curFiles.length; i++) {
+                var listItem = document.createElement('li');
+                var para = document.createElement('p');
+                if (validFileType(curFiles[i])) {
+                    para.innerHTML = '<b>File name</b>: ' + curFiles[i].name + ' <br><b>file size</b>: ' + returnFileSize(curFiles[i].size) + '.';
+                    var image = document.createElement('img');
+                    image.src = window.URL.createObjectURL(curFiles[i]);
+                    listItem.appendChild(image);
+                    listItem.appendChild(para);
+                    document.getElementById('change_img').removeAttribute("disabled");
+                } else {
+                    para.textContent = 'File name ' + curFiles[i].name + ': Not a valid file type. Update your selection.';
+                    listItem.appendChild(para);
+                    if (!document.getElementById('change_img').hasAttribute("disabled"))
+                        document.getElementById('change_img').setAttribute("disabled", "");
+                }
+
+                list.appendChild(listItem);
+            }
+        }
+    }
+    var fileTypes = [
+        'image/jpeg',
+        'image/pjpeg',
+        'image/png'
+    ]
+
+    function validFileType(file) {
+        for (var i = 0; i < fileTypes.length; i++) {
+            if (file.type === fileTypes[i]) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    function returnFileSize(number) {
+        if (number < 1024) {
+            return number + 'bytes';
+        } else if (number >= 1024 && number < 1048576) {
+            return (number / 1024).toFixed(1) + 'KB';
+        } else if (number >= 1048576) {
+            return (number / 1048576).toFixed(1) + 'MB';
+        }
+    }
+</script>
+
+
+
+
+
+</html>

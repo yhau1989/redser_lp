@@ -104,7 +104,29 @@ function savepws() {
 
 
 
+}
 
+function saveImg() {
+
+    var myFileInput = document.getElementById("photo_pic");
+    console.log(myFileInput.files);
+    var formData = new FormData();
+    formData.append('photo', myFileInput.files[0]);
+    console.log(formData);
+
+
+    $.ajax({
+        type: 'PUT',
+        cache: false,
+        contentType: 'multipart/form-data',
+        //contentType: false,
+        processData: false,
+        url: 'http://186.5.39.187:8030/resdec/user_photo_upload/',
+        data: formData,
+        success: function(data) {
+            console.log(data);
+        }
+    });
 
 
 }
