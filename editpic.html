@@ -62,6 +62,9 @@
     <div class="ui text container" style="max-width: 400px; padding-top: 25px;">
         <img class="ui small image" src="./images/resdec_t.png" alt="">
         <div class="ui segment">
+            <div id="loading_panel" class="ui top aligned inverted dimmer">
+                <div class="ui text loader">Loading</div>
+            </div>
             <div class="ui basic segment">
                 <div>
                     <span id="rmamager"><a href="./manager.html">return manager &#8594;</a></span>
@@ -69,13 +72,13 @@
                 <div id="avatar-div">
                     <div class="ui items">
                         <div class="item">
-                            <div class="ui tiny circular image">
-                                <img src="./images/Avatar.jpg">
+                            <div id="img_user" class="ui tiny circular image">
+                                <img src="">
                             </div>
                             <div class="content">
                                 <a id="name_user" class="header"></a>
                                 <div class="meta">
-                                    <span>Milagro, Ecuador</span>
+                                    <!--<span>Milagro, Ecuador</span>-->
                                 </div>
                                 <!--<div class="description">
 
@@ -93,7 +96,7 @@
                     <form id="form_editPhoto" class="ui form" enctype="multipart/form-data" action="javascript:;" onsubmit="saveImg(this)">
                         <div class="field">
                             <label>File</label>
-                            <div class="preview">
+                            <div id="div_preview" class="preview">
                                 <p>No files currently selected for upload</p>
                             </div>
                             <input style="display:none" id="photo_pic" type="file" placeholder="file" accept=".jpg, .jpeg, .png" required>

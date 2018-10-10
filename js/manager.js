@@ -23,6 +23,7 @@ function loadDataUser() {
 
                     var json = data.user_data;
                     document.getElementById("name_user").innerHTML = json.first_name + ' ' + json.last_name;
+                    document.getElementById("img_user").innerHTML = `<img src="http://www.resdec.com:8030${json.photo}">`;
                 }
             });
     }

@@ -30,6 +30,8 @@ function loadDataUser() {
 
                     if (document.getElementById("email"))
                         document.getElementById("email").value = json.email;
+
+                    document.getElementById("img_user").innerHTML = `<img src="http://www.resdec.com:8030${json.photo}">`;
                 }
             });
     }
@@ -106,25 +108,38 @@ function savepws() {
 
 }
 
+
 function saveImg() {
 
+    console.log("--saveImg");
+    $('#loading_panel').dimmer('show');
+    var userLogon = sessionStorage.getItem("UserLoginResdec");
     var myFileInput = document.getElementById("photo_pic");
-    console.log(myFileInput.files);
     var formData = new FormData();
-    formData.append('photo', myFileInput.files[0]);
-    console.log(formData);
 
+    formData.append('photo', myFileInput.files[0]);
+    formData.append('username', userLogon);
 
     $.ajax({
-        type: 'PUT',
+        type: 'POST',
         cache: false,
-        contentType: 'multipart/form-data',
-        //contentType: false,
+        contentType: false,
         processData: false,
         url: 'http://186.5.39.187:8030/resdec/user_photo_upload/',
         data: formData,
         success: function(data) {
+
+            console.log("-- result saveImg");
             console.log(data);
+            var js = data;
+            loadDataUser();
+            $('#loading_panel').dimmer('hide');
+            if (js.error == 0) {
+                alert("Successfully updated image");
+            } else {
+                alert("Sorry we could not update your image");
+            }
+            document.getElementById("div_preview").innerHTML = "<p>No files currently selected for upload</p>";
         }
     });
 
