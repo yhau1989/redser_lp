@@ -30,6 +30,9 @@
 
             $('#ddl_method').dropdown();
 
+            $('.menu .item')
+                .tab();
+
         });
     </script>
 
@@ -85,107 +88,38 @@
                         <span id="rmamager"><a href="./manager.html">return manager &#8594;</a></span>
                     </h2>
                 </div>
+
                 <div>
-                    <div class="ui equal width form">
-                        <div class="required fields">
-                            <div class="ten wide field">
-                                <label>Used plugin</label>
-                                <select id="seach_tags" name="tags" class="ui fluid search dropdown">
-                                    <option value="">Name used plugin</option>
-                                </select>
-                            </div>
-                            <div class="required six wide field">
-                                <label>Total Suggestions</label>
-                                <div class="ui left action input">
-                                    <button id="plus_buton" class="ui basic icon button">
-                                        <i class="plus icon"></i>
-                                    </button>
-                                    <button id="minus_buton" class="ui basic icon button">
-                                        <i class="minus icon"></i>
-                                    </button>
-                                    <input id="numbers_suggestions" type="number" value="1" placeholder="1" min="1">
-                                </div>
-                            </div>
-                        </div>
-                        <div id="seccion_tagsByplugins" class="field hdide">
-                            <label>Plugin tags</label>
-                            <p id="tagsByplugins">
-                            </p>
-                        </div>
-                        <div class="required field">
-                            <label>Recommender method</label>
-                            <select id="ddl_method" name="ddl_method" class="ui fluid dropdown">
-                                <option value="">method</option>
-                            </select>
-                        </div>
 
+                </div>
+                <div>
 
-                        <div id="list_error" class="ui hidden negative message">
-                            <i class="close icon"></i>
-                            <ul id="items_error" class="list">
-
-                            </ul>
-                        </div>
-
-                        <button id="sub" class="negative ui button">
-                            SUBMIT
-                            <i class="angle right icon"></i>
-                        </button>
-
+                    <div class="ui pointing secondary menu">
+                        <a class="item active " data-tab="first ">Cold Start</a>
+                        <a class="item " data-tab="second ">Transitions components based on ratings</a>
+                        <a class="item " data-tab="third ">Transitions components based on features</a>
                     </div>
-                </div>
-                <h4 id="htop" class="ui dividing header hdide">
-                    Recommended for you based on
-                </h4>
-                <div class="ui basic segment">
-                    <div id="list_items" class="ui cards">
-
-
+                    <div class="ui bottom attached tab segment active " data-tab="first ">
+                        Cold Start
                     </div>
+                    <div class="ui bottom attached tab segment " data-tab="second ">
+                        Transitions components based on ratings
+                    </div>
+                    <div class="ui bottom attached tab segment " data-tab="third ">
+                        Transitions components based on features
+                    </div>
+
                 </div>
-
-                <h4 id="hlike" class="ui dividing header hdide">
-                    You may also like
-                </h4>
-                <div id="list_items_others" class="ui divided items">
-                </div>
-
-
-
-
             </div>
         </div>
 
 
-        <!--<div class="myfooter2" style="position: fixed; bottom: 0;">
-            fghdfghdfg
-        </div>
-
-        <div id="fooidenx" class="myfooter2">
-            <div class="ui grid" style="margin-bottom: 0px;margin-top: 0px;margin-left: 0px;margin-right: 0px;">
-                <div class="left floated six wide column" style="padding: 0;">
-                    <div class="ui vertical basic segment" style="padding: 0;">
-                        <br>
-                        <span>Copyright 2018 - All rights reserved</span>
-                    </div>
-                </div>
-                <div class="right floated six wide column" style="padding: 0;">
-                    <div class="ui basic right aligned segment" style="padding: 0;">
-                        <img src="./images/logoUni.jpg" class="ui small right floated image" alt="" usemap="#imgmap">
-                        <map name="imgmap">
-                            <area rel="noopener noreferrer" target="_blank" alt="Unemi" title="Unemi" href="http://www.unemi.edu.ec/" coords="3,79,111,0" shape="rect">
-                            <area rel="noopener noreferrer" target="_blank" alt="Sevilla" title="Sevilla" href="http://www.us.es" coords="199,81,114,0" shape="rect">
-                        </map>
-                    </div>
-                </div>
-            </div>
-        </div>-->
 
     </div>
 
 </body>
 
-<script src="./js/esc3.js"></script>
-<script src="./js/site.js"></script>
+<script src="./js/esc3.js "></script>
+<script src="./js/site.js "></script>
 
 </html>
