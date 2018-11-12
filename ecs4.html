@@ -45,7 +45,7 @@
                     layout: $(go.TreeLayout, // specify a Diagram.layout that arranges trees
                         {
                             angle: 90,
-                            layerSpacing: 35
+                            layerSpacing: 45
                         })
                 });
 
@@ -76,11 +76,82 @@
                 );
 
 
+            function convertIsTreeLink(r) {
+                return r === "generalization";
+            }
+
+            function convertFromArrow(r) {
+                switch (r) {
+                    case "generalization":
+                        return "";
+                    default:
+                        return "";
+                }
+            }
+
+            function convertToArrow(r) {
+                switch (r) {
+                    case "generalization":
+                        return "Triangle";
+                    case "aggregation":
+                        return "StretchedDiamond";
+                    default:
+                        return "";
+                }
+            }
+
+            function convertToCircleWhite(r) {
+                switch (r) {
+                    case "optional":
+                        return "Circle";
+                    default:
+                        return "";
+                }
+            }
+
+            function convertToCircleBlack(r) {
+                switch (r) {
+                    case "mandatory":
+                        return "Circle";
+                    default:
+                        return "";
+                }
+            }
+
             myDiagram.linkTemplate =
-                $(go.Link,
+                $(go.Link, {
+                        routing: go.Link.Orthogonal,
+                        corner: 5
+                    },
+                    new go.Binding("isLayoutPositioned", "relationship", convertIsTreeLink),
                     $(go.Shape, {
                         strokeWidth: 1.5
-                    }));
+                    }),
+                    $(go.Shape, {
+                            strokeWidth: 1.5,
+                            scale: 1.1,
+                            fill: "white"
+                        },
+                        new go.Binding("fromArrow", "relationship", convertFromArrow)),
+                    $(go.Shape, {
+                            strokeWidth: 1.5,
+                            scale: 1.1,
+                            fill: "black"
+                        },
+                        new go.Binding("toArrow", "relationship", convertToArrow)),
+                    $(go.Shape, {
+                            strokeWidth: 1.5,
+                            scale: 1.1,
+                            fill: "white"
+                        },
+                        new go.Binding("toArrow", "relationship", convertToCircleWhite)),
+                    $(go.Shape, {
+                            strokeWidth: 1.5,
+                            scale: 1.1,
+                            fill: "black"
+                        },
+                        new go.Binding("toArrow", "relationship", convertToCircleBlack))
+                );
 
             // set up the nodeDataArray, describing each part of the sentence
             var nodeDataArray = [{
@@ -94,181 +165,211 @@
                 text: "Layout Manager",
                 fill: "#FF0013",
                 stroke: "#ffffff",
-                parent: 1
+                parent: 1,
+                relationship: "generalization"
             }, {
                 key: 3,
                 text: "Catalogue",
                 fill: "#FF0013",
                 stroke: "#ffffff",
-                parent: 1
+                parent: 1,
+                relationship: "generalization"
             }, {
                 key: 4,
                 text: "Search",
                 fill: "#FF0013",
                 stroke: "#ffffff",
-                parent: 1
+                parent: 1,
+                relationship: "generalization"
             }, {
                 key: 5,
                 text: "Online Shopping",
                 fill: "#FF0013",
                 stroke: "#ffffff",
-                parent: 1
+                parent: 1,
+                relationship: "generalization"
             }, {
                 key: 6,
                 text: "Contact",
                 fill: "#FF0013",
                 stroke: "#ffffff",
-                parent: 1
+                parent: 1,
+                relationship: "generalization"
             }, {
                 key: 7,
                 text: "CRM",
                 fill: "#FF0013",
                 stroke: "#ffffff",
-                parent: 1
+                parent: 1,
+                relationship: "generalization"
             }, {
                 key: 8,
                 text: "Security",
                 fill: "#FF0013",
                 stroke: "#ffffff",
-                parent: 1
+                parent: 1,
+                relationship: "mandatory"
             }, {
                 key: 9,
                 text: "Marketing",
                 fill: "#FF0013",
                 stroke: "#ffffff",
-                parent: 1
+                parent: 1,
+                relationship: "optional"
             }, {
                 key: 10,
                 text: "Products",
                 fill: "#FF0013",
                 stroke: "#ffffff",
-                parent: 3
+                parent: 3,
+                relationship: "generalization"
             }, {
                 key: 11,
                 text: "Offers",
                 fill: "#7C7A7A",
                 stroke: "#7C7A7A",
-                parent: 3
+                parent: 3,
+                relationship: "generalization"
             }, {
                 key: 20,
                 text: "Image",
                 fill: "#7C7A7A",
                 stroke: "#7C7A7A",
-                parent: 10
+                parent: 10,
+                relationship: "generalization"
             }, {
                 key: 21,
                 text: "Price",
                 fill: "#7C7A7A",
                 stroke: "#7C7A7A",
-                parent: 10
+                parent: 10,
+                relationship: "generalization"
             }, {
                 key: 22,
                 text: "Description",
                 fill: "#7C7A7A",
                 stroke: "#7C7A7A",
-                parent: 10
+                parent: 10,
+                relationship: "generalization"
             }, {
                 key: 23,
                 text: "Basic",
                 fill: "#7C7A7A",
                 stroke: "#7C7A7A",
-                parent: 4
+                parent: 4,
+                relationship: "generalization"
             }, {
                 key: 24,
                 text: "Advanced",
                 fill: "#7C7A7A",
                 stroke: "#7C7A7A",
-                parent: 4
+                parent: 4,
+                relationship: "generalization"
             }, {
                 key: 25,
                 text: "Shopping Cart",
                 fill: "#7C7A7A",
                 stroke: "#7C7A7A",
-                parent: 5
+                parent: 5,
+                relationship: "generalization"
             }, {
                 key: 26,
                 text: "Payment",
                 fill: "#FF0013",
                 stroke: "#ffffff",
-                parent: 5
+                parent: 5,
+                relationship: "generalization"
             }, {
                 key: 30,
                 text: "Bank Transfer",
                 fill: "#7C7A7A",
                 stroke: "#7C7A7A",
-                parent: 26
+                parent: 26,
+                relationship: "generalization"
             }, {
                 key: 31,
                 text: "Paypal",
                 fill: "#7C7A7A",
                 stroke: "#7C7A7A",
-                parent: 26
+                parent: 26,
+                relationship: "generalization"
             }, {
                 key: 32,
                 text: "Debit/Credit Card",
                 fill: "#FF0013",
                 stroke: "#ffffff",
-                parent: 26
+                parent: 26,
+                relationship: "generalization"
             }, {
                 key: 33,
                 text: "After Pay",
                 fill: "#7C7A7A",
                 stroke: "#7C7A7A",
-                parent: 26
+                parent: 26,
+                relationship: "generalization"
             }, {
                 key: 40,
                 text: "Visa",
                 fill: "#7C7A7A",
                 stroke: "#7C7A7A",
-                parent: 32
+                parent: 32,
+                relationship: "generalization"
             }, {
                 key: 41,
                 text: "Diners",
                 fill: "#7C7A7A",
                 stroke: "#7C7A7A",
-                parent: 32
+                parent: 32,
+                relationship: "generalization"
             }, {
                 key: 42,
                 text: "Masterard",
                 fill: "#7C7A7A",
                 stroke: "#7C7A7A",
-                parent: 32
+                parent: 32,
+                relationship: "generalization"
             }, {
                 key: 43,
                 text: "Discover",
                 fill: "#7C7A7A",
                 stroke: "#7C7A7A",
-                parent: 32
+                parent: 32,
+                relationship: "generalization"
             }, {
                 key: 44,
                 text: "American Express",
                 fill: "#7C7A7A",
                 stroke: "#7C7A7A",
-                parent: 32
+                parent: 32,
+                relationship: "generalization"
             }, {
                 key: 14,
                 text: "High",
                 fill: "#7C7A7A",
                 stroke: "#7C7A7A",
-                parent: 8
+                parent: 8,
+                relationship: "generalization"
             }, {
                 key: 15,
                 text: "Standard",
                 fill: "#7C7A7A",
                 stroke: "#7C7A7A",
-                parent: 8
+                parent: 8,
+                relationship: "generalization"
             }, {
                 key: 16,
                 text: "SEO",
                 fill: "#7C7A7A",
                 stroke: "#7C7A7A",
-                parent: 9
+                parent: 9,
+                relationship: "generalization"
             }, {
                 key: 17,
                 text: "Social Media",
                 fill: "#7C7A7A",
                 stroke: "#7C7A7A",
-                parent: 9
+                parent: 9,
+                relationship: "generalization"
             }]
 
             // create the Model with data for the tree, and assign to the Diagram
@@ -276,6 +377,7 @@
                 $(go.TreeModel, {
                     nodeDataArray: nodeDataArray
                 });
+
         }
     </script>
 
