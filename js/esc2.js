@@ -2,32 +2,122 @@ const endpoint_tags = 'http://186.5.39.187:8030/resdec/list_items/?var_environme
 const endpoint_algorithms = 'http://186.5.39.187:8030/resdec/list_algorithms/?relationship_type_id=2';
 
 
-$(document).ready(function() {
+function getAllUrlParams() {
 
-    //lenar combo de tags
-    $.getJSON(endpoint_tags,
-        function(data) {
-            if (data.list_items) {
-                var json = data.list_items;
-                var x = document.getElementById("seach_tags");
+    // get query string from url (optional) or window
+    var queryString = window.location.search.slice(1);
 
-                for (var clave in json) {
-                    // Controlando que json realmente tenga esa propiedad
-                    if (json.hasOwnProperty(clave)) {
-                        // Mostrando en pantalla la clave junto a su valor
-                        //console.log("La clave es " + clave + " y el valor es " + json[clave]); #
-                        var option = document.createElement("option");
-                        option.value = clave;
-                        option.text = json[clave];
-                        x.add(option);
-                    }
+    // we'll store the parameters here
+    var obj = {};
+
+    // if query string exists
+    if (queryString) {
+
+        // stuff after # is not part of query string, so get rid of it
+        queryString = queryString.split('#')[0];
+
+        // split our query string into its component parts
+        var arr = queryString.split('&');
+
+        for (var i = 0; i < arr.length; i++) {
+            // separate the keys and the values
+            var a = arr[i].split('=');
+
+            // set parameter name and value (use 'true' if empty)
+            var paramName = a[0];
+            var paramValue = typeof(a[1]) === 'undefined' ? true : a[1];
+
+            // (optional) keep case consistent
+            paramName = paramName.toLowerCase();
+            if (typeof paramValue === 'string') paramValue = paramValue.toLowerCase();
+
+            // if the paramName ends with square brackets, e.g. colors[] or colors[2]
+            if (paramName.match(/\[(\d+)?\]$/)) {
+
+                // create key if it doesn't exist
+                var key = paramName.replace(/\[(\d+)?\]/, '');
+                if (!obj[key]) obj[key] = [];
+
+                // if it's an indexed array e.g. colors[2]
+                if (paramName.match(/\[\d+\]$/)) {
+                    // get the index value and add the entry at the appropriate position
+                    var index = /\[(\d+)\]/.exec(paramName)[1];
+                    obj[key][index] = paramValue;
+                } else {
+                    // otherwise add the value to the end of the array
+                    obj[key].push(paramValue);
+                }
+            } else {
+                // we're dealing with a string
+                if (!obj[paramName]) {
+                    // if it doesn't exist, create property
+                    obj[paramName] = paramValue;
+                } else if (obj[paramName] && typeof obj[paramName] === 'string') {
+                    // if property does exist and it's a string, convert it to an array
+                    obj[paramName] = [obj[paramName]];
+                    obj[paramName].push(paramValue);
+                } else {
+                    // otherwise add the property
+                    obj[paramName].push(paramValue);
                 }
             }
-        });
+        }
+    }
 
+    return obj;
+}
+
+
+
+
+$(document).ready(function() {
+
+    //var url = getAllUrlParams().esc;
+    if (getAllUrlParams().esc) {
+
+        
+        var linkreturn = document.getElementById("returLnk");
+        linkreturn.text = 'return Case Study applied to eCommerce Website →';
+        linkreturn.href = './ecs4.html';
+
+        var json = getAllUrlParams().esc.split(",");
+        var x = document.getElementById("seach_tags");
+        for (var clave in json) {
+            // Controlando que json realmente tenga esa propiedad
+            if (json.hasOwnProperty(clave)) {
+                // Mostrando en pantalla la clave junto a su valor
+                //console.log("La clave es " + clave + " y el valor es " + json[clave]); #
+                var option = document.createElement("option");
+                option.value = clave;
+                option.text = json[clave];
+                x.add(option);
+            }
+        }
+    } else {
+        //lenar combo de tags
+        $.getJSON(endpoint_tags,
+            function(data) {
+                if (data.list_items) {
+                    var json = data.list_items;
+                    var x = document.getElementById("seach_tags");
+
+                    for (var clave in json) {
+                        // Controlando que json realmente tenga esa propiedad
+                        if (json.hasOwnProperty(clave)) {
+                            // Mostrando en pantalla la clave junto a su valor
+                            //console.log("La clave es " + clave + " y el valor es " + json[clave]); #
+                            var option = document.createElement("option");
+                            option.value = clave;
+                            option.text = json[clave];
+                            x.add(option);
+                        }
+                    }
+                }
+            });
+    }
 
     //loadLastView
-    loadLastView();
+    //loadLastView();
 });
 
 
