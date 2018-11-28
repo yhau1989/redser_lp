@@ -12,6 +12,58 @@
     <script src="./js/jquery-3.1.1.min.js"></script>
     <script src="./css/semantic.js"></script>
 
+    <script>
+        if (sessionStorage.getItem("UserLoginResdec") == null) {
+            self.location = "./";
+        }
+
+        $(document).ready(function() {
+
+            //esc 4
+            $('.menu .item')
+                .tab();
+
+            //--esc 1 (COLD START)--
+            $('#seach_tags').dropdown();
+
+
+            $('#view_advance').click(function() {
+                $('#segment_advance').transition('fade down');
+                var f = $('#segment_advance').attr('class');
+                if (f.indexOf('in fade down') != -1) {
+                    $('#view_advance i').css({
+
+                        "-webkit-transform": "rotateZ(0.25turn)",
+                        "-moz-transform": "rotateZ(0.25turn)",
+                        "transform": "rotateZ(0.25turn)",
+                        "-o-transform": "rotateZ(0.25turn)",
+                        "-webkit-transition": "transform 0.3s ease-in",
+                        "-moz-transition": "transform 0.3s ease-in",
+                        "-o-transition": "transform 0.3s ease-in",
+                        "transition": "transform 0.3s ease-in"
+                    });
+                } else {
+                    $('#view_advance i').css({
+                        "-webkit-transform": "rotateZ(0.0turn)",
+                        "-moz-transform": "rotateZ(0.0turn)",
+                        "transform": "rotateZ(0.0turn)",
+                        "-o-transform": "rotateZ(0.0turn)" /* For modern browsers(CSS3)  */
+                    });
+                }
+            });
+
+
+            //--esc 2 (Transitions components based on ratings)--
+
+            $('.ui.dropdown')
+                .dropdown();
+
+
+
+        });
+    </script>
+
+
 </head>
 
 <body>
@@ -89,33 +141,250 @@
 
                 <div>
 
+                    <div class="ui top attached tabular menu">
+                        <a class="item active" data-tab="first">Cold Start</a>
+                        <a class="item" data-tab="second">Transitions components based on ratings</a>
+                        <a class="item" data-tab="third">Transitions components based on features</a>
+                    </div>
+                    <div id="content_COLD_START" class="ui bottom attached tab segment active" data-tab="first">
+                        <div id="uisegment_COLD_START">
 
-                        <div class="ui center aligned basic segment">
-                                <a href="#" id="esc1_url" class="ui button">
-                                        Case Study applied to eCommerce Website into "Cold Start"
-                                    <i class="angle right icon"></i>
-                                </a>
+                            <div id="load_last_view" class="ui top aligned inverted dimmer">
+                                <div class="ui text loader">Loading</div>
+                            </div>
 
-                                <div class="ui horizontal divider">
-                                  Or
-                                </div>
 
-                                <a href="#" id="esc2_url" class="ui button">
-                                        Case Study applied to eCommerce Website into "Transitions components based on ratings"
-                                    <i class="angle right icon"></i>
-                                </a>
+                            <div>
+                                <div id="log"></div>
+                                <h2>Cold Start</h2>
+                            </div>
+                            <div>
+                                <div class="ui equal width form">
+                                    <div class="fields">
+                                        <div class="ten wide field">
+                                            <label>Tags</label>
+                                            <select id="seach_tags" name="tags" class="ui fluid search dropdown" multiple="">
+                                                <option value="">tags</option>
+                                            </select>
+                                        </div>
+                                        <div class="six wide field">
+                                            <label>Total Suggestions</label>
+                                            <div class="ui left action input">
+                                                <button id="plus_buton" class="ui basic icon button">
+                                                    <i class="plus icon"></i>
+                                                </button>
+                                                <button id="minus_buton" class="ui basic icon button">
+                                                    <i class="minus icon"></i>
+                                                </button>
+                                                <input id="numbers_suggestions" type="number" value="1" placeholder="1" min="1">
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                <div class="ui horizontal divider">
-                                        Or
-                                      </div>
 
-                                      <a href="#" id="esc3_url" class="ui button">
-                                            Case Study applied to eCommerce Website into "Transitions components based on features"
+
+                                    <button id="sub" class="negative ui button">
+                                        SUBMIT
                                         <i class="angle right icon"></i>
-                                      </a>
-                                
-                              </div>
-                        
+                                    </button>
+
+                                </div>
+                            </div>
+
+
+                            <h4 id="htop" class="ui dividing header hdide">
+                                Top
+                            </h4>
+                            <div class="ui basic segment">
+                                <div id="list_items" class="ui cards">
+                                </div>
+                            </div>
+
+
+                            <h4 id="hlike" class="ui dividing header hdide">
+                                You may also like
+                            </h4>
+                            <div id="list_items_others" class="ui divided items">
+                            </div>
+
+
+                            <div id="segment_last_view" class="ui basic segment hdide">
+                                <div class="ui basic segment">
+                                    <h2>Top 10</h2>
+                                    <div id="list_items_top10" class="ui divided items">
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                    <div id="content_BASED_ON_RATINGS" class="ui bottom attached tab segment " data-tab="second">
+                        <div id="uisegment_BASED_ON_RATINGS">
+                            <div id="load_last_view" class="ui top aligned inverted dimmer">
+                                <div class="ui text loader">Loading</div>
+                            </div>
+
+                            <div>
+                                <div id="log"></div>
+                                <h2>Transitions components based on ratings</h2>
+                            </div>
+                            <div>
+                                <div class="ui equal width form">
+                                    <div class="fields">
+                                        <div class="required ten wide field">
+                                            <label>Used plugin</label>
+                                            <select id="seach_tags" name="tags" class="ui fluid search dropdown">
+                                                        <option value="">Name used plugin</option>
+                                                      </select>
+                                        </div>
+                                        <div class="required six wide field">
+                                            <label>Total Suggestions</label>
+                                            <div class="ui left action input">
+                                                <button id="plus_buton" class="ui basic icon button">
+                                                            <i class="plus icon"></i>
+                                                        </button>
+                                                <button id="minus_buton" class="ui basic icon button">
+                                                            <i class="minus icon"></i>
+                                                        </button>
+                                                <input id="numbers_suggestions" type=" number" value="1" placeholder="1" min="1">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="required field">
+                                        <label>Recommender method</label>
+                                        <select id="ddl_method" name="ddl_method" class="ui fluid dropdown">
+                                                    <option value="">method</option>
+                                                  </select>
+                                    </div>
+
+
+                                    <div id="list_error" class="ui hidden negative message">
+                                        <i class="close icon"></i>
+                                        <ul id="items_error" class="list">
+
+                                        </ul>
+                                    </div>
+
+                                    <button id="sub" class="negative ui button">
+                                                SUBMIT
+                                                <i class="angle right icon"></i>
+                                            </button>
+
+                                </div>
+                            </div>
+                            <h4 id="htop" class="ui dividing header hdide">
+                                Recommended for you based on
+                            </h4>
+                            <div class="ui basic segment">
+                                <div id="list_items" class="ui cards">
+
+
+                                </div>
+                            </div>
+
+
+                            <h4 id="hlike" class="ui dividing header hdide">
+                                You may also like
+                            </h4>
+                            <div id="list_items_others" class="ui divided items">
+                            </div>
+
+
+                            <div id="segment_last" class="ui basic segment hdide">
+                                <div class="ui basic segment">
+                                    <h2>Last views</h2>
+                                    <div id="list_items_last" class="ui divided items">
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div id="content_BASED_ON_FEATURES" class="ui bottom attached tab segment" data-tab="third">
+                        <div id="uisegment_BASED_ON_FEATURES">
+                            <div id="load_last_view" class="ui top aligned inverted dimmer">
+                                <div class="ui text loader">Loading</div>
+                            </div>
+
+
+                            <div>
+                                <div id="log"></div>
+                                <h2>Transitions components based on features</h2>
+                            </div>
+                            <div>
+                                <div class="ui equal width form">
+                                    <div class="required fields">
+                                        <div class="ten wide field">
+                                            <label>Used plugin</label>
+                                            <select id="seach_tags" name="tags" class="ui fluid search dropdown">
+                                                        <option value="">Name used plugin</option>
+                                                      </select>
+                                        </div>
+                                        <div class="required six wide field">
+                                            <label>Total Suggestions</label>
+                                            <div class="ui left action input">
+                                                <button id="plus_buton" class="ui basic icon button">
+                                                            <i class="plus icon"></i>
+                                                        </button>
+                                                <button id="minus_buton" class="ui basic icon button">
+                                                            <i class="minus icon"></i>
+                                                        </button>
+                                                <input id="numbers_suggestions" type="number" value="1" placeholder="1" min="1">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="seccion_tagsByplugins" class="field hdide">
+                                        <label>Plugin tags</label>
+                                        <p id="tagsByplugins">
+                                        </p>
+                                    </div>
+                                    <div class="required field">
+                                        <label>Recommender method</label>
+                                        <select id="ddl_method" name="ddl_method" class="ui fluid dropdown">
+                                                    <option value="">method</option>
+                                                  </select>
+                                    </div>
+
+
+                                    <div id="list_error" class="ui hidden negative message">
+                                        <i class="close icon"></i>
+                                        <ul id="items_error" class="list">
+
+                                        </ul>
+                                    </div>
+
+                                    <button id="sub" class="negative ui button">
+                                                SUBMIT
+                                                <i class="angle right icon"></i>
+                                            </button>
+
+                                </div>
+                            </div>
+                            <h4 id="htop" class="ui dividing header hdide">
+                                Recommended for you based on
+                            </h4>
+                            <div class="ui basic segment">
+                                <div id="list_items" class="ui cards">
+
+
+                                </div>
+                            </div>
+
+                            <h4 id="hlike" class="ui dividing header hdide">
+                                You may also like
+                            </h4>
+                            <div id="list_items_others" class="ui divided items">
+                            </div>
+
+
+
+
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -125,8 +394,6 @@
     </div>
 
 </body>
-
 <script src="./js/esc4.js "></script>
-
 
 </html>
