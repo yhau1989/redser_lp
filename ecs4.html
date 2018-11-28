@@ -149,13 +149,13 @@
                     <div id="content_COLD_START" class="ui bottom attached tab segment active" data-tab="first">
                         <div id="uisegment_COLD_START">
 
-                            <div id="load_last_view" class="ui top aligned inverted dimmer">
+                            <div id="load_last_view_cs" class="ui top aligned inverted dimmer">
                                 <div class="ui text loader">Loading</div>
                             </div>
 
 
                             <div>
-                                <div id="log"></div>
+                                <div id="log_cs"></div>
                                 <h2>Cold Start</h2>
                             </div>
                             <div>
@@ -163,27 +163,27 @@
                                     <div class="fields">
                                         <div class="ten wide field">
                                             <label>Tags</label>
-                                            <select id="seach_tags" name="tags" class="ui fluid search dropdown" multiple="">
+                                            <select id="seach_tags_cs" name="tags" class="ui fluid search dropdown" multiple="">
                                                 <option value="">tags</option>
                                             </select>
                                         </div>
                                         <div class="six wide field">
                                             <label>Total Suggestions</label>
                                             <div class="ui left action input">
-                                                <button id="plus_buton" class="ui basic icon button">
+                                                <button id="plus_buton_cs" class="ui basic icon button">
                                                     <i class="plus icon"></i>
                                                 </button>
-                                                <button id="minus_buton" class="ui basic icon button">
+                                                <button id="minus_buton_cs" class="ui basic icon button">
                                                     <i class="minus icon"></i>
                                                 </button>
-                                                <input id="numbers_suggestions" type="number" value="1" placeholder="1" min="1">
+                                                <input id="numbers_suggestions_cs" type="number" value="1" placeholder="1" min="1">
                                             </div>
                                         </div>
                                     </div>
 
 
 
-                                    <button id="sub" class="negative ui button">
+                                    <button id="sub_cs" class="negative ui button">
                                         SUBMIT
                                         <i class="angle right icon"></i>
                                     </button>
@@ -192,26 +192,26 @@
                             </div>
 
 
-                            <h4 id="htop" class="ui dividing header hdide">
+                            <h4 id="htop_cs" class="ui dividing header hdide">
                                 Top
                             </h4>
                             <div class="ui basic segment">
-                                <div id="list_items" class="ui cards">
+                                <div id="list_items_cs" class="ui cards">
                                 </div>
                             </div>
 
 
-                            <h4 id="hlike" class="ui dividing header hdide">
+                            <h4 id="hlike_cs" class="ui dividing header hdide">
                                 You may also like
                             </h4>
-                            <div id="list_items_others" class="ui divided items">
+                            <div id="list_items_others_cs" class="ui divided items">
                             </div>
 
 
-                            <div id="segment_last_view" class="ui basic segment hdide">
+                            <div id="segment_last_view_cs" class="ui basic segment hdide">
                                 <div class="ui basic segment">
                                     <h2>Top 10</h2>
-                                    <div id="list_items_top10" class="ui divided items">
+                                    <div id="list_items_top10_cs" class="ui divided items">
                                     </div>
                                 </div>
                             </div>
@@ -227,7 +227,7 @@
                             </div>
 
                             <div>
-                                <div id="log"></div>
+                                <div id="log_bor"></div>
                                 <h2>Transitions components based on ratings</h2>
                             </div>
                             <div>
@@ -235,67 +235,67 @@
                                     <div class="fields">
                                         <div class="required ten wide field">
                                             <label>Used plugin</label>
-                                            <select id="seach_tags" name="tags" class="ui fluid search dropdown">
+                                            <select id="seach_tags_bor" name="tags" class="ui fluid search dropdown">
                                                         <option value="">Name used plugin</option>
                                                       </select>
                                         </div>
                                         <div class="required six wide field">
                                             <label>Total Suggestions</label>
                                             <div class="ui left action input">
-                                                <button id="plus_buton" class="ui basic icon button">
+                                                <button id="plus_buton_bor" class="ui basic icon button">
                                                             <i class="plus icon"></i>
                                                         </button>
-                                                <button id="minus_buton" class="ui basic icon button">
+                                                <button id="minus_buton_bor" class="ui basic icon button">
                                                             <i class="minus icon"></i>
                                                         </button>
-                                                <input id="numbers_suggestions" type=" number" value="1" placeholder="1" min="1">
+                                                <input id="numbers_suggestions_bor" type=" number" value="1" placeholder="1" min="1">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="required field">
                                         <label>Recommender method</label>
-                                        <select id="ddl_method" name="ddl_method" class="ui fluid dropdown">
+                                        <select id="ddl_method_bor" name="ddl_method" class="ui fluid dropdown">
                                                     <option value="">method</option>
                                                   </select>
                                     </div>
 
 
-                                    <div id="list_error" class="ui hidden negative message">
+                                    <div id="list_error_bor" class="ui hidden negative message">
                                         <i class="close icon"></i>
-                                        <ul id="items_error" class="list">
+                                        <ul id="items_error_bor" class="list">
 
                                         </ul>
                                     </div>
 
-                                    <button id="sub" class="negative ui button">
+                                    <button id="sub_bor" class="negative ui button">
                                                 SUBMIT
                                                 <i class="angle right icon"></i>
                                             </button>
 
                                 </div>
                             </div>
-                            <h4 id="htop" class="ui dividing header hdide">
+                            <h4 id="htop_bor" class="ui dividing header hdide">
                                 Recommended for you based on
                             </h4>
                             <div class="ui basic segment">
-                                <div id="list_items" class="ui cards">
+                                <div id="list_items_bor" class="ui cards">
 
 
                                 </div>
                             </div>
 
 
-                            <h4 id="hlike" class="ui dividing header hdide">
+                            <h4 id="hlike_bor" class="ui dividing header hdide">
                                 You may also like
                             </h4>
-                            <div id="list_items_others" class="ui divided items">
+                            <div id="list_items_others_bor" class="ui divided items">
                             </div>
 
 
-                            <div id="segment_last" class="ui basic segment hdide">
+                            <div id="segment_last_bor" class="ui basic segment hdide">
                                 <div class="ui basic segment">
                                     <h2>Last views</h2>
-                                    <div id="list_items_last" class="ui divided items">
+                                    <div id="list_items_last_bor" class="ui divided items">
                                     </div>
                                 </div>
                             </div>
@@ -395,5 +395,9 @@
 
 </body>
 <script src="./js/esc4.js "></script>
+<script src="./js/esc41.js"></script>
+<script src="./js/esc43.js"></script>
+<script src="./js/site.js"></script>
+<script src="./js/esc42.js"></script>
 
 </html>

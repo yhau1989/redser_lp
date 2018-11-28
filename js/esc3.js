@@ -4,14 +4,12 @@ const endpoint_algorithms = "http://186.5.39.187:8030/resdec/list_algorithms/?re
 
 $(document).ready(function() {
 
-    if (getAllUrlParams().esc) {
-
-        var linkreturn = document.getElementById("returLnk");
-        linkreturn.text = 'return Case Study applied to eCommerce Website →';
-        linkreturn.href = './ecs4.html';
-
-        var json = getAllUrlParams().esc.split(",");
-        var x = document.getElementById("seach_tags");
+    //lenar combo de tags
+    $.getJSON(endpoint_tags,
+        function(data) {
+            if (data.list_items) {
+                var json = data.list_items;
+                var x = document.getElementById("seach_tags");
 
                 for (var clave in json) {
                     // Controlando que json realmente tenga esa propiedad
@@ -24,37 +22,8 @@ $(document).ready(function() {
                         x.add(option);
                     }
                 }
-
-
-    }else
-    {
-        //lenar combo de tags
-        $.getJSON(endpoint_tags,
-            function(data) {
-                if (data.list_items) {
-                    var json = data.list_items;
-                    var x = document.getElementById("seach_tags");
-
-                    for (var clave in json) {
-                        // Controlando que json realmente tenga esa propiedad
-                        if (json.hasOwnProperty(clave)) {
-                            // Mostrando en pantalla la clave junto a su valor
-                            //console.log("La clave es " + clave + " y el valor es " + json[clave]);
-                            var option = document.createElement("option");
-                            option.value = clave;
-                            option.text = json[clave];
-                            x.add(option);
-                        }
-                    }
-                }
-            });
-    }
-
-
-
-
-    
-
+            }
+        });
 });
 
 

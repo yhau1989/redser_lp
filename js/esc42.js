@@ -1,83 +1,15 @@
-const endpoint_tags = 'http://186.5.39.187:8030/resdec/list_items/?var_environment_id=1&relationship_type_id=2&item=';
-const endpoint_algorithms = 'http://186.5.39.187:8030/resdec/list_algorithms/?relationship_type_id=2';
-
-
-function getAllUrlParams() {
-
-    // get query string from url (optional) or window
-    var queryString = window.location.search.slice(1);
-
-    // we'll store the parameters here
-    var obj = {};
-
-    // if query string exists
-    if (queryString) {
-
-        // stuff after # is not part of query string, so get rid of it
-        queryString = queryString.split('#')[0];
-
-        // split our query string into its component parts
-        var arr = queryString.split('&');
-
-        for (var i = 0; i < arr.length; i++) {
-            // separate the keys and the values
-            var a = arr[i].split('=');
-
-            // set parameter name and value (use 'true' if empty)
-            var paramName = a[0];
-            var paramValue = typeof(a[1]) === 'undefined' ? true : a[1];
-
-            // (optional) keep case consistent
-            paramName = paramName.toLowerCase();
-            if (typeof paramValue === 'string') paramValue = paramValue.toLowerCase();
-
-            // if the paramName ends with square brackets, e.g. colors[] or colors[2]
-            if (paramName.match(/\[(\d+)?\]$/)) {
-
-                // create key if it doesn't exist
-                var key = paramName.replace(/\[(\d+)?\]/, '');
-                if (!obj[key]) obj[key] = [];
-
-                // if it's an indexed array e.g. colors[2]
-                if (paramName.match(/\[\d+\]$/)) {
-                    // get the index value and add the entry at the appropriate position
-                    var index = /\[(\d+)\]/.exec(paramName)[1];
-                    obj[key][index] = paramValue;
-                } else {
-                    // otherwise add the value to the end of the array
-                    obj[key].push(paramValue);
-                }
-            } else {
-                // we're dealing with a string
-                if (!obj[paramName]) {
-                    // if it doesn't exist, create property
-                    obj[paramName] = paramValue;
-                } else if (obj[paramName] && typeof obj[paramName] === 'string') {
-                    // if property does exist and it's a string, convert it to an array
-                    obj[paramName] = [obj[paramName]];
-                    obj[paramName].push(paramValue);
-                } else {
-                    // otherwise add the property
-                    obj[paramName].push(paramValue);
-                }
-            }
-        }
-    }
-
-    return obj;
-}
-
-
+const endpoint_tags_bor = 'http://186.5.39.187:8030/resdec/list_items/?var_environment_id=1&relationship_type_id=2&item=';
+const endpoint_algorithms_bor = 'http://186.5.39.187:8030/resdec/list_algorithms/?relationship_type_id=2';
 
 
 $(document).ready(function() {
 
     //lenar combo de tags
-    $.getJSON(endpoint_tags,
+    $.getJSON(endpoint_tags_bor,
         function(data) {
             if (data.list_items) {
                 var json = data.list_items;
-                var x = document.getElementById("seach_tags");
+                var x = document.getElementById("seach_tags_bor");
 
                 for (var clave in json) {
                     // Controlando que json realmente tenga esa propiedad
@@ -105,12 +37,12 @@ $(document).ready(function() {
 function SetHtmlData(array) {
 
     if (array.length > 0) {
-        document.getElementById("htop").classList.remove('hdide');
-        document.getElementById("list_items").innerHTML = "";
+        document.getElementById("htop_bor").classList.remove('hdide');
+        document.getElementById("list_items_bor").innerHTML = "";
 
     } else {
-        document.getElementById("htop").classList.add('hdide');
-        document.getElementById("list_items").innerHTML = "The main results have not been found in WordPress, but you may be interested in other plugins";
+        document.getElementById("htop_bor").classList.add('hdide');
+        document.getElementById("list_items_bor").innerHTML = "The main results have not been found in WordPress, but you may be interested in other plugins";
     }
 
     var item = document.createElement('div');
@@ -120,7 +52,7 @@ function SetHtmlData(array) {
     for (let index = 0; index < array.length; index++) {
 
         item.innerHTML = array[index];
-        document.getElementById("list_items").appendChild(item);
+        document.getElementById("list_items_bor").appendChild(item);
 
         item = document.createElement('div');
         item.classList.add('ui', 'centered', 'card');
@@ -133,29 +65,29 @@ function SetHtmlData(array) {
 function process() {
 
     console.log('inicio process');
-    var select_plugin = $('#seach_tags').find(":selected").text();
-    var select_plugin_val = $('#seach_tags').find(":selected").val();
-    var id_algorithm = $('#ddl_method').find(":selected").val();
-    var number_recomendation = $('#numbers_suggestions').val();
+    var select_plugin = $('#seach_tags_bor').find(":selected").text();
+    var select_plugin_val = $('#seach_tags_bor').find(":selected").val();
+    var id_algorithm = $('#ddl_method_bor').find(":selected").val();
+    var number_recomendation = $('#numbers_suggestions_bor').val();
 
-    document.getElementById('htop').innerHTML = `Recommended for you based on <span class="ui red">${select_plugin}</span>`;
+    document.getElementById('htop_bor').innerHTML = `Recommended for you based on <span class="ui red">${select_plugin}</span>`;
 
 
     if (select_plugin_val.length > 0 && id_algorithm.length > 0 && number_recomendation.length > 0 && parseInt(number_recomendation) > 0) {
 
-        document.getElementById("list_items_last").innerHTML = "";
-        document.getElementById("list_items").innerHTML = "";
-        document.getElementById("list_items_others").innerHTML = "";
-        document.getElementById("segment_last").classList.add('hdide');
+        document.getElementById("list_items_last_bor").innerHTML = "";
+        document.getElementById("list_items_bor").innerHTML = "";
+        document.getElementById("list_items_others_bor").innerHTML = "";
+        document.getElementById("segment_last_bor").classList.add('hdide');
 
         loadRecomendations(id_algorithm, number_recomendation, select_plugin).then(response => {
             console.log(response);
-            $('#load_last_view').dimmer('hide');
+            $('#load_last_view_bor').dimmer('hide');
             loadImage();
             loadImgOther();
             console.log('fin process');
         }).catch(e => {
-            $('#load_last_view').dimmer('hide');
+            $('#load_last_view_bor').dimmer('hide');
             loadImage();
             loadImgOther();
             console.log('fin process');
@@ -178,14 +110,14 @@ function evaluarRequired(fields) {
     var field2 = (fields[1].length <= 0) ? "<li>Field 'Recommender method' required</li>" : "";
     var field3 = (fields[2].length <= 0 || parseInt(fields[2]) <= 0) ? "<li>Field 'Total Suggestions' required and number positive</li>" : "";
 
-    document.getElementById('list_error').classList.remove('hidden');
-    document.getElementById('items_error').innerHTML = field1 + field2 + field3;
+    document.getElementById('list_error_bor').classList.remove('hidden');
+    document.getElementById('items_error_bor').innerHTML = field1 + field2 + field3;
 }
 
 
 async function loadRecomendations(algorithm_id, number_recommendations, item_evaluated) {
 
-    $('#load_last_view').dimmer('show');
+    $('#load_last_view_bor').dimmer('show');
     var userLogon = sessionStorage.getItem("UserLoginResdec");
     console.log('userLogin: ' + userLogon);
 
@@ -240,7 +172,7 @@ async function loadRecomendations(algorithm_id, number_recommendations, item_eva
     SetHtmlData(html);
 
     //others reocomendaciones-------
-    document.getElementById("list_items_others").innerHTML = "";
+    document.getElementById("list_items_others_bor").innerHTML = "";
     for (var clave in json[1]) {
         if (json[1].hasOwnProperty(clave)) {
 
@@ -348,13 +280,13 @@ function loadImage() {
 
 
 function loadImgOther() {
-    var imgs = document.querySelectorAll('#list_items_others div.item div.ui.tiny.image img');
+    var imgs = document.querySelectorAll('#list_items_others_bor div.item div.ui.tiny.image img');
     if (imgs.length > 0) {
-        document.getElementById("hlike").classList.remove('hdide');
+        document.getElementById("hlike_bor").classList.remove('hdide');
         console.log('f[1].length > 0');
     } else {
         console.log('f[1].length < 0');
-        document.getElementById("hlike").classList.add('hdide');
+        document.getElementById("hlike_bor").classList.add('hdide');
     }
 
     imgs.forEach(element => {
@@ -424,7 +356,7 @@ function setDataByPlugin_others(name, homepage, description, tags, downloaded, s
 			${tags}
 		</div>
 	</div>`;
-    document.getElementById("list_items_others").appendChild(item);
+    document.getElementById("list_items_others_bor").appendChild(item);
 }
 
 
@@ -432,7 +364,7 @@ function setDataByPlugin_others(name, homepage, description, tags, downloaded, s
 /*process scenario 2*/
 
 function add() {
-    var txtb = document.getElementById('numbers_suggestions');
+    var txtb = document.getElementById('numbers_suggestions_bor');
     if (txtb) {
         if (txtb.value.length > 0) {
             var x = txtb.value;
@@ -445,7 +377,7 @@ function add() {
 }
 
 function minus() {
-    var txtb = document.getElementById('numbers_suggestions');
+    var txtb = document.getElementById('numbers_suggestions_bor');
     if (txtb) {
         if (txtb.value.length > 0 && Number(txtb.value) > 1) {
             var x = txtb.value;
@@ -459,11 +391,11 @@ function minus() {
 
 function loadAlgorthm() {
 
-    $.getJSON(endpoint_algorithms,
+    $.getJSON(endpoint_algorithms_bor,
         function(data) {
             if (data.list_algorithms) {
                 var json = data.list_algorithms;
-                var x = document.getElementById("ddl_method");
+                var x = document.getElementById("ddl_method_bor");
 
                 for (var clave in json) {
                     // Controlando que json realmente tenga esa propiedad
@@ -486,7 +418,7 @@ function loadLastView() {
 
     var userLogon = sessionStorage.getItem("UserLoginResdec");
     if (userLogon.length > 0) {
-        document.getElementById("list_items_last").innerHTML = "";
+        document.getElementById("list_items_last_bor").innerHTML = "";
         var url_last_view = `http://186.5.39.187:8030/resdec/list_last_items_used/?username=${userLogon}&var_environment_id=1&number_items=10`;
         console.log('iniciando loadLastView');
         console.log(url_last_view);
@@ -498,10 +430,10 @@ function loadLastView() {
                     console.log(data);
 
                     if (Object.values(json).length > 0) {
-                        document.getElementById("segment_last").classList.remove('hdide');
+                        document.getElementById("segment_last_bor").classList.remove('hdide');
                     } else {
                         console.log('loadLastView < 0');
-                        document.getElementById("segment_last").classList.add('hdide');
+                        document.getElementById("segment_last_bor").classList.add('hdide');
                     }
 
                     for (var clave in json) {
@@ -568,19 +500,19 @@ function setDataByPluginLast(name, homepage, description, tags, downloaded, slug
 			${tags}
 		</div>
 	</div>`;
-    document.getElementById("list_items_last").appendChild(item);
+    document.getElementById("list_items_last_bor").appendChild(item);
 }
 
 
 
 
 
-const btSummit = document.getElementById('sub');
-const btplus = document.getElementById('plus_buton');
-const btminus = document.getElementById('minus_buton');
+const btSummit_bor = document.getElementById('sub_bor');
+const btplus_bor = document.getElementById('plus_buton_bor');
+const btminus_bor = document.getElementById('minus_buton_bor');
 
-btSummit.addEventListener("click", process);
-btplus.addEventListener("click", add);
-btminus.addEventListener("click", minus);
+btSummit_bor.addEventListener("click", process);
+btplus_bor.addEventListener("click", add);
+btminus_bor.addEventListener("click", minus);
 
 window.addEventListener('load', loadAlgorthm);

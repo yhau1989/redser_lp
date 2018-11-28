@@ -1,5 +1,5 @@
 const endpoint_intereses = 'http://186.5.39.187:8030/resdec/list_interests/?var_environment_id=1';
-const endpoint_tags = 'http://186.5.39.187:8030/resdec/list_features/?relationship_type_id=1&var_environment_id=1&feature_name=';
+const endpoint_tags_cs = 'http://186.5.39.187:8030/resdec/list_features/?relationship_type_id=1&var_environment_id=1&feature_name=';
 
 const cold_start_all = "http://186.5.39.187:8030/resdec/cold_start_all/?relationship_type_id=1&var_environment_id=1&number_recommendations=10"
 
@@ -7,12 +7,13 @@ const cold_start_all = "http://186.5.39.187:8030/resdec/cold_start_all/?relation
 $(document).ready(function() {
 
 
-    //lenar combo de tags
-    $.getJSON(endpoint_tags,
+
+
+    $.getJSON(endpoint_tags_cs,
         function(data) {
             if (data.list_features) {
                 var json = data.list_features;
-                var x = document.getElementById("seach_tags");
+                var x = document.getElementById("seach_tags_cs");
 
                 for (var clave in json) {
                     // Controlando que json realmente tenga esa propiedad
@@ -45,25 +46,25 @@ $(document).ready(function() {
 
 
 async function loadTop10() {
-    $('#load_last_view').dimmer('show');
+    $('#load_last_view_cs').dimmer('show');
     console.log('cargando el top 10');
     console.log(cold_start_all);
-    document.getElementById("htop").classList.add('hdide');
+    document.getElementById("htop_cs").classList.add('hdide');
 
     var json = await $.ajax({
         url: cold_start_all,
         error: function(xhr, textStatus, errorThrown) {
             console.log('error la cargar el top 10: ' + xhr.status + textStatus + errorThrown);
-            document.getElementById("htop").classList.add('hdide');
+            document.getElementById("htop_cs").classList.add('hdide');
         },
         statusCode: {
             404: function(ft) {
                 console.log('error la cargar el top 10 [error 404]: ' + ft);
-                document.getElementById("htop").classList.add('hdide');
+                document.getElementById("htop_cs").classList.add('hdide');
             },
             504: function(ft) {
                 console.log('error la cargar el top 10 [error 504]: ' + ft);
-                document.getElementById("htop").classList.add('hdide');
+                document.getElementById("htop_cs").classList.add('hdide');
             }
         }
     }).then(function(data) {
@@ -80,16 +81,16 @@ async function loadTop10() {
                 //console.log("La clave es " + clave + " y el valor es " + json.cold_start_recommendations[clave]);
                 await loadDataByPuglingsTop10(json.cold_start_recommendations[clave]).then(function(data) {
                     //console.log(data);
-                    var yu = document.getElementById("list_items_top10").innerHTML;
+                    var yu = document.getElementById("list_items_top10_cs").innerHTML;
                     var htg = yu + data;
-                    document.getElementById("list_items_top10").innerHTML = htg;
+                    document.getElementById("list_items_top10_cs").innerHTML = htg;
 
                 });
             }
         }
 
 
-        document.getElementById("segment_last_view").classList.remove('hdide');
+        document.getElementById("segment_last_view_cs").classList.remove('hdide');
         //loadImageTop10();
     }
 
@@ -125,7 +126,7 @@ async function loadDataByPuglingsTop10(name_plugin) {
         rt = setDataByPluginTop10(name, homepage, description, tags_details, downloaded, slug);
     }
 
-    $('#load_last').dimmer('hide');
+    $('#load_last_cs').dimmer('hide');
     return rt;
 
 }
@@ -170,9 +171,9 @@ function process() {
 
 
     //console.log('process');
-    var number_recommendations = $('#numbers_suggestions').val();
+    var number_recommendations = $('#numbers_suggestions_cs').val();
     var select_a = document.querySelectorAll('div.ui.fluid.search.dropdown.selection.multiple a');
-    var id_interest = $('#intereses').find(":selected").val();
+    var id_interest = $('#intereses_cs').find(":selected").val();
 
     /*if (id_interest.length > 0 && number_recommendations.length > 0) {
 
@@ -204,10 +205,10 @@ function process() {
         })
 
         searchByTags(tags, number_recommendations).then(response => {
-            $('#load_last_view').dimmer('hide');
+            $('#load_last_view_cs').dimmer('hide');
         }).catch(e => {
 
-            $('#load_last_view').dimmer('hide');
+            $('#load_last_view_cs').dimmer('hide');
             console.log('error');
         });
     }
@@ -219,9 +220,9 @@ function process() {
 
 async function searchByTags(tags, number_recommendations) {
 
-    document.getElementById('list_items_top10').innerHTML = "";
-    document.getElementById('list_items_others').innerHTML = "";
-    $('#load_last_view').dimmer('show');
+    document.getElementById('list_items_top10_cs').innerHTML = "";
+    document.getElementById('list_items_others_cs').innerHTML = "";
+    $('#load_last_view_cs').dimmer('show');
     const url = 'http://186.5.39.187:8030/resdec/cold_start_features/'
     var relationship_type_id = 1;
     var var_environment_id = 1;
@@ -333,7 +334,7 @@ function setDataByPlugin_others(name, homepage, description, tags, downloaded, s
 			${tags}
 		</div>
 	</div>`;
-    document.getElementById("list_items_others").appendChild(item);
+    document.getElementById("list_items_others_cs").appendChild(item);
     console.log('list_items_others fin: ' + name);
 };
 
@@ -342,8 +343,8 @@ function setDataByPlugin_others(name, homepage, description, tags, downloaded, s
 async function searchByInterest(id_ineterest, number_recommendations) {
 
 
-    document.getElementById('list_items_top10').innerHTML = "";
-    $('#load_last_view').dimmer('show');
+    document.getElementById('list_items_top10_cs').innerHTML = "";
+    $('#load_last_view_cs').dimmer('show');
 
     var endpoint = `http://186.5.39.187:8030/resdec/cold_start_interest/?relationship_type_id=1&var_environment_id=1&interest_id=${id_ineterest}&number_recommendations=${number_recommendations}`;
     var json = "";
@@ -362,7 +363,7 @@ async function searchByInterest(id_ineterest, number_recommendations) {
     preparehtml(json, 0).then(response => { SetHtmlData(response); });
 
     //others reocomendaciones-------
-    document.getElementById("list_items_others").innerHTML = "";
+    document.getElementById("list_items_others_cs").innerHTML = "";
 
 
     for (var clave in json[1]) {
@@ -440,12 +441,12 @@ function setDataByPlugin(name, homepage, description, tags, downloaded, slug, im
 function SetHtmlData(array) {
 
     if (array.length > 0) {
-        document.getElementById("htop").classList.remove('hdide');
-        document.getElementById("segment_last_view").classList.add('hdide');
-        document.getElementById("list_items").innerHTML = "";
+        document.getElementById("htop_cs").classList.remove('hdide');
+        document.getElementById("segment_last_view_cs").classList.add('hdide');
+        document.getElementById("list_items_cs").innerHTML = "";
     } else {
-        document.getElementById("htop").classList.add('hdide');
-        document.getElementById("list_items").innerHTML = "The main results have not been found in WordPress, but you may be interested in other plugins";
+        document.getElementById("htop_cs").classList.add('hdide');
+        document.getElementById("list_items_cs").innerHTML = "The main results have not been found in WordPress, but you may be interested in other plugins";
     }
 
 
@@ -456,7 +457,7 @@ function SetHtmlData(array) {
     for (let index = 0; index < array.length; index++) {
 
         item.innerHTML = array[index];
-        document.getElementById("list_items").appendChild(item);
+        document.getElementById("list_items_cs").appendChild(item);
         html = "";
         item = document.createElement('div');
         item.classList.add('ui', 'centered', 'card');
@@ -468,7 +469,7 @@ function SetHtmlData(array) {
 
 
 function loadImageTop10() {
-    $('#load_last_view').dimmer('hide');
+    $('#load_last_view_cs').dimmer('hide');
     console.log('loadImageTop10');
     var imgs = document.querySelectorAll('[data-slug]');
 
@@ -540,14 +541,14 @@ function loadImage() {
 function loadImgOther() {
 
 
-    var imgs = document.querySelectorAll('#list_items_others div.item div.ui.tiny.image img');
+    var imgs = document.querySelectorAll('#list_items_others_cs div.item div.ui.tiny.image img');
 
     if (imgs.length > 0) {
-        document.getElementById("hlike").classList.remove('hdide');
+        document.getElementById("hlike_cs").classList.remove('hdide');
         console.log('f[1].length > 0');
     } else {
         console.log('f[1].length < 0');
-        document.getElementById("hlike").classList.add('hdide');
+        document.getElementById("hlike_cs").classList.add('hdide');
     }
 
 
@@ -583,7 +584,7 @@ function loadImgOther() {
 }
 
 function add() {
-    var txtb = document.getElementById('numbers_suggestions');
+    var txtb = document.getElementById('numbers_suggestions_cs');
     if (txtb) {
         if (txtb.value.length > 0) {
             var x = txtb.value;
@@ -596,7 +597,7 @@ function add() {
 }
 
 function minus() {
-    var txtb = document.getElementById('numbers_suggestions');
+    var txtb = document.getElementById('numbers_suggestions_cs');
     if (txtb) {
         if (txtb.value.length > 0 && Number(txtb.value) > 1) {
             var x = txtb.value;
@@ -652,7 +653,7 @@ async function preparehtml(json, iter) {
                 html[iteracion] = setDataByPlugin(name, homepage, description, tags_details, downloaded, slug, img_icon, raitig);
                 iteracion++;
             } else {
-                var io = document.getElementById("log").innerHTML;
+                var io = document.getElementById("log_cs").innerHTML;
                 // document.getElementById("log").innerHTML = io + `<p> plugin ${clave} no</p>`
 
             }
@@ -663,77 +664,14 @@ async function preparehtml(json, iter) {
 }
 
 
-function getAllUrlParams() {
-
-    // get query string from url (optional) or window
-    var queryString = window.location.search.slice(1);
-
-    // we'll store the parameters here
-    var obj = {};
-
-    // if query string exists
-    if (queryString) {
-
-        // stuff after # is not part of query string, so get rid of it
-        queryString = queryString.split('#')[0];
-
-        // split our query string into its component parts
-        var arr = queryString.split('&');
-
-        for (var i = 0; i < arr.length; i++) {
-            // separate the keys and the values
-            var a = arr[i].split('=');
-
-            // set parameter name and value (use 'true' if empty)
-            var paramName = a[0];
-            var paramValue = typeof(a[1]) === 'undefined' ? true : a[1];
-
-            // (optional) keep case consistent
-            paramName = paramName.toLowerCase();
-            if (typeof paramValue === 'string') paramValue = paramValue.toLowerCase();
-
-            // if the paramName ends with square brackets, e.g. colors[] or colors[2]
-            if (paramName.match(/\[(\d+)?\]$/)) {
-
-                // create key if it doesn't exist
-                var key = paramName.replace(/\[(\d+)?\]/, '');
-                if (!obj[key]) obj[key] = [];
-
-                // if it's an indexed array e.g. colors[2]
-                if (paramName.match(/\[\d+\]$/)) {
-                    // get the index value and add the entry at the appropriate position
-                    var index = /\[(\d+)\]/.exec(paramName)[1];
-                    obj[key][index] = paramValue;
-                } else {
-                    // otherwise add the value to the end of the array
-                    obj[key].push(paramValue);
-                }
-            } else {
-                // we're dealing with a string
-                if (!obj[paramName]) {
-                    // if it doesn't exist, create property
-                    obj[paramName] = paramValue;
-                } else if (obj[paramName] && typeof obj[paramName] === 'string') {
-                    // if property does exist and it's a string, convert it to an array
-                    obj[paramName] = [obj[paramName]];
-                    obj[paramName].push(paramValue);
-                } else {
-                    // otherwise add the property
-                    obj[paramName].push(paramValue);
-                }
-            }
-        }
-    }
-
-    return obj;
-}
 
 
 
-const btSummit = document.getElementById('sub');
-const btplus = document.getElementById('plus_buton');
-const btminus = document.getElementById('minus_buton');
 
-btSummit.addEventListener("click", process);
-btplus.addEventListener("click", add);
-btminus.addEventListener("click", minus);
+const btSummit_cs = document.getElementById('sub_cs');
+const btplus_cs = document.getElementById('plus_buton_cs');
+const btminus_cs = document.getElementById('minus_buton_cs');
+
+btSummit_cs.addEventListener("click", process);
+btplus_cs.addEventListener("click", add);
+btminus_cs.addEventListener("click", minus);
