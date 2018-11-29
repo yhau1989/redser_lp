@@ -38,6 +38,36 @@ $(document).ready(function() {
 });
 
 
+function setViewPluginsByCaseStudi_bof(plugins) {
+
+
+    $('#seach_tags_bof')
+        .find('option')
+        .remove()
+        .end()
+        .append('<option value="">Name used plugin</option>')
+        .val('');
+
+    var json = plugins.split(',');
+    var x = document.getElementById("seach_tags_bof");
+
+    for (var clave in json) {
+        // Controlando que json realmente tenga esa propiedad
+        if (json.hasOwnProperty(clave)) {
+            // Mostrando en pantalla la clave junto a su valor
+            //console.log("La clave es " + clave + " y el valor es " + json[clave]);
+            var option = document.createElement("option");
+            option.value = clave;
+            option.text = json[clave];
+            x.add(option);
+        }
+    }
+
+}
+
+
+
+
 function loadAlgorthm() {
 
     $.getJSON(endpoint_algorithms_bof,

@@ -39,10 +39,41 @@ $(document).ready(function() {
         console.log('error loadTop10');
     });
 
-
-
-
 });
+
+
+function setViewPluginsByCaseStudi_cs(tags) {
+
+    if (tags.split(',').length > 0) {
+
+        $('#seach_tags_cs')
+            .find('option')
+            .remove()
+            .end()
+            .append('<option value="">tags</option>')
+            .val('');
+
+
+        var json = tags.split(',');
+        var x = document.getElementById("seach_tags_cs");
+
+        for (var clave in json) {
+            // Controlando que json realmente tenga esa propiedad
+            if (json.hasOwnProperty(clave)) {
+                // Mostrando en pantalla la clave junto a su valor
+                //console.log("La clave es " + clave + " y el valor es " + json[clave]);
+                var option = document.createElement("option");
+                option.value = clave;
+                option.text = json[clave];
+                x.add(option);
+            }
+        }
+    }
+
+
+
+}
+
 
 
 async function loadTop10() {

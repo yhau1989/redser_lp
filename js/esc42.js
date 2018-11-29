@@ -36,6 +36,43 @@ $(document).ready(function() {
 });
 
 
+function setViewPluginsByCaseStudi_bor(plugins) {
+
+
+    if(plugins.split(',').length > 0)
+    {
+        $('#seach_tags_bor')
+        .find('option')
+        .remove()
+        .end()
+        .append('<option value="">Name used plugin</option>')
+        .val('');
+
+
+        var json = plugins.split(',');
+        var x = document.getElementById("seach_tags_bor");
+
+        for (var clave in json) {
+            // Controlando que json realmente tenga esa propiedad
+            if (json.hasOwnProperty(clave)) {
+                // Mostrando en pantalla la clave junto a su valor
+                //console.log("La clave es " + clave + " y el valor es " + json[clave]); #
+                var option = document.createElement("option");
+                option.value = clave;
+                option.text = json[clave];
+                x.add(option);
+            }
+        }
+
+        //loadLastView
+        loadLastView();
+    }
+}
+
+
+
+
+
 
 /*process scenario 2*/
 
