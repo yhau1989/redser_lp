@@ -7,7 +7,7 @@ const cold_start_all = "http://186.5.39.187:8030/resdec/cold_start_all/?relation
 $(document).ready(function() {
 
 
-
+    $('#seach_tags_cs').dropdown();
 
     $.getJSON(endpoint_tags_cs,
         function(data) {
@@ -88,12 +88,9 @@ async function loadTop10() {
                 });
             }
         }
-
-
         document.getElementById("segment_last_view_cs").classList.remove('hdide');
         //loadImageTop10();
     }
-
 }
 
 async function loadDataByPuglingsTop10(name_plugin) {
@@ -167,36 +164,12 @@ function setDataByPluginTop10(name, homepage, description, tags, downloaded, slu
 
 
 
-function process() {
-
+function process_cs() {
 
     //console.log('process');
     var number_recommendations = $('#numbers_suggestions_cs').val();
     var select_a = document.querySelectorAll('div.ui.fluid.search.dropdown.selection.multiple a');
-    var id_interest = $('#intereses_cs').find(":selected").val();
 
-    /*if (id_interest.length > 0 && number_recommendations.length > 0) {
-
-        searchByInterest(id_interest, number_recommendations).then(response => {
-            $('#load_last_view').dimmer('hide');
-        }).catch(e => {
-            $('#load_last_view').dimmer('hide');
-            console.log('error');
-        });
-    } else if (select_a.length > 0 && number_recommendations.length > 0) {
-        var tags = [];
-        select_a.forEach(function(x) {
-            tags.push(x.textContent);
-        })
-
-        searchByTags(tags, number_recommendations).then(response => {
-            $('#load_last_view').dimmer('hide');
-        }).catch(e => {
-
-            $('#load_last_view').dimmer('hide');
-            console.log('error');
-        });
-    }*/
 
     if (select_a.length > 0 && number_recommendations.length > 0) {
         var tags = [];
@@ -204,7 +177,7 @@ function process() {
             tags.push(x.textContent);
         })
 
-        searchByTags(tags, number_recommendations).then(response => {
+        searchByTags_cs(tags, number_recommendations).then(response => {
             $('#load_last_view_cs').dimmer('hide');
         }).catch(e => {
 
@@ -212,13 +185,11 @@ function process() {
             console.log('error');
         });
     }
-
-
 }
 
 
 
-async function searchByTags(tags, number_recommendations) {
+async function searchByTags_cs(tags, number_recommendations) {
 
     document.getElementById('list_items_top10_cs').innerHTML = "";
     document.getElementById('list_items_others_cs').innerHTML = "";
@@ -255,8 +226,8 @@ async function searchByTags(tags, number_recommendations) {
 
     //document.getElementById("log").innerHTML = `<p>${ JSON.stringify(json)}</p>`;
 
-    preparehtml(json, 0).then(response => {
-        SetHtmlData(response);
+    preparehtml_cs(json, 0).then(response => {
+        SetHtmlData_cs(response);
     });
 
 
@@ -285,12 +256,12 @@ async function searchByTags(tags, number_recommendations) {
                         tags_details += "<div class='ui label'>#" + tags[clave] + "</div>";
                     }
                 }
-                setDataByPlugin_others(name, homepage, description, tags_details, downloaded, slug, img_icon);
+                setDataByPlugin_others_cs(name, homepage, description, tags_details, downloaded, slug, img_icon);
             }
         }
     }
 
-    loadImgOther();
+    loadImgOther_cs();
 
 
 
@@ -299,7 +270,7 @@ async function searchByTags(tags, number_recommendations) {
 
 
 
-function setDataByPlugin_others(name, homepage, description, tags, downloaded, slug, img_icon) {
+function setDataByPlugin_others_cs(name, homepage, description, tags, downloaded, slug, img_icon) {
 
     console.log('list_items_others inicio: ' + name);
     var tempo = document.createElement('div');
@@ -360,7 +331,7 @@ async function searchByInterest(id_ineterest, number_recommendations) {
     });
 
     console.log(json);
-    preparehtml(json, 0).then(response => { SetHtmlData(response); });
+    preparehtml_cs(json, 0).then(response => { SetHtmlData_cs(response); });
 
     //others reocomendaciones-------
     document.getElementById("list_items_others_cs").innerHTML = "";
@@ -389,18 +360,18 @@ async function searchByInterest(id_ineterest, number_recommendations) {
                         tags_details += "<div class='ui label'>#" + tags[clave] + "</div>";
                     }
                 }
-                setDataByPlugin_others(name, homepage, description, tags_details, downloaded, slug, img_icon);
+                setDataByPlugin_others_cs(name, homepage, description, tags_details, downloaded, slug, img_icon);
             }
         }
     }
 
-    loadImgOther();
+    loadImgOther_cs();
 
 }
 
 
 
-function setDataByPlugin(name, homepage, description, tags, downloaded, slug, img_icon, raitig) {
+function setDataByPlugin_cs(name, homepage, description, tags, downloaded, slug, img_icon, raitig) {
 
     var descripmini = description;
     var temp = document.createElement('div');
@@ -438,7 +409,7 @@ function setDataByPlugin(name, homepage, description, tags, downloaded, slug, im
 
 
 
-function SetHtmlData(array) {
+function SetHtmlData_cs(array) {
 
     if (array.length > 0) {
         document.getElementById("htop_cs").classList.remove('hdide');
@@ -463,7 +434,7 @@ function SetHtmlData(array) {
         item.classList.add('ui', 'centered', 'card');
     }
 
-    loadImage();
+    loadImage_cs();
 }
 
 
@@ -505,7 +476,7 @@ function loadImageTop10() {
 }
 
 
-function loadImage() {
+function loadImage_cs() {
 
     var imgs = document.querySelectorAll('img.right.floated.mini.ui.image');
     imgs.forEach(element => {
@@ -538,7 +509,7 @@ function loadImage() {
     });
 }
 
-function loadImgOther() {
+function loadImgOther_cs() {
 
 
     var imgs = document.querySelectorAll('#list_items_others_cs div.item div.ui.tiny.image img');
@@ -583,7 +554,7 @@ function loadImgOther() {
     });
 }
 
-function add() {
+function add_cs() {
     var txtb = document.getElementById('numbers_suggestions_cs');
     if (txtb) {
         if (txtb.value.length > 0) {
@@ -596,7 +567,7 @@ function add() {
 
 }
 
-function minus() {
+function minus_cs() {
     var txtb = document.getElementById('numbers_suggestions_cs');
     if (txtb) {
         if (txtb.value.length > 0 && Number(txtb.value) > 1) {
@@ -614,7 +585,7 @@ function rotate() {
 
 }
 
-async function preparehtml(json, iter) {
+async function preparehtml_cs(json, iter) {
     var html = [];
     var iteracion = 0;
     for (var clave in json[iter]) {
@@ -650,7 +621,7 @@ async function preparehtml(json, iter) {
                         tags_details += "<div class='ui label'>#" + tags[clave] + "</div>";
                     }
                 }
-                html[iteracion] = setDataByPlugin(name, homepage, description, tags_details, downloaded, slug, img_icon, raitig);
+                html[iteracion] = setDataByPlugin_cs(name, homepage, description, tags_details, downloaded, slug, img_icon, raitig);
                 iteracion++;
             } else {
                 var io = document.getElementById("log_cs").innerHTML;
@@ -672,6 +643,6 @@ const btSummit_cs = document.getElementById('sub_cs');
 const btplus_cs = document.getElementById('plus_buton_cs');
 const btminus_cs = document.getElementById('minus_buton_cs');
 
-btSummit_cs.addEventListener("click", process);
-btplus_cs.addEventListener("click", add);
-btminus_cs.addEventListener("click", minus);
+btSummit_cs.addEventListener("click", process_cs);
+btplus_cs.addEventListener("click", add_cs);
+btminus_cs.addEventListener("click", minus_cs);

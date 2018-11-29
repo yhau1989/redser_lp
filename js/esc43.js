@@ -1,17 +1,15 @@
-const endpoint_tags = 'http://186.5.39.187:8030/resdec/list_items/?var_environment_id=1&relationship_type_id=3&item=';
-const endpoint_algorithms = "http://186.5.39.187:8030/resdec/list_algorithms/?relationship_type_id=3";
+const endpoint_tags_bof = 'http://186.5.39.187:8030/resdec/list_items/?var_environment_id=1&relationship_type_id=3&item=';
+const endpoint_algorithms_bof = "http://186.5.39.187:8030/resdec/list_algorithms/?relationship_type_id=3";
 
 
 $(document).ready(function() {
 
-    if (getAllUrlParams().esc) {
-
-        var linkreturn = document.getElementById("returLnk");
-        linkreturn.text = 'return Case Study applied to eCommerce Website →';
-        linkreturn.href = './ecs4.html';
-
-        var json = getAllUrlParams().esc.split(",");
-        var x = document.getElementById("seach_tags");
+    //lenar combo de tags
+    $.getJSON(endpoint_tags_bof,
+        function(data) {
+            if (data.list_items) {
+                var json = data.list_items;
+                var x = document.getElementById("seach_tags_bof");
 
                 for (var clave in json) {
                     // Controlando que json realmente tenga esa propiedad
@@ -24,43 +22,25 @@ $(document).ready(function() {
                         x.add(option);
                     }
                 }
+            }
+        });
 
+    $('#seach_tags_bof').dropdown({
+        onChange: function(text, value) {
+            var select_plugin_val = value; //$('#seach_tags').find(":selected").text();
+            console.log(select_plugin_val);
+            loadTagsByPlugin_bof(select_plugin_val)
+        }
+    });
 
-    }else
-    {
-        //lenar combo de tags
-        $.getJSON(endpoint_tags,
-            function(data) {
-                if (data.list_items) {
-                    var json = data.list_items;
-                    var x = document.getElementById("seach_tags");
-
-                    for (var clave in json) {
-                        // Controlando que json realmente tenga esa propiedad
-                        if (json.hasOwnProperty(clave)) {
-                            // Mostrando en pantalla la clave junto a su valor
-                            //console.log("La clave es " + clave + " y el valor es " + json[clave]);
-                            var option = document.createElement("option");
-                            option.value = clave;
-                            option.text = json[clave];
-                            x.add(option);
-                        }
-                    }
-                }
-            });
-    }
-
-
-
-
-    
+    $('#ddl_method').dropdown();
 
 });
 
 
 function loadAlgorthm() {
 
-    $.getJSON(endpoint_algorithms,
+    $.getJSON(endpoint_algorithms_bof,
         function(data) {
             if (data.list_algorithms) {
                 var json = data.list_algorithms;
@@ -125,8 +105,8 @@ window.addEventListener('load', loadAlgorthm);
 function process() {
 
     console.log('process');
-    var select_plugin = $('#seach_tags').find(":selected").text();
-    var select_plugin_val = $('#seach_tags').find(":selected").val();
+    var select_plugin = $('#seach_tags_bof').find(":selected").text();
+    var select_plugin_val = $('#seach_tags_bof').find(":selected").val();
     var id_algorithm = $('#ddl_method').find(":selected").val();
     var number_recomendation = $('#numbers_suggestions').val();
 
@@ -136,26 +116,26 @@ function process() {
         document.getElementById('items_error').innerHTML = "";
 
         document.getElementById('htop').innerHTML = `Recommended for you based on <span class="ui red">${select_plugin}</span>`;
-        loadRecomendations(id_algorithm, number_recomendation, select_plugin).then(response => {
+        loadRecomendations_bof(id_algorithm, number_recomendation, select_plugin).then(response => {
             console.log(response);
             $('#load_last_view').dimmer('hide');
-            loadImage();
-            loadImgOther();
+            loadImage_bof();
+            loadImgOther_bof();
         }).catch(e => {
             $('#load_last_view').dimmer('hide');
-            loadImage();
-            loadImgOther();
+            loadImage_bof();
+            loadImgOther_bof();
         });
     } else {
 
         var fielsd = [select_plugin_val, id_algorithm, number_recomendation];
 
-        evaluarRequired(fielsd);
+        evaluarRequired_bof(fielsd);
     }
 }
 
 
-function evaluarRequired(fields) {
+function evaluarRequired_bof(fields) {
 
     var field1 = (fields[0].length <= 0) ? "<li>Field 'Used plugin' required</li>" : "";
     var field2 = (fields[1].length <= 0) ? "<li>Field 'Recommender method' required</li>" : "";
@@ -168,7 +148,7 @@ function evaluarRequired(fields) {
 
 
 
-async function loadRecomendations(algorithm_id, number_recommendations, item_evaluated) {
+async function loadRecomendations_bof(algorithm_id, number_recommendations, item_evaluated) {
 
     $('#load_last_view').dimmer('show');
 
@@ -211,7 +191,7 @@ async function loadRecomendations(algorithm_id, number_recommendations, item_eva
                         tags_details += "<div class='ui label'>#" + tags[clave] + "</div>";
                     }
                 }
-                html[iteracion] = setDataByPlugin(name, homepage, description, tags_details, downloaded, slug, img_icon);
+                html[iteracion] = setDataByPlugin_bof(name, homepage, description, tags_details, downloaded, slug, img_icon);
                 iteracion++;
             } else {
                 console.log('plugin: ' +
@@ -221,7 +201,7 @@ async function loadRecomendations(algorithm_id, number_recommendations, item_eva
         }
     }
 
-    SetHtmlData(html);
+    SetHtmlData_bof(html);
 
     //others reocomendaciones-------
     document.getElementById("list_items_others").innerHTML = "";
@@ -248,7 +228,7 @@ async function loadRecomendations(algorithm_id, number_recommendations, item_eva
                         tags_details += "<div class='ui label'>#" + tags[clave] + "</div>";
                     }
                 }
-                setDataByPlugin_others(name, homepage, description, tags_details, downloaded, slug, img_icon);
+                setDataByPlugin_others_bof(name, homepage, description, tags_details, downloaded, slug, img_icon);
             } else {
                 console.log('plugin: ' +
                     json[1][clave] + ' ' + apiWordpress + ' no existe');
@@ -260,7 +240,7 @@ async function loadRecomendations(algorithm_id, number_recommendations, item_eva
 }
 
 
-function SetHtmlData(array) {
+function SetHtmlData_bof(array) {
 
     if (array.length > 0) {
         document.getElementById("htop").classList.remove('hdide');
@@ -269,9 +249,6 @@ function SetHtmlData(array) {
         document.getElementById("htop").classList.add('hdide');
         document.getElementById("list_items").innerHTML = "The main results have not been found in WordPress, but you may be interested in other plugins";
     }
-
-
-
 
     var item = document.createElement('div');
     item.classList.add('ui', 'centered', 'card');
@@ -289,7 +266,7 @@ function SetHtmlData(array) {
 
 }
 
-function setDataByPlugin(name, homepage, description, tags, downloaded, slug, img_icon) {
+function setDataByPlugin_bof(name, homepage, description, tags, downloaded, slug, img_icon) {
 
     var descripmini = description;
     var temp = document.createElement('div');
@@ -318,17 +295,8 @@ function setDataByPlugin(name, homepage, description, tags, downloaded, slug, im
 
 
 
-async function loadDataByPuglings(name_plugin) {
-    const apiWordpress = "https://api.wordpress.org/plugins/info/1.0/" + name_plugin + ".json";
-    var r = "";
-    var r = await $.getJSON(apiWordpress).then(function(data) {
-        return data;
-    });
-    return r;
-}
 
-
-function loadImage() {
+function loadImage_bof() {
 
     var imgs = document.querySelectorAll('img.right.floated.mini.ui.image');
     imgs.forEach(element => {
@@ -361,40 +329,8 @@ function loadImage() {
 }
 
 
-function loadImage() {
 
-    var imgs = document.querySelectorAll('img.right.floated.mini.ui.image');
-    imgs.forEach(element => {
-        var id = element.id;
-        $.ajax({
-
-            url: `https://cors-anywhere.herokuapp.com/http://plugins.svn.wordpress.org/${id}/assets/`,
-            success: function(response) {
-                var temp = document.createElement('div');
-                temp.innerHTML = response;
-                var li = temp.querySelectorAll(`a[href*='icon']`);
-                if (li.length > 0) {
-                    element.src = `https://ps.w.org/${id}/assets/${li[0].innerHTML}`
-                } else {
-                    element.src = `https://s.w.org/plugins/geopattern-icon/${id}_bdc7cb.svg`;
-                }
-            },
-            error: function() {
-                element.src = `https://s.w.org/plugins/geopattern-icon/${id}.svg`;
-
-            },
-            statusCode: {
-                404: function() {
-                    element.src = `https://s.w.org/plugins/geopattern-icon/${id}.svg`;
-                }
-            }
-        });
-
-    });
-}
-
-
-function loadImgOther() {
+function loadImgOther_bof() {
     var imgs = document.querySelectorAll('#list_items_others div.item div.ui.tiny.image img');
     if (imgs.length > 0) {
         document.getElementById("hlike").classList.remove('hdide');
@@ -434,7 +370,7 @@ function loadImgOther() {
 
 
 
-function setDataByPlugin_others(name, homepage, description, tags, downloaded, slug, img_icon) {
+function setDataByPlugin_others_bof(name, homepage, description, tags, downloaded, slug, img_icon) {
 
 
     var tempo = document.createElement('div');
@@ -473,7 +409,7 @@ function setDataByPlugin_others(name, homepage, description, tags, downloaded, s
 }
 
 
-function loadTagsByPlugin(plugin) {
+function loadTagsByPlugin_bof(plugin) {
     const url = `http://186.5.39.187:8030/resdec/list_features_item/?var_environment_id=1&item=${plugin}`;
     console.log(url);
     $.getJSON(url,
@@ -502,71 +438,4 @@ function loadTagsByPlugin(plugin) {
                 }
             }
         });
-}
-
-
-
-function getAllUrlParams() {
-
-    // get query string from url (optional) or window
-    var queryString = window.location.search.slice(1);
-
-    // we'll store the parameters here
-    var obj = {};
-
-    // if query string exists
-    if (queryString) {
-
-        // stuff after # is not part of query string, so get rid of it
-        queryString = queryString.split('#')[0];
-
-        // split our query string into its component parts
-        var arr = queryString.split('&');
-
-        for (var i = 0; i < arr.length; i++) {
-            // separate the keys and the values
-            var a = arr[i].split('=');
-
-            // set parameter name and value (use 'true' if empty)
-            var paramName = a[0];
-            var paramValue = typeof(a[1]) === 'undefined' ? true : a[1];
-
-            // (optional) keep case consistent
-            paramName = paramName.toLowerCase();
-            if (typeof paramValue === 'string') paramValue = paramValue.toLowerCase();
-
-            // if the paramName ends with square brackets, e.g. colors[] or colors[2]
-            if (paramName.match(/\[(\d+)?\]$/)) {
-
-                // create key if it doesn't exist
-                var key = paramName.replace(/\[(\d+)?\]/, '');
-                if (!obj[key]) obj[key] = [];
-
-                // if it's an indexed array e.g. colors[2]
-                if (paramName.match(/\[\d+\]$/)) {
-                    // get the index value and add the entry at the appropriate position
-                    var index = /\[(\d+)\]/.exec(paramName)[1];
-                    obj[key][index] = paramValue;
-                } else {
-                    // otherwise add the value to the end of the array
-                    obj[key].push(paramValue);
-                }
-            } else {
-                // we're dealing with a string
-                if (!obj[paramName]) {
-                    // if it doesn't exist, create property
-                    obj[paramName] = paramValue;
-                } else if (obj[paramName] && typeof obj[paramName] === 'string') {
-                    // if property does exist and it's a string, convert it to an array
-                    obj[paramName] = [obj[paramName]];
-                    obj[paramName].push(paramValue);
-                } else {
-                    // otherwise add the property
-                    obj[paramName].push(paramValue);
-                }
-            }
-        }
-    }
-
-    return obj;
 }

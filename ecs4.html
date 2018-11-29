@@ -23,43 +23,6 @@
             $('.menu .item')
                 .tab();
 
-            //--esc 1 (COLD START)--
-            $('#seach_tags').dropdown();
-
-
-            $('#view_advance').click(function() {
-                $('#segment_advance').transition('fade down');
-                var f = $('#segment_advance').attr('class');
-                if (f.indexOf('in fade down') != -1) {
-                    $('#view_advance i').css({
-
-                        "-webkit-transform": "rotateZ(0.25turn)",
-                        "-moz-transform": "rotateZ(0.25turn)",
-                        "transform": "rotateZ(0.25turn)",
-                        "-o-transform": "rotateZ(0.25turn)",
-                        "-webkit-transition": "transform 0.3s ease-in",
-                        "-moz-transition": "transform 0.3s ease-in",
-                        "-o-transition": "transform 0.3s ease-in",
-                        "transition": "transform 0.3s ease-in"
-                    });
-                } else {
-                    $('#view_advance i').css({
-                        "-webkit-transform": "rotateZ(0.0turn)",
-                        "-moz-transform": "rotateZ(0.0turn)",
-                        "transform": "rotateZ(0.0turn)",
-                        "-o-transform": "rotateZ(0.0turn)" /* For modern browsers(CSS3)  */
-                    });
-                }
-            });
-
-
-            //--esc 2 (Transitions components based on ratings)--
-
-            $('.ui.dropdown')
-                .dropdown();
-
-
-
         });
     </script>
 
@@ -222,7 +185,7 @@
                     </div>
                     <div id="content_BASED_ON_RATINGS" class="ui bottom attached tab segment " data-tab="second">
                         <div id="uisegment_BASED_ON_RATINGS">
-                            <div id="load_last_view" class="ui top aligned inverted dimmer">
+                            <div id="load_last_view_bor" class="ui top aligned inverted dimmer">
                                 <div class="ui text loader">Loading</div>
                             </div>
 
@@ -319,7 +282,7 @@
                                     <div class="required fields">
                                         <div class="ten wide field">
                                             <label>Used plugin</label>
-                                            <select id="seach_tags" name="tags" class="ui fluid search dropdown">
+                                            <select id="seach_tags_bof" name="seach_tags_bof" class="ui fluid search dropdown">
                                                         <option value="">Name used plugin</option>
                                                       </select>
                                         </div>
@@ -378,10 +341,6 @@
                             </h4>
                             <div id="list_items_others" class="ui divided items">
                             </div>
-
-
-
-
                         </div>
                     </div>
 
@@ -394,6 +353,7 @@
     </div>
 
 </body>
+
 <script src="./js/esc4.js "></script>
 <script src="./js/esc41.js"></script>
 <script src="./js/esc43.js"></script>

@@ -4,6 +4,8 @@ const endpoint_algorithms_bor = 'http://186.5.39.187:8030/resdec/list_algorithms
 
 $(document).ready(function() {
 
+    $('#seach_tags_bor').dropdown();
+
     //lenar combo de tags
     $.getJSON(endpoint_tags_bor,
         function(data) {
@@ -24,7 +26,6 @@ $(document).ready(function() {
                 }
             }
         });
-
 
     //loadLastView
     loadLastView();
@@ -62,7 +63,7 @@ function SetHtmlData(array) {
 }
 
 
-function process() {
+function process_bor() {
 
     console.log('inicio process');
     var select_plugin = $('#seach_tags_bor').find(":selected").text();
@@ -363,7 +364,7 @@ function setDataByPlugin_others(name, homepage, description, tags, downloaded, s
 
 /*process scenario 2*/
 
-function add() {
+function add_bor() {
     var txtb = document.getElementById('numbers_suggestions_bor');
     if (txtb) {
         if (txtb.value.length > 0) {
@@ -376,7 +377,7 @@ function add() {
 
 }
 
-function minus() {
+function minus_bor() {
     var txtb = document.getElementById('numbers_suggestions_bor');
     if (txtb) {
         if (txtb.value.length > 0 && Number(txtb.value) > 1) {
@@ -389,7 +390,7 @@ function minus() {
 }
 
 
-function loadAlgorthm() {
+function loadAlgorthm_bor() {
 
     $.getJSON(endpoint_algorithms_bor,
         function(data) {
@@ -511,8 +512,8 @@ const btSummit_bor = document.getElementById('sub_bor');
 const btplus_bor = document.getElementById('plus_buton_bor');
 const btminus_bor = document.getElementById('minus_buton_bor');
 
-btSummit_bor.addEventListener("click", process);
-btplus_bor.addEventListener("click", add);
-btminus_bor.addEventListener("click", minus);
+btSummit_bor.addEventListener("click", process_bor);
+btplus_bor.addEventListener("click", add_bor);
+btminus_bor.addEventListener("click", minus_bor);
 
-window.addEventListener('load', loadAlgorthm);
+window.addEventListener('load', loadAlgorthm_bor);
