@@ -6,6 +6,10 @@ $(document).ready(function() {
 
     $('#seach_tags_bor').dropdown();
 
+
+    $('.ui.dropdown')
+        .dropdown();
+
     //lenar combo de tags
     $.getJSON(endpoint_tags_bor,
         function(data) {
