@@ -7,7 +7,7 @@ const cold_start_all = "http://186.5.39.187:8030/resdec/cold_start_all/?relation
 $(document).ready(function() {
 
 
-    $('#seach_tags_cs').dropdown();
+
 
     $.getJSON(endpoint_tags_cs,
         function(data) {
@@ -45,14 +45,6 @@ $(document).ready(function() {
 function setViewPluginsByCaseStudi_cs(tags) {
 
     if (tags.split(',').length > 0) {
-
-        $('#seach_tags_cs')
-            .find('option')
-            .remove()
-            .end()
-            .append('<option value="">tags</option>')
-            .val('');
-
 
         var json = tags.split(',');
         var x = document.getElementById("seach_tags_cs");

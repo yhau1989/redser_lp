@@ -91,6 +91,26 @@ body {
     border-radius: 5px;
 }
 
+.rmamager {
+    font-size: 11px;
+    position: absolute;
+    right: 19px;
+}
+
+.rmamager p {
+    background: #8e8d8d30;
+    padding: 3px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #4183C4;
+}
+
+.rmamager a {
+    background: #8e8d8d30;
+    padding: 3px;
+    border-radius: 5px;
+}
+
 .ui.cards.card.extra.content {
     border-top: 1px solid rgba(34, 36, 38, 0.21) !important;
 }
@@ -131,4 +151,17 @@ body {
 
 .imgCaseStudy {
     padding: 1.9rem;
+}
+
+.ui.sticky.fixed.top.help {
+    left: 1365.5px;
+    width: 200px !important;
+    height: 139.531px !important;
+    margin-top: 106px;
+    background: #FFFFFF;
+    -webkit-box-shadow: 0px 1px 2px 0 rgba(34, 36, 38, 0.15);
+    box-shadow: 0px 1px 2px 0 rgba(34, 36, 38, 0.15);
+    padding: 1em 1em;
+    border-radius: 0.28571429rem;
+    border: 1px solid rgba(34, 36, 38, 0.15);
 }

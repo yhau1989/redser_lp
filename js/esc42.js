@@ -4,11 +4,9 @@ const endpoint_algorithms_bor = 'http://186.5.39.187:8030/resdec/list_algorithms
 
 $(document).ready(function() {
 
-    $('#seach_tags_bor').dropdown();
 
 
-    $('.ui.dropdown')
-        .dropdown();
+
 
     //lenar combo de tags
     $.getJSON(endpoint_tags_bor,
@@ -39,15 +37,7 @@ $(document).ready(function() {
 function setViewPluginsByCaseStudi_bor(plugins) {
 
 
-    if(plugins.split(',').length > 0)
-    {
-        $('#seach_tags_bor')
-        .find('option')
-        .remove()
-        .end()
-        .append('<option value="">Name used plugin</option>')
-        .val('');
-
+    if (plugins.split(',').length > 0) {
 
         var json = plugins.split(',');
         var x = document.getElementById("seach_tags_bor");

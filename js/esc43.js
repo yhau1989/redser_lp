@@ -25,28 +25,14 @@ $(document).ready(function() {
             }
         });
 
-    $('#seach_tags_bof').dropdown({
-        onChange: function(text, value) {
-            var select_plugin_val = value; //$('#seach_tags').find(":selected").text();
-            console.log(select_plugin_val);
-            loadTagsByPlugin_bof(select_plugin_val)
-        }
-    });
 
-    $('#ddl_method').dropdown();
+
+    //  $('#ddl_method').dropdown();
 
 });
 
 
 function setViewPluginsByCaseStudi_bof(plugins) {
-
-
-    $('#seach_tags_bof')
-        .find('option')
-        .remove()
-        .end()
-        .append('<option value="">Name used plugin</option>')
-        .val('');
 
     var json = plugins.split(',');
     var x = document.getElementById("seach_tags_bof");
@@ -440,6 +426,7 @@ function setDataByPlugin_others_bof(name, homepage, description, tags, downloade
 
 
 function loadTagsByPlugin_bof(plugin) {
+    console.log('loadTagsByPlugin_bof');
     const url = `http://186.5.39.187:8030/resdec/list_features_item/?var_environment_id=1&item=${plugin}`;
     console.log(url);
     $.getJSON(url,
