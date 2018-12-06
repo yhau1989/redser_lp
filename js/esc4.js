@@ -66,14 +66,46 @@ function SeeNodeSelected(node) {
     }
 }
 
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+
+function checkCookie() {
+    var user = getCookie("viewMessage");
+    console.log("checkCookie:" + user)
+    if (user == "") {
+        SeePop();
+    }
+
+}
+
+
 $(document).ready(function() {
 
 
-    //$('.ui.dropdown').dropdown();
+
+    $('#viewPopMsgOk').click(function() {
+        document.cookie = `viewMessage=si; expires=${new Date('2019-01-31')}; path=/`;
+    });
+
+
+
 
     $('#seach_tags_bof').dropdown({
         onChange: function(text, value) {
-            var select_plugin_val = value; //$('#seach_tags').find(":selected").text();
+            var select_plugin_val = value;
             console.log(select_plugin_val);
             loadTagsByPlugin_bof(select_plugin_val);
         }
@@ -95,5 +127,8 @@ $(document).ready(function() {
             bottomOffset: 50,
             context: '#context'
         });
+
+
+
 
 });
