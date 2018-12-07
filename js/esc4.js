@@ -59,7 +59,7 @@ function SeeNodeSelected(node) {
     var div = document.getElementById("NodeSelected");
     if (node && node.length > 0) {
         div.classList.add("ui", "red", "label")
-        div.innerHTML = node;
+        div.innerHTML = node + ", now you can use any of the 3 scenarios.";
     } else {
         div.classList.remove("ui", "red", "label")
         div.innerHTML = "";
