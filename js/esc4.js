@@ -92,6 +92,25 @@ function checkCookie() {
 }
 
 
+function changueImagen5(e) {
+    var imgSource5 = document.getElementById('imgContent5');
+    imgSource5.setAttribute('src', e.dataset.img)
+
+}
+
+
+function changueImagen3(e) {
+    var imgSource3 = document.getElementById('imgContent3');
+    imgSource3.setAttribute('src', e.dataset.img)
+
+}
+
+function changueImagen2(e) {
+    var imgSource2 = document.getElementById('imgContent2');
+    imgSource2.setAttribute('src', e.dataset.img)
+}
+
+
 $(document).ready(function() {
 
 
