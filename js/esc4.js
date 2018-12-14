@@ -30,7 +30,7 @@ function interaccion(area) {
         .append('<option value="">Name used plugin</option>')
         .val('');
 
-    setViewPluginsByCaseStudi_cs(area.target.dataset.plugins);
+    setViewPluginsByCaseStudi_cs(area.target.dataset.tags);
     setViewPluginsByCaseStudi_bor(area.target.dataset.plugins);
     setViewPluginsByCaseStudi_bof(area.target.dataset.plugins);
 
