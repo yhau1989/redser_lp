@@ -122,11 +122,11 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <img src="./images/case/fig2.png">
+                                        <img src="./images/case/Fig1.png">
                                     </div>
-                                    <div class="extra">Expand image</div>
                                 </div>
                             </div>
+                            <div class="extra" style="text-align: center;"><b>Fig 1.</b> List of eCommerce websites created in Wordpress</div>
                             <br> . shows the final list of websites obtained as a result of this process.</li>
                         <li> <strong>Implemented plugins Identification:</strong> Once the list of websites was obtained, the next step was to identify which wordpress plugins are implemented to each one of them. For this process, we used the Wptheme detector
                             tools (https://www.wpthemedetector.com/) and Wordpress Plugin Checker (http://wppluginchecker.earthpeople.se/) where we obtained a list of plugins for each site. In some cases, we checked the source code of the site to identify
@@ -146,7 +146,6 @@
                                         </div>
                                         <img src="./images/case/fig2.png">
                                     </div>
-                                    <div class="extra">Expand image</div>
                                 </div>
                                 <div class="card">
                                     <div class="blurring dimmable image">
@@ -159,7 +158,7 @@
                                         </div>
                                         <img src="./images/case/fig2_1.png">
                                     </div>
-                                    <div class="extra">Expand image</div>
+                                    <div class="extra"></div>
                                 </div>
                                 <div class="card">
                                     <div class="blurring dimmable image">
@@ -172,7 +171,7 @@
                                         </div>
                                         <img src="./images/case/fig2_2.png">
                                     </div>
-                                    <div class="extra">Expand image</div>
+                                    <div class="extra"></div>
                                 </div>
                                 <div class="card">
                                     <div class="blurring dimmable image">
@@ -185,7 +184,7 @@
                                         </div>
                                         <img src="./images/case/fig2_3.png">
                                     </div>
-                                    <div class="extra">Expand image</div>
+                                    <div class="extra"></div>
                                 </div>
                                 <div class="card">
                                     <div class="blurring dimmable image">
@@ -198,10 +197,12 @@
                                         </div>
                                         <img src="./images/case/fig2_4.png">
                                     </div>
-                                    <div class="extra">Expand image</div>
+                                    <div class="extra"></div>
                                 </div>
 
                             </div>
+
+                            <div class="extra" style="text-align: center;"><b>Fig 2.</b> Plugins implemented on eCommerce websites</div>
 
                         </li>
                         <li> <strong>Building Features from plugins:</strong> With the list of plugins that we obtained in the previous phase, we were able to identify what the possible features of our model will be. This process consisted in classifying each
@@ -219,7 +220,6 @@
                                         </div>
                                         <img src="./images/case/fig3.png">
                                     </div>
-                                    <div class="extra">Expand image</div>
                                 </div>
                                 <div class="card">
                                     <div class="blurring dimmable image">
@@ -232,7 +232,6 @@
                                         </div>
                                         <img src="./images/case/fig3_2.png">
                                     </div>
-                                    <div class="extra">Expand image</div>
                                 </div>
                                 <div class="card">
                                     <div class="blurring dimmable image">
@@ -245,15 +244,21 @@
                                         </div>
                                         <img src="./images/case/fig3_3.png">
                                     </div>
-                                    <div class="extra">Expand image</div>
                                 </div>
                             </div>
 
+                            <div class="extra" style="text-align: center;"><b>Fig 3.</b> Plugins classified by category</div>
+
                         </li>
                         <li> <strong>Feature Model development:</strong> Once the plugins are classified by category, we started to build the feature model. Each category became a parent feature of the model, however, in some cases we had to unify categories
-                            to form a single parent feature and in other cases, a category became a sub-feature of a parent feature. <img class="ui fluid rounded image" src="./images/case/Fig4.png" /> shows the feature model built from the results of
-                            the steps described above. The model shows the relationship between each of the features, as can be seen some relationships are mandatory and others optional; it also shows some restrictions that are considered during the configuration
-                            of an eCommerce website.</li>
+                            to form a single parent feature and in other cases, a category became a sub-feature of a parent feature.
+
+                            <br><br>
+                            <img class="ui fluid rounded image" src="./images/case/Fig4.png" />
+                            <div class="extra" style="text-align: center;"><b>Fig 4.</b> Feature model of eCommerce websites</div>
+
+                            <br> shows the feature model built from the results of the steps described above. The model shows the relationship between each of the features, as can be seen some relationships are mandatory and others optional; it also shows
+                            some restrictions that are considered during the configuration of an eCommerce website.</li>
                         <li> <strong>Plugin mapping to feature model:</strong> With the feature model built, the next step was to map the plugins with each of the features of the model. For this process, we associated to each feature the plugins that could
                             be used to implement it. Note that in this case
 
@@ -270,7 +275,6 @@
                                         </div>
                                         <img src="./images/case/fig5.png">
                                     </div>
-                                    <div class="extra">Expand image</div>
                                 </div>
                                 <div class="card">
                                     <div class="blurring dimmable image">
@@ -283,9 +287,9 @@
                                         </div>
                                         <img src="./images/case/fig5_1.png">
                                     </div>
-                                    <div class="extra">Expand image</div>
                                 </div>
                             </div>
+                            <div class="extra" style="text-align: center;"><b>Fig 5.</b> Plugins mapping with feature of models</div>
 
                             <br> the same plugin could implement more than one feature, so the association of the same plugin to more than one feature is allowed.</li>
                         <li> <strong>Interactive Feature Model in RESDEC:</strong> To show how recommendations could be obtained from the selection of features corresponding to the developed model, we have implemented in RESDEC an interactive feature model
