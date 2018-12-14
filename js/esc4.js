@@ -14,7 +14,8 @@ function interaccion(area) {
         .remove()
         .end()
         .append('<option value="">tags</option>')
-        .val('');
+        .val('')
+        .dropdown('clear');
 
     $('#seach_tags_bor')
         .find('option')
