@@ -30,8 +30,6 @@ function interaccion(area) {
         .append('<option value="">Name used plugin</option>')
         .val('');
 
-
-
     setViewPluginsByCaseStudi_cs(area.target.dataset.plugins);
     setViewPluginsByCaseStudi_bor(area.target.dataset.plugins);
     setViewPluginsByCaseStudi_bof(area.target.dataset.plugins);
@@ -94,21 +92,31 @@ function checkCookie() {
 
 function changueImagen5(e) {
     var imgSource5 = document.getElementById('imgContent5');
-    imgSource5.setAttribute('src', e.dataset.img)
+    //imgSource5.setAttribute('src', e.dataset.img);
+    changeImageModal(e.dataset.img);
 
 }
 
 
 function changueImagen3(e) {
     var imgSource3 = document.getElementById('imgContent3');
-    imgSource3.setAttribute('src', e.dataset.img)
+    //imgSource3.setAttribute('src', e.dataset.img);
+    changeImageModal(e.dataset.img);
 
 }
 
 function changueImagen2(e) {
     var imgSource2 = document.getElementById('imgContent2');
-    imgSource2.setAttribute('src', e.dataset.img)
+    //imgSource2.setAttribute('src', e.dataset.img);
+    changeImageModal(e.dataset.img);
 }
+
+function changeImageModal(img) {
+
+    document.getElementById('imgContent').setAttribute('src', img);
+    $('#modalimg').modal('show');
+}
+
 
 
 $(document).ready(function() {
@@ -146,8 +154,4 @@ $(document).ready(function() {
             bottomOffset: 50,
             context: '#context'
         });
-
-
-
-
 });

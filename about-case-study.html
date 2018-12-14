@@ -82,6 +82,21 @@
 
             <div id="cont">
 
+
+                <!--Modal image-->
+                <div id="modalimg" class="ui basic modal">
+                    <div class="content">
+                        <p style="background-color: white;"><img id="imgContent" class="ui centered image" src=""></p>
+                    </div>
+                    <div class="actions">
+                        <div class="ui ok inverted button">
+                            <i class="checkmark icon"></i> Close
+                        </div>
+                    </div>
+                </div>
+                <!--Modal image-->
+
+
                 <div class="ui large dividing header">Real Case applied an eCommerce Site</div>
 
                 <h3>Methodology</h3>
@@ -95,17 +110,30 @@
                             category. For this process, we looked for success cases of companies whose websites have been designed on this platform. As the first searching criteria, we considered the showcase published on the official Wordpress site (www.wordpress.org)
                             where we obtained a list of 7 websites, then we searched throughout the ranking of websites of the last 4 years, sites developed on Wordpress that are currently working. This search resulted in a total of 25 sites.
 
-                            <br><br> <img class="ui centered large image" src="./images/case/Fig1.png"><br> . shows the final list of websites obtained as a result of this process.</li>
+                            <br><br>
+
+                            <div class="ui centered special six doubling  cards">
+                                <div class="card">
+                                    <div class="blurring dimmable image">
+                                        <div class="ui dimmer">
+                                            <div class="content">
+                                                <div class="center">
+                                                    <div onclick="changueImagen2(this)" class="ui inverted button" data-img="./images/case/Fig1.png">Expand image</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <img src="./images/case/fig2.png">
+                                    </div>
+                                    <div class="extra">Expand image</div>
+                                </div>
+                            </div>
+                            <br> . shows the final list of websites obtained as a result of this process.</li>
                         <li> <strong>Implemented plugins Identification:</strong> Once the list of websites was obtained, the next step was to identify which wordpress plugins are implemented to each one of them. For this process, we used the Wptheme detector
                             tools (https://www.wpthemedetector.com/) and Wordpress Plugin Checker (http://wppluginchecker.earthpeople.se/) where we obtained a list of plugins for each site. In some cases, we checked the source code of the site to identify
                             plugins that were not detected by the aforementioned tools. From the list we obtained, we reviewed those that are still valid for their use and discarded those that are no longer supported. The list of final plugins for each
                             site is shown in <br><br>
 
-                            <img id="imgContent2" class="ui centered large image" src="./images/case/fig2.png">
-
                             <br>
-
-
                             <div class="ui centered special six doubling  cards">
                                 <div class="card">
                                     <div class="blurring dimmable image">
@@ -178,8 +206,7 @@
                         </li>
                         <li> <strong>Building Features from plugins:</strong> With the list of plugins that we obtained in the previous phase, we were able to identify what the possible features of our model will be. This process consisted in classifying each
                             plugin by category, for example, those used to implement the product catalog, shopping cart, online payments, security controls, among others. The classification by categories of plugins is shown in
-                            <br><br> <img id="imgContent3" class="ui centered large image" src="./images/case/fig3.png"><br>
-
+                            <br><br>
                             <div class="ui centered special six doubling  cards">
                                 <div class="card">
                                     <div class="blurring dimmable image">
@@ -230,8 +257,7 @@
                         <li> <strong>Plugin mapping to feature model:</strong> With the feature model built, the next step was to map the plugins with each of the features of the model. For this process, we associated to each feature the plugins that could
                             be used to implement it. Note that in this case
 
-                            <br><br> <img id="imgContent5" class="ui centered large image" src="./images/case/fig5.png"><br>
-
+                            <br><br>
                             <div class="ui centered special six doubling  cards">
                                 <div class="card">
                                     <div class="blurring dimmable image">
@@ -261,7 +287,7 @@
                                 </div>
                             </div>
 
-                            <br><br> the same plugin could implement more than one feature, so the association of the same plugin to more than one feature is allowed.</li>
+                            <br> the same plugin could implement more than one feature, so the association of the same plugin to more than one feature is allowed.</li>
                         <li> <strong>Interactive Feature Model in RESDEC:</strong> To show how recommendations could be obtained from the selection of features corresponding to the developed model, we have implemented in RESDEC an interactive feature model
                             through which it is possible to select the feature you desired to be implemented, and from this selection, plugins and tags are loaded for the execution of each of the scenarios presented in this work. With this process, we
                             want to demonstrate the feasibility and scope of our proposal in real implementation environments, in this case in the selection of plugins in a faster way in the development of eCommerce websites.</li>
