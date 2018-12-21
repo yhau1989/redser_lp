@@ -440,7 +440,7 @@ function SetHtmlData_cs(array) {
         document.getElementById("list_items_cs").innerHTML = "";
     } else {
         document.getElementById("htop_cs").classList.add('hdide');
-        document.getElementById("list_items_cs").innerHTML = "The main results have not been found in WordPress, but you may be interested in other plugins";
+        document.getElementById("list_items_cs").innerHTML = "The main results have not been found, can you try it later";
     }
 
 
