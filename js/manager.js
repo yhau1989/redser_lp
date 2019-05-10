@@ -12,7 +12,7 @@ function loadDataUser() {
 
     var userLogon = sessionStorage.getItem("UserLoginResdec");
     if (userLogon.length > 0) {
-        var urlApi = `http://138.122.108.33:8030/resdec/user_get/?username=${userLogon}`;
+        var urlApi = `http://190.15.128.131:8030/resdec/user_get/?username=${userLogon}`;
         console.log('load data user ' + urlApi);
         document.getElementById("name_user"), innerHTML = "";
 
@@ -34,7 +34,7 @@ function getdata() {
 
     var userLogon = sessionStorage.getItem("UserLoginResdec");
     if (userLogon.length > 0) {
-        var urlApi = `http://138.122.108.33:8030/resdec/list_last_items_used/?username=${userLogon}&var_environment_id=1&number_items=10`;
+        var urlApi = `http://190.15.128.131:8030/resdec/list_last_items_used/?username=${userLogon}&var_environment_id=1&number_items=10`;
         document.getElementById("list_items"), innerHTML = "";
         $('#load_last_view').dimmer('show');
         $.getJSON(urlApi,
@@ -117,7 +117,7 @@ function setDataByPlugin(name, homepage, description, tags, downloaded, slug) {
 
 function exit() {
 
-    var url = `http://138.122.108.33:8030/resdec/logout/`;
+    var url = `http://190.15.128.131:8030/resdec/logout/`;
     $.ajax({
         url: url,
         success: function(response) {

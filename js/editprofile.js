@@ -8,7 +8,7 @@ function loadDataUser() {
 
     var userLogon = sessionStorage.getItem("UserLoginResdec");
     if (userLogon.length > 0) {
-        var urlApi = `http://138.122.108.33:8030/resdec/user_get/?username=${userLogon}`;
+        var urlApi = `http://190.15.128.131:8030/resdec/user_get/?username=${userLogon}`;
         console.log('load data user ' + urlApi);
         document.getElementById("name_user"), innerHTML = "";
 
@@ -46,7 +46,7 @@ function save() {
     var eform = $('#email').val();
     //var passform = $('#pswd').val();
     var userLogon = sessionStorage.getItem("UserLoginResdec");
-    var url = `http://138.122.108.33:8030/resdec/user_put/?username=${userLogon}&first_name=${nform}&last_name=${lnform}&email=${eform}`;
+    var url = `http://190.15.128.131:8030/resdec/user_put/?username=${userLogon}&first_name=${nform}&last_name=${lnform}&email=${eform}`;
 
     $.ajax({
         url: url,
@@ -77,7 +77,7 @@ function savepws() {
 
     if (passform === repassform) {
         var userLogon = sessionStorage.getItem("UserLoginResdec");
-        var url = `http://138.122.108.33:8030/resdec/user_upd_pass/?username=${userLogon}&password=${passform}`;
+        var url = `http://190.15.128.131:8030/resdec/user_upd_pass/?username=${userLogon}&password=${passform}`;
 
         $.ajax({
             url: url,
@@ -125,7 +125,7 @@ function saveImg() {
         cache: false,
         contentType: false,
         processData: false,
-        url: 'http://138.122.108.33:8030/resdec/user_photo_upload/',
+        url: 'http://190.15.128.131:8030/resdec/user_photo_upload/',
         data: formData,
         success: function(data) {
 

@@ -1,5 +1,5 @@
-const endpoint_tags_bor = 'http://138.122.108.33:8030/resdec/list_items/?var_environment_id=1&relationship_type_id=2&item=';
-const endpoint_algorithms_bor = 'http://138.122.108.33:8030/resdec/list_algorithms/?relationship_type_id=2';
+const endpoint_tags_bor = 'http://190.15.128.131:8030/resdec/list_items/?var_environment_id=1&relationship_type_id=2&item=';
+const endpoint_algorithms_bor = 'http://190.15.128.131:8030/resdec/list_algorithms/?relationship_type_id=2';
 
 
 $(document).ready(function() {
@@ -153,7 +153,7 @@ async function loadRecomendations(algorithm_id, number_recommendations, item_eva
     var userLogon = sessionStorage.getItem("UserLoginResdec");
     console.log('userLogin: ' + userLogon);
 
-    var url_endpoint = `http://138.122.108.33:8030/resdec/transition_components_based_ratings/?relationship_type_id=2&var_environment_id=1&algorithm_id=${algorithm_id}&username=${userLogon}&number_recommendations=${number_recommendations}&item_evaluated=${item_evaluated}`;
+    var url_endpoint = `http://190.15.128.131:8030/resdec/transition_components_based_ratings/?relationship_type_id=2&var_environment_id=1&algorithm_id=${algorithm_id}&username=${userLogon}&number_recommendations=${number_recommendations}&item_evaluated=${item_evaluated}`;
     console.log(url_endpoint);
     var json = "";
     var iteracion = 0;
@@ -451,7 +451,7 @@ function loadLastView() {
     var userLogon = sessionStorage.getItem("UserLoginResdec");
     if (userLogon.length > 0) {
         document.getElementById("list_items_last_bor").innerHTML = "";
-        var url_last_view = `http://138.122.108.33:8030/resdec/list_last_items_used/?username=${userLogon}&var_environment_id=1&number_items=10`;
+        var url_last_view = `http://190.15.128.131:8030/resdec/list_last_items_used/?username=${userLogon}&var_environment_id=1&number_items=10`;
         console.log('iniciando loadLastView');
         console.log(url_last_view);
 
