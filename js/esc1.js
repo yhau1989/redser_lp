@@ -1,7 +1,7 @@
-const endpoint_intereses = 'http://190.15.128.131:8030/resdec/list_interests/?var_environment_id=1';
-const endpoint_tags = 'http://190.15.128.131:8030/resdec/list_features/?relationship_type_id=1&var_environment_id=1&feature_name=';
+const endpoint_intereses = 'http://190.15.128.150:8030/resdec/list_interests/?var_environment_id=1';
+const endpoint_tags = 'http://190.15.128.150:8030/resdec/list_features/?relationship_type_id=1&var_environment_id=1&feature_name=';
 
-const cold_start_all = "http://190.15.128.131:8030/resdec/cold_start_all/?relationship_type_id=1&var_environment_id=1&number_recommendations=10"
+const cold_start_all = "http://190.15.128.150:8030/resdec/cold_start_all/?relationship_type_id=1&var_environment_id=1&number_recommendations=10"
 
 
 $(document).ready(function() {
@@ -222,7 +222,7 @@ async function searchByTags(tags, number_recommendations) {
     document.getElementById('list_items_top10').innerHTML = "";
     document.getElementById('list_items_others').innerHTML = "";
     $('#load_last_view').dimmer('show');
-    const url = 'http://190.15.128.131:8030/resdec/cold_start_features/'
+    const url = 'http://190.15.128.150:8030/resdec/cold_start_features/'
     var relationship_type_id = 1;
     var var_environment_id = 1;
     var selected_features = tags;
@@ -345,7 +345,7 @@ async function searchByInterest(id_ineterest, number_recommendations) {
     document.getElementById('list_items_top10').innerHTML = "";
     $('#load_last_view').dimmer('show');
 
-    var endpoint = `http://190.15.128.131:8030/resdec/cold_start_interest/?relationship_type_id=1&var_environment_id=1&interest_id=${id_ineterest}&number_recommendations=${number_recommendations}`;
+    var endpoint = `http://190.15.128.150:8030/resdec/cold_start_interest/?relationship_type_id=1&var_environment_id=1&interest_id=${id_ineterest}&number_recommendations=${number_recommendations}`;
     var json = "";
     var iteracion = 0;
     var html = [];

@@ -1,5 +1,5 @@
-const endpoint_tags_bof = 'http://190.15.128.131:8030/resdec/list_items/?var_environment_id=1&relationship_type_id=3&item=';
-const endpoint_algorithms_bof = "http://190.15.128.131:8030/resdec/list_algorithms/?relationship_type_id=3";
+const endpoint_tags_bof = 'http://190.15.128.150:8030/resdec/list_items/?var_environment_id=1&relationship_type_id=3&item=';
+const endpoint_algorithms_bof = "http://190.15.128.150:8030/resdec/list_algorithms/?relationship_type_id=3";
 
 
 $(document).ready(function() {
@@ -169,7 +169,7 @@ async function loadRecomendations_bof(algorithm_id, number_recommendations, item
     $('#load_last_view').dimmer('show');
 
     var userLogon = sessionStorage.getItem("UserLoginResdec");
-    var url_endpoint = `http://190.15.128.131:8030/resdec/transition_components_based_features/?relationship_type_id=3&var_environment_id=1&algorithm_id=${algorithm_id}&username=${userLogon}&number_recommendations=${number_recommendations}&item_evaluated=${item_evaluated}`;
+    var url_endpoint = `http://190.15.128.150:8030/resdec/transition_components_based_features/?relationship_type_id=3&var_environment_id=1&algorithm_id=${algorithm_id}&username=${userLogon}&number_recommendations=${number_recommendations}&item_evaluated=${item_evaluated}`;
     console.log(url_endpoint);
     var json = "";
     var iteracion = 0;
@@ -427,7 +427,7 @@ function setDataByPlugin_others_bof(name, homepage, description, tags, downloade
 
 function loadTagsByPlugin_bof(plugin) {
     console.log('loadTagsByPlugin_bof');
-    const url = `http://190.15.128.131:8030/resdec/list_features_item/?var_environment_id=1&item=${plugin}`;
+    const url = `http://190.15.128.150:8030/resdec/list_features_item/?var_environment_id=1&item=${plugin}`;
     console.log(url);
     $.getJSON(url,
         function(data) {
